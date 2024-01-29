@@ -1,4 +1,4 @@
-# Pyping
+# Pypr
 *A data pipeline convenience module for Python.*
 
 #### Notes
