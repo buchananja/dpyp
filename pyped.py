@@ -7,6 +7,7 @@ import pandas as pd
 import os
 import time
 import logging
+import sqlite3
 
 def headers_to_snakecase(df):
     '''
@@ -97,3 +98,40 @@ def unpack_data_dictionary(
                 f'- Loaded df_{key} ({len(value):,}) records.', 
                 sleep_time = sleep_seconds
                 )
+            
+def fetch_all_sqlite_tables(db_path):
+    '''
+    Returns all tables present in a sqlite database.
+    '''
+    conn = sqlite3.connect(db_path)
+    cur = conn.cursor()
+    # queries all tables in database
+    cur.execute('''
+        SELECT name 
+        FROM sqlite_master 
+        WHERE type = 'table';
+    ''')
+    table_names = cur.fetchall()
+    return table_names
+
+def read_all_sqlite_data(db_path):
+    '''
+    Returns all data from a sqlite database as a dictionary.
+    '''
+    conn = sqlite3.connect(db_path)
+    cur = conn.cursor()
+    # queries all tables in database
+    cur.execute('''
+        SELECT name 
+        FROM sqlite_master 
+        WHERE type = 'table';
+    ''')
+    table_names = cur.fetchall()
+    
+    data_dictionary = {}
+    for table_name in table_names:
+        # selects everything from each table.
+        query = f"SELECT * FROM {table_name[0]}"
+        data_dictionary[table_name[0]] = pd.read_sql_query(query, conn)
+    conn.close()
+    return data_dictionary
