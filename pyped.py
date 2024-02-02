@@ -119,7 +119,7 @@ def fetch_all_sqlite_tables(db_path, print_names = False):
     else:
         return table_names
 
-def read_all_sqlite_data(db_path):
+def read_all_sqlite(db_path):
     '''
     Returns all data from a sqlite database as a dictionary.
     '''
