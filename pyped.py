@@ -99,9 +99,9 @@ def unpack_data_dictionary(
                 sleep_time = sleep_seconds
                 )
             
-def fetch_all_sqlite_tables(db_path):
+def fetch_all_sqlite_tables(db_path, print_names = False):
     '''
-    Returns all tables present in a sqlite database.
+    Returns all table names present in a sqlite database.
     '''
     conn = sqlite3.connect(db_path)
     cur = conn.cursor()
@@ -112,7 +112,12 @@ def fetch_all_sqlite_tables(db_path):
         WHERE type = 'table';
     ''')
     table_names = cur.fetchall()
-    return table_names
+    if print_names:
+        print('Table names:')
+        [print(f'- {table[0]}') for table in table_names]
+        return table_names
+    else:
+        return table_names
 
 def read_all_sqlite_data(db_path):
     '''
