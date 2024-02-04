@@ -9,6 +9,8 @@ import time
 import logging
 import sqlite3
 
+
+# Data Cleaning ################################################################
 def headers_to_snakecase(df):
     '''
     Converts all column headers to lower snake case.
@@ -46,6 +48,8 @@ def optimise_datatypes(df):
                 df[col] = pd.to_numeric(df[col], downcast = 'float')
     return df
 
+
+# Data Loading #################################################################
 def read_all_json(directory_path):
     '''
     Iteratively loads data from the data directory and assign to dataframes.
@@ -73,52 +77,7 @@ def read_all_csv(directory_path):
             filename = os.path.splitext(file)[0]
             data_dictionary[f'df_{filename}'] = df
     return data_dictionary
-
-def sleep_log(message, sleep_time = 0):
-    '''
-    Outputs info logging mesage to console with variable sleep timer.
-    '''
-    time.sleep(sleep_time)
-    logging.info(message)
-    
-def unpack_data_dictionary(
-    data_dictionary, 
-    globals_dict = globals(), 
-    sleep_seconds = 0, 
-    messaging = False
-):
-    '''
-    Loads all data from data_dictionary into global variables with record 
-    counts.
-    '''
-    for key, value in data_dictionary.items():
-        globals_dict[f'df_{key}'] = value
-        if messaging:
-            sleep_log(
-                f'- Loaded df_{key} ({len(value):,}) records.', 
-                sleep_time = sleep_seconds
-                )
-            
-def fetch_all_sqlite_tables(db_path, print_names = False):
-    '''
-    Returns all table names present in a sqlite database.
-    '''
-    conn = sqlite3.connect(db_path)
-    cur = conn.cursor()
-    # queries all tables in database
-    cur.execute('''
-        SELECT name 
-        FROM sqlite_master 
-        WHERE type = 'table';
-    ''')
-    table_names = cur.fetchall()
-    if print_names:
-        print('Table names:')
-        [print(f'- {table[0]}') for table in table_names]
-        return table_names
-    else:
-        return table_names
-
+              
 def read_all_sqlite(db_path):
     '''
     Returns all data from a sqlite database as a dictionary.
@@ -140,3 +99,50 @@ def read_all_sqlite(db_path):
         data_dictionary[table_name[0]] = pd.read_sql_query(query, conn)
     conn.close()
     return data_dictionary
+
+def unpack_data_dictionary(
+    data_dictionary, 
+    globals_dict = globals(), 
+    sleep_seconds = 0, 
+    messaging = False
+):
+    '''
+    Loads all data from data_dictionary into global variables with record 
+    counts.
+    '''
+    for key, value in data_dictionary.items():
+        globals_dict[f'df_{key}'] = value
+        if messaging:
+            sleep_log(
+                f'- Loaded df_{key} ({len(value):,}) records.', 
+                sleep_time = sleep_seconds
+                )
+
+                
+# Diagnostics and Information ##################################################
+def fetch_all_sqlite_tables(db_path, print_names = False):
+    '''
+    Returns all table names present in a sqlite database.
+    '''
+    conn = sqlite3.connect(db_path)
+    cur = conn.cursor()
+    # queries all tables in database
+    cur.execute('''
+        SELECT name 
+        FROM sqlite_master 
+        WHERE type = 'table';
+    ''')
+    table_names = cur.fetchall()
+    if print_names:
+        print('Table names:')
+        [print(f'- {table[0]}') for table in table_names]
+        return table_names
+    else:
+        return table_names
+
+def sleep_log(message, sleep_time = 0):
+    '''
+    Outputs info logging mesage to console with variable sleep timer.
+    '''
+    time.sleep(sleep_time)
+    logging.info(message)
