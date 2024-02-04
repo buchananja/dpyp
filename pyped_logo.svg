@@ -24,12 +24,12 @@
      inkscape:deskcolor="#505050"
      inkscape:document-units="px"
      inkscape:zoom="0.5"
-     inkscape:cx="272"
-     inkscape:cy="380"
-     inkscape:window-width="2560"
-     inkscape:window-height="1400"
-     inkscape:window-x="0"
-     inkscape:window-y="0"
+     inkscape:cx="218"
+     inkscape:cy="298"
+     inkscape:window-width="1920"
+     inkscape:window-height="998"
+     inkscape:window-x="317"
+     inkscape:window-y="1482"
      inkscape:window-maximized="1"
      inkscape:current-layer="layer1" />
   <defs
@@ -79,13 +79,13 @@
        style="fill:#aaccff;fill-opacity:1;stroke-width:0.979023"
        d="M 386.77571,91.675691 A 473.78522,473.78522 0 0 0 91.675658,693.22429 473.78522,473.78522 0 0 0 693.22426,988.32432 473.78522,473.78522 0 0 0 988.32435,386.77573 473.78522,473.78522 0 0 0 386.77571,91.675691 Z" />
     <rect
-       style="fill:#00aa88;fill-opacity:1;stroke-width:0.670212"
+       style="fill:#00aa88;fill-opacity:1;stroke-width:0.652074"
        id="rect4"
-       width="489.91434"
-       height="289.09662"
-       x="347.13464"
-       y="608.42456"
-       transform="rotate(-18.868943)" />
+       width="466.32309"
+       height="287.50531"
+       x="357.3912"
+       y="614.70697"
+       transform="matrix(0.94051016,-0.33976555,0.3076541,0.95149827,0,0)" />
     <ellipse
        style="fill:#00aa88;fill-opacity:1;stroke-width:0.689902"
        id="path5"
