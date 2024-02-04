@@ -2,7 +2,7 @@
 *A data pipeline convenience module for Python.*
 
 <p align="center">
-  <img src="pyped_logo.svg" alt="image" width="300" height="300">
+  <img src="pyped_logo.png" alt="image" width="300" height="300">
 </p>
 
 #### Notes:
