@@ -6,6 +6,7 @@ import logging
 import sqlite3
 import pyped
 
+
 @pytest.fixture
 def sample_dataframe():
     df_sample = {
@@ -45,27 +46,50 @@ def sample_dataframe():
     df_sample = pd.DataFrame(df_sample)
     return df_sample
     
-def test_headers_to_snakecase(sample_dataframe):
+
+# Data Cleaning ################################################################  
+def test_headers_to_snakecase_is_lower(sample_dataframe):
+    '''
+    Tests whether column headers correctly set to lower snakecase.
+    '''
     df = sample_dataframe
     df = pyped.headers_to_snakecase(df)
     assert all((col.islower() and ' ' not in col) for col in df.columns)
+
+def test_headers_to_snakecase_is_upper(sample_dataframe):
+    '''
+    Tests whether column headers correctly set to upper snakecase.
+    '''
+    df = sample_dataframe
+    df = pyped.headers_to_snakecase(df, uppercase = True)
+    assert all((col.isupper() and ' ' not in col) for col in df.columns)
     
 def test_values_to_lowercase(sample_dataframe):
+    '''
+    Tests whether dataframe values correctly set to lowercase.
+    '''
     df = sample_dataframe
     df = pyped.values_to_lowercase(df)
     
-    # returns True if all lowercase or not object. Asserts if True.
-    # i.e assert will only fail if columns contains uppercse letters.
+    # returns True if column is all lowercase or not object. Asserts if True.
+    # i.e assert will only fail if columns contains uppercase letters.
     assert df.apply(
-        lambda col: col.str.lower.all() 
+        lambda col: (col == col.str.lower()).all()
         if col.dtype == 'object'
         else True
     ).all()
+
+def test_values_to_uppercase(sample_dataframe):
+    '''
+    Tests whether dataframe values correctly set to uppercase.
+    '''
+    df = sample_dataframe
+    df = pyped.values_to_uppercase(df)
     
-    
-# def values_to_lowercase(df):
-#     '''
-#     Converts all string values to lowercase.
-#     '''
-#     df = df.apply(lambda x: x.str.lower() if x.dtype == "object" else x)
-#     return df
+    # returns True if column is all uppercase or not object. Asserts if True.
+    # i.e assert will only fail if columns contains lowercase letters.
+    assert df.apply(
+        lambda col: (col == col.str.upper()).all()
+        if col.dtype == 'object'
+        else True
+    ).all()

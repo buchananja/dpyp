@@ -1,8 +1,9 @@
 '''
-This is a custom module containing functions useful to data pipeline
-construction, maintenance, and testing.
+Pyped is a module containing functions useful to data pipeline
+construction, maintenance, and testing in Python.
 '''
 
+# Dependencies #################################################################
 import pandas as pd
 import os
 import time
@@ -11,18 +12,29 @@ import sqlite3
 
 
 # Data Cleaning ################################################################
-def headers_to_snakecase(df):
+def headers_to_snakecase(df, uppercase = False):
     '''
-    Converts all column headers to lower snake case.
+    Converts all column headers to lower snake case by defatul and uppercase if
+    'uppercase' argument is True.
     '''
-    df.columns = (df.columns.str.lower().str.replace(' ', '_'))
+    if uppercase:
+        df.columns = (df.columns.str.upper().str.replace(' ', '_'))
+    else:
+        df.columns = (df.columns.str.lower().str.replace(' ', '_'))
     return df
 
 def values_to_lowercase(df):
     '''
-    Converts all string values to lowercase.
+    Converts all string values in dataframe to lowercase.
     '''
     df = df.apply(lambda x: x.str.lower() if x.dtype == "object" else x)
+    return df
+
+def values_to_uppercase(df):
+    '''
+    Converts all string values in dataframe to uppercase.
+    '''
+    df = df.apply(lambda x: x.str.upper() if x.dtype == "object" else x)
     return df
 
 def values_strip_whitespace(df):
@@ -101,11 +113,11 @@ def read_all_sqlite(db_path):
     return data_dictionary
 
 def unpack_data_dictionary(
-    data_dictionary, 
-    globals_dict = globals(), 
-    sleep_seconds = 0, 
-    messaging = False
-):
+        data_dictionary, 
+        globals_dict = globals(), 
+        sleep_seconds = 0, 
+        messaging = False
+    ):
     '''
     Loads all data from data_dictionary into global variables with record 
     counts.
