@@ -1,11 +1,11 @@
 # **pyped**
 *A data pipeline convenience module for Python.*
 
-<p align="center">
-  <img src="pyped_logo.png" alt="image" width="300" height="300">
+<p align = "center">
+  <img src = "pyped_logo.png" alt = "image" width = "250" height = "250">
 </p>
 
-#### Notes:
+#### About:
 - This is a cursory attempt at building a data manipulation library in Python.
 - I use this package daily when assembling and maintaining pipelines and analysing data.
 
