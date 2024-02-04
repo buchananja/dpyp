@@ -77,60 +77,60 @@
     <path
        id="path22"
        style="fill:#aaccff;fill-opacity:1;stroke-width:0.979023"
-       d="M 348.41089,106.68027 A 473.78522,473.78522 0 0 0 106.68027,731.58911 473.78522,473.78522 0 0 0 731.58912,973.31977 473.78522,473.78522 0 0 0 973.31977,348.41088 473.78522,473.78522 0 0 0 348.41089,106.68027 Z" />
+       d="M 386.77571,91.675691 A 473.78522,473.78522 0 0 0 91.675658,693.22429 473.78522,473.78522 0 0 0 693.22426,988.32432 473.78522,473.78522 0 0 0 988.32435,386.77573 473.78522,473.78522 0 0 0 386.77571,91.675691 Z" />
     <rect
        style="fill:#00aa88;fill-opacity:1;stroke-width:0.670212"
        id="rect4"
        width="489.91434"
        height="289.09662"
-       x="275.88998"
-       y="567.69598"
-       transform="rotate(-23.852263)" />
+       x="347.13464"
+       y="608.42456"
+       transform="rotate(-18.868943)" />
     <ellipse
        style="fill:#00aa88;fill-opacity:1;stroke-width:0.689902"
        id="path5"
-       cx="275.51419"
-       cy="712.24426"
+       cx="346.75885"
+       cy="752.97284"
        rx="83.802116"
        ry="144.55418"
-       transform="rotate(-23.852263)" />
+       transform="rotate(-18.868943)" />
     <ellipse
        style="fill:#374845;fill-opacity:1;stroke-width:0.599752"
        id="path5-6"
-       cx="275.51419"
-       cy="712.24426"
+       cx="346.75885"
+       cy="752.97284"
        rx="69.243698"
        ry="132.21269"
-       transform="rotate(-23.852263)" />
+       transform="rotate(-18.868943)" />
     <text
        xml:space="preserve"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:236.553px;line-height:0;font-family:'Roboto Mono';-inkscape-font-specification:'Roboto Mono';letter-spacing:0px;word-spacing:0px;fill:#1c2224;fill-opacity:1;stroke-width:1.23205"
-       x="-306.41702"
-       y="674.48358"
+       x="-222.93944"
+       y="709.24377"
        id="text12"
-       transform="matrix(0.78056559,-0.34512128,0.47381302,1.0716294,0,0)"><tspan
+       transform="matrix(0.80759429,-0.27601233,0.37893415,1.1087368,0,0)"><tspan
          sodipodi:role="line"
          id="tspan12"
-         x="-306.41702"
-         y="674.48358"
+         x="-222.93944"
+         y="709.24377"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:0;font-family:'Courier Prime Code';-inkscape-font-specification:'Courier Prime Code';letter-spacing:0px;word-spacing:0px;fill:#1a1a1a;stroke-width:1.23205"
          dx="0"
          rotate="0 0 0 0 0 0">01010</tspan></text>
     <path
        id="path23"
        style="fill:#d5e5ff;fill-opacity:1;stroke-width:0.979023"
-       d="M 324.96082,53.642914 A 531.77539,531.77539 0 0 0 53.64291,755.03918 531.77539,531.77539 0 0 0 755.03918,1026.3571 531.77539,531.77539 0 0 0 1026.3571,324.96082 531.77539,531.77539 0 0 0 324.96082,53.642914 Z m 23.45007,53.037356 A 473.78522,473.78522 0 0 1 973.31977,348.41088 473.78522,473.78522 0 0 1 731.58912,973.31977 473.78522,473.78522 0 0 1 106.68027,731.58911 473.78522,473.78522 0 0 1 348.41089,106.68027 Z" />
+       d="M 466.76432,13.291628 A 531.77539,531.77539 0 0 0 13.291648,613.23551 531.77539,531.77539 0 0 0 613.23551,1066.7084 531.77539,531.77539 0 0 0 1066.7083,466.76432 531.77539,531.77539 0 0 0 466.76432,13.291628 Z m 7.98635,57.437663 A 473.78522,473.78522 0 0 1 1009.2706,474.75065 473.78522,473.78522 0 0 1 605.24919,1009.2706 473.78522,473.78522 0 0 1 70.729312,605.24917 473.78522,473.78522 0 0 1 474.75067,70.729291 Z" />
     <text
        xml:space="preserve"
        style="font-style:italic;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:192px;font-family:'Courier Prime';-inkscape-font-specification:'Courier Prime Bold Italic';fill:#1c2224;fill-opacity:1"
-       x="-3.893285"
-       y="494.17102"
+       x="67.351372"
+       y="534.89966"
        id="text11"
-       transform="rotate(-23.852263)"><tspan
+       transform="rotate(-18.868943)"><tspan
          sodipodi:role="line"
          id="tspan11"
-         x="-3.893285"
-         y="494.17102"
+         x="67.351372"
+         y="534.89966"
          style="font-style:italic;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:'Courier Prime';-inkscape-font-specification:'Courier Prime Bold Italic';fill:#1a1a1a">pyped</tspan></text>
   </g>
 </svg>
