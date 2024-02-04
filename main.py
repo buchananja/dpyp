@@ -44,7 +44,7 @@ def values_strip_whitespace(df):
     df = df.apply(lambda x: x.str.strip() if x.dtype == "object" else x)
     return df
 
-def optimise_datatypes(df):
+def optimise_numeric_datatypes(df):
     '''
     Optimises the data types in a pandas DataFrame by attempting to convert
     strings to numerical data where possible and to the smallest possible 
