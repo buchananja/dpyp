@@ -27,12 +27,12 @@
      inkscape:deskcolor="#505050"
      inkscape:document-units="px"
      inkscape:zoom="0.5"
-     inkscape:cx="410"
-     inkscape:cy="456"
-     inkscape:window-width="2560"
-     inkscape:window-height="1400"
-     inkscape:window-x="0"
-     inkscape:window-y="0"
+     inkscape:cx="431"
+     inkscape:cy="452"
+     inkscape:window-width="1920"
+     inkscape:window-height="998"
+     inkscape:window-x="317"
+     inkscape:window-y="1482"
      inkscape:window-maximized="1"
      inkscape:current-layer="layer1" />
   <defs
@@ -79,10 +79,10 @@
      id="layer1">
     <path
        id="path22"
-       style="fill:#e1c2d6;fill-opacity:1;stroke-width:1.02438"
-       d="M 382.09302,70.281134 A 495.73615,495.73615 0 0 0 73.320706,699.70006 495.73615,495.73615 0 0 0 702.73963,1008.4724 495.73615,495.73615 0 0 0 1011.5121,379.05344 495.73615,495.73615 0 0 0 382.09302,70.281134 Z" />
+       style="fill:#afc6e9;fill-opacity:1;stroke-width:1.02438"
+       d="M 379.67662,70.904393 A 495.73615,495.73615 0 0 0 70.904306,700.32332 495.73615,495.73615 0 0 0 700.32323,1009.0957 495.73615,495.73615 0 0 0 1009.0957,379.6767 495.73615,495.73615 0 0 0 379.67662,70.904393 Z" />
     <rect
-       style="fill:#42a386;fill-opacity:1;stroke-width:0.647846"
+       style="fill:#479c9c;fill-opacity:1;stroke-width:0.647846"
        id="rect4"
        width="461.12601"
        height="286.98776"
@@ -90,50 +90,50 @@
        y="617.27563"
        transform="matrix(0.93920421,-0.34335906,0.30435079,0.95256002,0,0)" />
     <ellipse
-       style="fill:#42a386;fill-opacity:1;stroke-width:0.631901"
+       style="fill:#42a386;fill-opacity:1;stroke-width:0.637772"
        id="path5"
-       cx="340.40295"
-       cy="810.38916"
-       rx="71.081062"
-       ry="142.97371"
-       transform="matrix(0.87855801,-0.47763567,0.34318789,0.93926677,0,0)" />
-    <ellipse
-       style="fill:#1e4c3e;fill-opacity:1;stroke-width:0.562468"
-       id="ellipse1"
-       cx="357.26169"
-       cy="821.25977"
-       rx="62.297943"
-       ry="129.25102"
-       transform="matrix(0.86870669,-0.49532685,0.32898545,0.94433499,0,0)" />
+       cx="332.89178"
+       cy="805.55402"
+       rx="72.353333"
+       ry="143.08163"
+       transform="matrix(0.88366071,-0.46812792,0.35109442,0.93634006,0,0)" />
     <text
        xml:space="preserve"
-       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:236.553px;line-height:0;font-family:'Roboto Mono';-inkscape-font-specification:'Roboto Mono';letter-spacing:0px;word-spacing:0px;fill:#4e79c4;fill-opacity:1;stroke-width:1.23205"
-       x="-213.0117"
-       y="705.60065"
-       id="text12"
-       transform="matrix(0.80759429,-0.27601233,0.37893415,1.1087368,0,0)"><tspan
-         sodipodi:role="line"
-         id="tspan12"
-         x="-213.0117"
-         y="705.60065"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:0;font-family:'Courier Prime Code';-inkscape-font-specification:'Courier Prime Code';letter-spacing:0px;word-spacing:0px;fill:#4e79c4;fill-opacity:1;stroke-width:1.23205"
-         dx="0"
-         rotate="0 0 0 0 0 0">01010</tspan></text>
-    <path
-       id="path23"
-       style="fill:#1c1c1c;fill-opacity:1;stroke-width:0.979204"
-       d="M 466.75052,13.192371 A 531.8756,531.8756 0 0 0 13.192391,613.24931 531.8756,531.8756 0 0 0 613.24931,1066.8077 531.8756,531.8756 0 0 0 1066.8076,466.75052 531.8756,531.8756 0 0 0 466.75052,13.192371 Z m 7.98786,57.448487 A 473.8745,473.8745 0 0 1 1009.359,474.73835 473.8745,473.8745 0 0 1 605.26149,1009.359 473.8745,473.8745 0 0 1 70.640879,605.26147 473.8745,473.8745 0 0 1 474.73838,70.640858 Z" />
-    <text
-       xml:space="preserve"
-       style="font-style:italic;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:192px;font-family:'Courier Prime';-inkscape-font-specification:'Courier Prime Bold Italic';fill:#1c2224;fill-opacity:1"
-       x="67.351372"
-       y="534.89966"
+       style="font-style:italic;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:192px;font-family:'Courier Prime';-inkscape-font-specification:'Courier Prime Bold Italic';fill:#152a4a;fill-opacity:1"
+       x="51.573917"
+       y="531.58362"
        id="text11"
        transform="rotate(-18.868943)"><tspan
          sodipodi:role="line"
          id="tspan11"
-         x="67.351372"
-         y="534.89966"
-         style="font-style:italic;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:'Courier Prime';-inkscape-font-specification:'Courier Prime Bold Italic';fill:#1c1c1c;fill-opacity:1">pyped</tspan></text>
+         x="51.573917"
+         y="531.58362"
+         style="font-style:italic;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:'Courier Prime';-inkscape-font-specification:'Courier Prime Bold Italic';fill:#152a4a;fill-opacity:1">pyped</tspan></text>
+    <ellipse
+       style="fill:#163232;fill-opacity:1;stroke-width:0.588508"
+       id="ellipse1"
+       cx="339.26453"
+       cy="806.60413"
+       rx="66.764488"
+       ry="132.02948"
+       transform="matrix(0.88366071,-0.46812792,0.35109442,0.93634006,0,0)" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:236.553px;line-height:0;font-family:'Roboto Mono';-inkscape-font-specification:'Roboto Mono';letter-spacing:0px;word-spacing:0px;fill:#3771c8;fill-opacity:1;stroke-width:1.23205"
+       x="-217.23505"
+       y="709.87524"
+       id="text12"
+       transform="matrix(0.80759429,-0.27601233,0.37893415,1.1087368,0,0)"><tspan
+         sodipodi:role="line"
+         id="tspan12"
+         x="-217.23505"
+         y="709.87524"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:0;font-family:'Courier Prime Code';-inkscape-font-specification:'Courier Prime Code';letter-spacing:0px;word-spacing:0px;fill:#3771c8;fill-opacity:1;stroke-width:1.23205"
+         dx="0"
+         rotate="0 0 0 0 0 0">01010</tspan></text>
+    <path
+       id="path23"
+       style="fill:#d5e1f3;fill-opacity:1;stroke-width:0.979204"
+       d="M 466.75051,13.192349 A 531.8756,531.8756 0 0 0 13.192379,613.24929 531.8756,531.8756 0 0 0 613.2493,1066.8077 531.8756,531.8756 0 0 0 1066.8076,466.7505 531.8756,531.8756 0 0 0 466.75051,13.192349 Z m 7.98786,57.448487 A 473.8745,473.8745 0 0 1 1009.359,474.73833 473.8745,473.8745 0 0 1 605.26148,1009.359 473.8745,473.8745 0 0 1 70.640867,605.26145 473.8745,473.8745 0 0 1 474.73837,70.640836 Z" />
   </g>
 </svg>
