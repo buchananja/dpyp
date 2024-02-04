@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="1080"
+   height="1080"
+   viewBox="0 0 1080 1080"
+   version="1.1"
+   id="svg1"
+   inkscape:version="1.3.2 (091e20ef0f, 2023-11-25)"
+   sodipodi:docname="pyped_logo.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview1"
+     pagecolor="#505050"
+     bordercolor="#ffffff"
+     borderopacity="1"
+     inkscape:showpageshadow="0"
+     inkscape:pageopacity="0"
+     inkscape:pagecheckerboard="1"
+     inkscape:deskcolor="#505050"
+     inkscape:document-units="px"
+     inkscape:zoom="0.5"
+     inkscape:cx="272"
+     inkscape:cy="380"
+     inkscape:window-width="2560"
+     inkscape:window-height="1400"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1" />
+  <defs
+     id="defs1">
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath18">
+      <g
+         id="g19"
+         transform="matrix(1.0070719,0,0,1.0070719,-7.5992201,-3.8675306)">
+        <g
+           inkscape:label="Clip"
+           id="use19"
+           transform="matrix(0.99297776,0,0,0.99297776,7.5458566,3.8403719)"
+           clip-path="url(#clipPath18)">
+          <circle
+             style="fill:#aaccff;fill-opacity:1;stroke-width:0.967342"
+             id="circle19"
+             cx="536.2196"
+             cy="539.95129"
+             r="488.87408"
+             transform="matrix(0.99297776,0,0,0.99297776,7.5458566,3.8403719)" />
+        </g>
+      </g>
+    </clipPath>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath21">
+      <g
+         inkscape:label="Clip"
+         id="use21">
+        <circle
+           style="fill:#aaccff;fill-opacity:1;stroke-width:0.960549"
+           id="circle21"
+           cx="540"
+           cy="540"
+           r="485.4411" />
+      </g>
+    </clipPath>
+  </defs>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <path
+       id="path22"
+       style="fill:#aaccff;fill-opacity:1;stroke-width:0.979023"
+       d="M 348.41089,106.68027 A 473.78522,473.78522 0 0 0 106.68027,731.58911 473.78522,473.78522 0 0 0 731.58912,973.31977 473.78522,473.78522 0 0 0 973.31977,348.41088 473.78522,473.78522 0 0 0 348.41089,106.68027 Z" />
+    <rect
+       style="fill:#00aa88;fill-opacity:1;stroke-width:0.670212"
+       id="rect4"
+       width="489.91434"
+       height="289.09662"
+       x="275.88998"
+       y="567.69598"
+       transform="rotate(-23.852263)" />
+    <ellipse
+       style="fill:#00aa88;fill-opacity:1;stroke-width:0.689902"
+       id="path5"
+       cx="275.51419"
+       cy="712.24426"
+       rx="83.802116"
+       ry="144.55418"
+       transform="rotate(-23.852263)" />
+    <ellipse
+       style="fill:#374845;fill-opacity:1;stroke-width:0.599752"
+       id="path5-6"
+       cx="275.51419"
+       cy="712.24426"
+       rx="69.243698"
+       ry="132.21269"
+       transform="rotate(-23.852263)" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:236.553px;line-height:0;font-family:'Roboto Mono';-inkscape-font-specification:'Roboto Mono';letter-spacing:0px;word-spacing:0px;fill:#1c2224;fill-opacity:1;stroke-width:1.23205"
+       x="-306.41702"
+       y="674.48358"
+       id="text12"
+       transform="matrix(0.78056559,-0.34512128,0.47381302,1.0716294,0,0)"><tspan
+         sodipodi:role="line"
+         id="tspan12"
+         x="-306.41702"
+         y="674.48358"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:0;font-family:'Courier Prime Code';-inkscape-font-specification:'Courier Prime Code';letter-spacing:0px;word-spacing:0px;fill:#1a1a1a;stroke-width:1.23205"
+         dx="0"
+         rotate="0 0 0 0 0 0">01010</tspan></text>
+    <path
+       id="path23"
+       style="fill:#d5e5ff;fill-opacity:1;stroke-width:0.979023"
+       d="M 324.96082,53.642914 A 531.77539,531.77539 0 0 0 53.64291,755.03918 531.77539,531.77539 0 0 0 755.03918,1026.3571 531.77539,531.77539 0 0 0 1026.3571,324.96082 531.77539,531.77539 0 0 0 324.96082,53.642914 Z m 23.45007,53.037356 A 473.78522,473.78522 0 0 1 973.31977,348.41088 473.78522,473.78522 0 0 1 731.58912,973.31977 473.78522,473.78522 0 0 1 106.68027,731.58911 473.78522,473.78522 0 0 1 348.41089,106.68027 Z" />
+    <text
+       xml:space="preserve"
+       style="font-style:italic;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:192px;font-family:'Courier Prime';-inkscape-font-specification:'Courier Prime Bold Italic';fill:#1c2224;fill-opacity:1"
+       x="-3.893285"
+       y="494.17102"
+       id="text11"
+       transform="rotate(-23.852263)"><tspan
+         sodipodi:role="line"
+         id="tspan11"
+         x="-3.893285"
+         y="494.17102"
+         style="font-style:italic;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:'Courier Prime';-inkscape-font-specification:'Courier Prime Bold Italic';fill:#1a1a1a">pyped</tspan></text>
+  </g>
+</svg>
