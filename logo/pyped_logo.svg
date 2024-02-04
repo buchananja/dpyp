@@ -26,13 +26,13 @@
      inkscape:pagecheckerboard="1"
      inkscape:deskcolor="#505050"
      inkscape:document-units="px"
-     inkscape:zoom="1"
-     inkscape:cx="252.5"
-     inkscape:cy="511"
-     inkscape:window-width="2560"
-     inkscape:window-height="1400"
-     inkscape:window-x="0"
-     inkscape:window-y="0"
+     inkscape:zoom="0.35355339"
+     inkscape:cx="42.426407"
+     inkscape:cy="359.21024"
+     inkscape:window-width="1920"
+     inkscape:window-height="998"
+     inkscape:window-x="317"
+     inkscape:window-y="1482"
      inkscape:window-maximized="1"
      inkscape:current-layer="layer1" />
   <defs
@@ -82,21 +82,21 @@
        style="fill:#afc6e9;fill-opacity:1;stroke-width:1.02438"
        d="M 379.67662,70.904393 A 495.73615,495.73615 0 0 0 70.904306,700.32332 495.73615,495.73615 0 0 0 700.32323,1009.0957 495.73615,495.73615 0 0 0 1009.0957,379.6767 495.73615,495.73615 0 0 0 379.67662,70.904393 Z" />
     <rect
-       style="fill:#479c9c;fill-opacity:1;stroke-width:0.647846"
+       style="fill:#479c9c;fill-opacity:1;stroke-width:0.642509"
        id="rect4"
-       width="461.12601"
-       height="286.98776"
-       x="366.24216"
-       y="617.27563"
-       transform="matrix(0.93920421,-0.34335906,0.30435079,0.95256002,0,0)" />
+       width="455.25436"
+       height="285.91949"
+       x="375.48465"
+       y="620.88727"
+       transform="matrix(0.93791736,-0.3468588,0.30118482,0.95356578,0,0)" />
     <ellipse
-       style="fill:#42a386;fill-opacity:1;stroke-width:0.637772"
+       style="fill:#479c9c;fill-opacity:1;stroke-width:0.632236"
        id="path5"
-       cx="332.89178"
-       cy="805.55402"
-       rx="72.353333"
-       ry="143.08163"
-       transform="matrix(0.88366071,-0.46812792,0.35109442,0.93634006,0,0)" />
+       cx="329.41684"
+       cy="813.43488"
+       rx="71.386604"
+       ry="142.51277"
+       transform="matrix(0.87353594,-0.48675965,0.36028962,0.9328405,0,0)" />
     <text
        xml:space="preserve"
        style="font-style:italic;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:192px;font-family:'Courier Prime';-inkscape-font-specification:'Courier Prime Bold Italic';fill:#152a4a;fill-opacity:1"
@@ -110,24 +110,24 @@
          y="531.58362"
          style="font-style:italic;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:'Courier Prime';-inkscape-font-specification:'Courier Prime Bold Italic';fill:#152a4a;fill-opacity:1">pyped</tspan></text>
     <ellipse
-       style="fill:#163232;fill-opacity:1;stroke-width:0.588508"
+       style="fill:#142c2c;fill-opacity:1;stroke-width:0.59125"
        id="ellipse1"
-       cx="339.26453"
-       cy="806.60413"
-       rx="66.764488"
-       ry="132.02948"
-       transform="matrix(0.88366071,-0.46812792,0.35109442,0.93634006,0,0)" />
+       cx="335.06903"
+       cy="816.38416"
+       rx="66.758789"
+       ry="133.27403"
+       transform="matrix(0.87353594,-0.48675965,0.36028962,0.9328405,0,0)" />
     <text
        xml:space="preserve"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:236.553px;line-height:0;font-family:'Roboto Mono';-inkscape-font-specification:'Roboto Mono';letter-spacing:0px;word-spacing:0px;fill:#3771c8;fill-opacity:1;stroke-width:1.23205"
-       x="-197.6508"
-       y="705.9563"
+       x="-235.02843"
+       y="722.2193"
        id="text12"
-       transform="matrix(0.81378824,-0.25717707,0.35307544,1.1172404,0,0)"><tspan
+       transform="matrix(0.80134827,-0.29365336,0.40315332,1.1001617,0,0)"><tspan
          sodipodi:role="line"
          id="tspan12"
-         x="-197.6508"
-         y="705.9563"
+         x="-235.02843"
+         y="722.2193"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:0;font-family:'Courier Prime Code';-inkscape-font-specification:'Courier Prime Code';letter-spacing:0px;word-spacing:0px;fill:#3771c8;fill-opacity:1;stroke-width:1.23205"
          dx="0"
          rotate="0 0 0 0 0 0">01010</tspan></text>
