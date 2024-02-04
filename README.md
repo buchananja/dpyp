@@ -1,4 +1,4 @@
-# **Pyped**
+# **pyped**
 *A data pipeline convenience module for Python.*
 
 #### Notes:
