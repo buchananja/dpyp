@@ -10,7 +10,6 @@ setup(
     url = 'https://github.com/buchananja/pyped',
     install_requires = [
         'pandas',
-        'sqlite3',
         'pyarrow'
     ],
     packages = find_packages(exclude = 'testing*')

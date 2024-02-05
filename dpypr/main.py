@@ -10,7 +10,7 @@ import openpyxl
 
 # Data Cleaning ###############################################################
 def headers_to_snakecase(df, uppercase = False):
-    '''
+    r'''
     Converts all column headers to lower snake case by defatul and uppercase if
     'uppercase' argument is True.
     '''
@@ -21,28 +21,28 @@ def headers_to_snakecase(df, uppercase = False):
     return df
 
 def values_to_lowercase(df):
-    '''
+    r'''
     Converts all string values in dataframe to lowercase.
     '''
     df = df.apply(lambda x: x.str.lower() if x.dtype == "object" else x)
     return df
 
 def values_to_uppercase(df):
-    '''
+    r'''
     Converts all string values in dataframe to uppercase.
     '''
     df = df.apply(lambda x: x.str.upper() if x.dtype == "object" else x)
     return df
 
 def values_strip_whitespace(df):
-    '''
+    r'''
     Converts all string values to lowercase.
     '''
     df = df.apply(lambda x: x.str.strip() if x.dtype == "object" else x)
     return df
 
 def optimise_numeric_datatypes(df):
-    '''
+    r'''
     Optimises the data types in a pandas DataFrame by attempting to convert
     strings to numerical data where possible and to the smallest possible 
     integer datatype.
@@ -60,7 +60,7 @@ def optimise_numeric_datatypes(df):
 
 # Data Loading ################################################################
 def read_all_json(path):
-    '''
+    r'''
     Iteratively loads data.json from the data directory and assign to 
     dataframes. Unpacks dictionary to global variables names with the format 
     df_{filename}.
@@ -75,7 +75,7 @@ def read_all_json(path):
     return data_dictionary
 
 def read_all_csv(path):
-    '''
+    r'''
     Iteratively loads data.csv from the data directory and assign to 
     dataframes. Unpacks dictionary to global variables names with the format 
     df_{filename}.
@@ -90,7 +90,7 @@ def read_all_csv(path):
     return data_dictionary
 
 def read_all_xlsx(path):
-    '''
+    r'''
     Iteratively loads data.xlsx from the data directory and assign to 
     dataframes. Unpacks dictionary to global variables names with the format 
     df_{filename}.
@@ -105,7 +105,7 @@ def read_all_xlsx(path):
     return data_dictionary
 
 def read_all_feather(path):
-    '''
+    r'''
     Iteratively loads data.feather from the data directory and assign to 
     dataframes. Unpacks dictionary to global variables names with the format 
     df_{filename}.
@@ -120,7 +120,7 @@ def read_all_feather(path):
     return data_dictionary
 
 def read_all_parquet(path):
-    '''
+    r'''
     Iteratively loads data.parquet from the data directory and assign to 
     dataframes. Unpacks dictionary to global variables names with the format 
     df_{filename}.
@@ -135,7 +135,7 @@ def read_all_parquet(path):
     return data_dictionary
 
 def read_all_pickle(path):
-    '''
+    r'''
     Iteratively loads data.pickle from the data directory and assign to 
     dataframes. Unpacks dictionary to global variables names with the format 
     df_{filename}.
@@ -150,7 +150,7 @@ def read_all_pickle(path):
     return data_dictionary
               
 def read_all_sqlite(path):
-    '''
+    r'''
     Returns all data from a sqlite database as a dictionary.
     '''
     conn = sqlite3.connect(path)
@@ -172,8 +172,8 @@ def read_all_sqlite(path):
     return data_dictionary     
 
 def gather_data_dictionary(globals_dict):
-    '''
-    Packages all objects in input dictionary beginning with 'df_' and returns
+    r'''
+    Packages all objects in input dictionary beginning with 'df\_' and returns
     output dictionary.
     '''
     data_dictionary = dict()
@@ -188,7 +188,7 @@ def unpack_data_dictionary(
         sleep_seconds = 0, 
         messaging = False
     ):
-    '''
+    r'''
     Loads all data from data_dictionary into global variables with record 
     counts.
     '''
@@ -209,8 +209,8 @@ def write_dict_to_json(
         messaging = True,
         sleep_seconds = 0.1
     ):
-    '''
-    - Writes all objects beginning with 'df_' in global space to path as .json. 
+    r'''
+    - Writes all objects beginning with 'df\_' in global space to path as .json. 
     - Prefix allows user to rename processed files upon writing.
     - 'Messaging' allows user to output number of records to console.
     '''
@@ -231,8 +231,8 @@ def write_dict_to_csv(
         messaging = True,
         sleep_seconds = 0.1
     ):
-    '''
-    - Writes all objects beginning with 'df_' in global space to path as .csv. 
+    r'''
+    - Writes all objects beginning with 'df\_' in global space to path as .csv. 
     - Prefix allows user to rename processed files upon writing.
     - 'Messaging' allows user to output number of records to console.
     '''
@@ -253,8 +253,8 @@ def write_dict_to_xlsx(
         messaging = True,
         sleep_seconds = 0.1
     ):
-    '''
-    - Writes all objects beginning with 'df_' in global space to path as .xlsx. 
+    r'''
+    - Writes all objects beginning with 'df\_' in global space to path as .xlsx. 
     - Prefix allows user to rename processed files upon writing.
     - 'Messaging' allows user to output number of records to console.
     '''
@@ -275,8 +275,8 @@ def write_dict_to_feather(
         messaging = True,
         sleep_seconds = 0.1
     ):
-    '''
-    - Writes all objects beginning with 'df_' in global space to path as .feather. 
+    r'''
+    - Writes all objects beginning with 'df\_' in global space to path as .feather. 
     - Prefix allows user to rename processed files upon writing.
     - 'Messaging' allows user to output number of records to console.
     '''
@@ -290,15 +290,15 @@ def write_dict_to_feather(
                     sleep_time = sleep_seconds
                     )
             
-def write_dicto_to_parquet(
+def write_dict_to_parquet(
         globals_dict, 
         path, 
         file_prefix = 'processed',
         messaging = True,
         sleep_seconds = 0.1
     ):
-    '''
-    - Writes all objects beginning with 'df_' in global space to path as .parquet. 
+    r'''
+    - Writes all objects beginning with 'df\_' in global space to path as .parquet. 
     - Prefix allows user to rename processed files upon writing.
     - 'Messaging' allows user to output number of records to console.
     '''
@@ -319,8 +319,8 @@ def write_dict_to_pickle(
         messaging = True,
         sleep_seconds = 0.1
     ):
-    '''
-    - Writes all objects beginning with 'df_' in global space to path as .pickle. 
+    r'''
+    - Writes all objects beginning with 'df\_' in global space to path as .pickle. 
     - Prefix allows user to rename processed files upon writing.
     - 'Messaging' allows user to output number of records to console.
     '''
@@ -339,7 +339,7 @@ def write_dict_to_pickle(
 def fetch_all_sqlite_tables(path):
     '''
     Returns all table names present in a sqlite database as a list.
-    '''
+    r'''
     conn = sqlite3.connect(path)
     cur = conn.cursor()
     # queries all tables in database
@@ -356,8 +356,8 @@ def fetch_all_sqlite_tables(path):
     return table_list
     
 def fetch_all_global_df(globals_dict):
-    '''
-    Returns all objects beginning with 'df_' in global space as a list.
+    r'''
+    Returns all objects beginning with 'df\_' in global space as a list.
     '''
     list_df = list()
     for name in globals_dict:
@@ -366,7 +366,7 @@ def fetch_all_global_df(globals_dict):
     return list_df
 
 def sleep_log(message, sleep_time = 0):
-    '''
+    r'''
     Outputs info logging mesage to console with variable sleep timer.
     '''
     time.sleep(sleep_time)
