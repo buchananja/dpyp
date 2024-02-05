@@ -5,6 +5,7 @@ import time
 import logging
 import sqlite3
 import pyarrow.feather as feather
+import openpyxl
 
 
 # Data Cleaning ###############################################################
@@ -58,101 +59,101 @@ def optimise_numeric_datatypes(df):
 
 
 # Data Loading ################################################################
-def read_all_json(directory_path):
+def read_all_json(path):
     '''
     Iteratively loads data.json from the data directory and assign to 
     dataframes. Unpacks dictionary to global variables names with the format 
     df_{filename}.
     '''
-    files = os.listdir(directory_path)
+    files = os.listdir(path)
     data_dictionary = {}
     for file in files:
         if file.endswith('.json'):
-            df = pd.read_json(os.path.join(directory_path, file))
+            df = pd.read_json(os.path.join(path, file))
             filename = os.path.splitext(file)[0]
             data_dictionary[f'df_{filename}'] = df
     return data_dictionary
 
-def read_all_csv(directory_path):
+def read_all_csv(path):
     '''
     Iteratively loads data.csv from the data directory and assign to 
     dataframes. Unpacks dictionary to global variables names with the format 
     df_{filename}.
     '''
-    files = os.listdir(directory_path)
+    files = os.listdir(path)
     data_dictionary = {}
     for file in files:
         if file.endswith('.csv'):
-            df = pd.read_csv(os.path.join(directory_path, file))
+            df = pd.read_csv(os.path.join(path, file))
             filename = os.path.splitext(file)[0]
             data_dictionary[f'df_{filename}'] = df
     return data_dictionary
 
-def read_all_xlsx(directory_path):
+def read_all_xlsx(path):
     '''
     Iteratively loads data.xlsx from the data directory and assign to 
     dataframes. Unpacks dictionary to global variables names with the format 
     df_{filename}.
     '''
-    files = os.listdir(directory_path)
+    files = os.listdir(path)
     data_dictionary = {}
     for file in files:
         if file.endswith('.xlsx'):
-            df = pd.read_excel(os.path.join(directory_path, file))
+            df = pd.read_excel(os.path.join(path, file))
             filename = os.path.splitext(file)[0]
             data_dictionary[f'df_{filename}'] = df
     return data_dictionary
 
-def read_all_feather(directory_path):
+def read_all_feather(path):
     '''
     Iteratively loads data.feather from the data directory and assign to 
     dataframes. Unpacks dictionary to global variables names with the format 
     df_{filename}.
     '''
-    files = os.listdir(directory_path)
+    files = os.listdir(path)
     data_dictionary = {}
     for file in files:
         if file.endswith('.feather'):
-            df = pd.read_feather(os.path.join(directory_path, file))
+            df = pd.read_feather(os.path.join(path, file))
             filename = os.path.splitext(file)[0]
             data_dictionary[f'df_{filename}'] = df
     return data_dictionary
 
-def read_all_parquet(directory_path):
+def read_all_parquet(path):
     '''
     Iteratively loads data.parquet from the data directory and assign to 
     dataframes. Unpacks dictionary to global variables names with the format 
     df_{filename}.
     '''
-    files = os.listdir(directory_path)
+    files = os.listdir(path)
     data_dictionary = {}
     for file in files:
         if file.endswith('.parquet'):
-            df = pd.read_parquet(os.path.join(directory_path, file))
+            df = pd.read_parquet(os.path.join(path, file))
             filename = os.path.splitext(file)[0]
             data_dictionary[f'df_{filename}'] = df
     return data_dictionary
 
-def read_all_pickle(directory_path):
+def read_all_pickle(path):
     '''
     Iteratively loads data.pickle from the data directory and assign to 
     dataframes. Unpacks dictionary to global variables names with the format 
     df_{filename}.
     '''
-    files = os.listdir(directory_path)
+    files = os.listdir(path)
     data_dictionary = {}
     for file in files:
         if file.endswith('.pickle'):
-            df = pd.read_pickle(os.path.join(directory_path, file))
+            df = pd.read_pickle(os.path.join(path, file))
             filename = os.path.splitext(file)[0]
             data_dictionary[f'df_{filename}'] = df
     return data_dictionary
               
-def read_all_sqlite(db_path):
+def read_all_sqlite(path):
     '''
     Returns all data from a sqlite database as a dictionary.
     '''
-    conn = sqlite3.connect(db_path)
+    conn = sqlite3.connect(path)
     cur = conn.cursor()
     # queries all tables in database
     cur.execute('''
@@ -190,85 +191,145 @@ def unpack_data_dictionary(
 
 
 # Data Writing ################################################################
-def write_json_global_df(path, file_prefix = 'processed'):
+def write_json_global_df(
+        globals_dict, 
+        path, 
+        file_prefix = 'processed',
+        messaging = True,
+        sleep_seconds = 0.1
+    ):
     '''
-    Writes all objects beginning with 'df_' in global space to path as .json. 
-    Modifier allows user to rename processed files with different prefix, 
-    'processed' by default.
+    - Writes all objects beginning with 'df_' in global space to path as .json. 
+    - Prefix allows user to rename processed files upon writing.
+    - 'Messaging' allows user to output number of records to console.
     '''
-    globals_dict = globals()
     for name, data in globals_dict.items():
         if name.startswith('df_'):
-            data.to_json(path + '/' + file_prefix + '_' + name[3:] + '.json')
+            data.to_json(f'{path}/{file_prefix}_{name[3:]}.json')
+            # ouputs filenames and number or records to console
+            if messaging:
+                sleep_log(
+                    f'- Wrote {file_prefix}_{name[3:]} ({len(data):,}) records.', 
+                    sleep_time = sleep_seconds
+                    )
 
-def write_csv_global_df(path, file_prefix = 'processed'):
+def write_csv_global_df(
+        globals_dict, 
+        path, 
+        file_prefix = 'processed',
+        messaging = True,
+        sleep_seconds = 0.1
+    ):
     '''
-    Writes all objects beginning with 'df_' in global space to path as .csv. 
-    Modifier allows user to rename processed files with different prefix, 
-    'processed' by default.
+    - Writes all objects beginning with 'df_' in global space to path as .csv. 
+    - Prefix allows user to rename processed files upon writing.
+    - 'Messaging' allows user to output number of records to console.
     '''
-    globals_dict = globals()
     for name, data in globals_dict.items():
         if name.startswith('df_'):
-            data.to_csv(path + '/' + file_prefix + '_' + name[3:] + '.csv')
+            data.to_csv(f'{path}/{file_prefix}_{name[3:]}.csv')
+            # ouputs filenames and number or records to console
+            if messaging:
+                sleep_log(
+                    f'- Wrote {file_prefix}_{name[3:]} ({len(data):,}) records.', 
+                    sleep_time = sleep_seconds
+                    )
             
-def write_xlsx_global_df(path, file_prefix = 'processed'):
+def write_xlsx_global_df(
+        globals_dict, 
+        path, 
+        file_prefix = 'processed',
+        messaging = True,
+        sleep_seconds = 0.1
+    ):
     '''
-    Writes all objects beginning with 'df_' in global space to path as .xlsx. 
-    Modifier allows user to rename processed files with different prefix, 
-    'processed' by default.
+    - Writes all objects beginning with 'df_' in global space to path as .xlsx. 
+    - Prefix allows user to rename processed files upon writing.
+    - 'Messaging' allows user to output number of records to console.
     '''
-    globals_dict = globals()
     for name, data in globals_dict.items():
         if name.startswith('df_'):
-            data.to_excel(path + '/' + file_prefix + '_' + name[3:] + '.xlsx')
+            data.to_excel(f'{path}/{file_prefix}_{name[3:]}.xlsx')
+            # ouputs filenames and number or records to console
+            if messaging:
+                sleep_log(
+                    f'- Wrote {file_prefix}_{name[3:]} ({len(data):,}) records.', 
+                    sleep_time = sleep_seconds
+                    )
 
-def write_feather_global_df(path, file_prefix = 'processed'):
+def write_feather_global_df(
+        globals_dict, 
+        path, 
+        file_prefix = 'processed',
+        messaging = True,
+        sleep_seconds = 0.1
+    ):
     '''
-    Writes all objects beginning with 'df_' in global space to path as 
-    .feather. Modifier allows user to rename processed files with different 
-    prefix, 'processed' by default.
+    - Writes all objects beginning with 'df_' in global space to path as .feather. 
+    - Prefix allows user to rename processed files upon writing.
+    - 'Messaging' allows user to output number of records to console.
     '''
-    globals_dict = globals()
     for name, data in globals_dict.items():
         if name.startswith('df_'):
-            data.to_feather(
-                path + '/' + file_prefix + '_' + name[3:] + '.feather'
-            )
+            data.to_feather(f'{path}/{file_prefix}_{name[3:]}.feather')
+            # ouputs filenames and number or records to console
+            if messaging:
+                sleep_log(
+                    f'- Wrote {file_prefix}_{name[3:]} ({len(data):,}) records.', 
+                    sleep_time = sleep_seconds
+                    )
             
-def write_parquet_global_df(path, file_prefix = 'processed'):
+def write_parquet_global_df(
+        globals_dict, 
+        path, 
+        file_prefix = 'processed',
+        messaging = True,
+        sleep_seconds = 0.1
+    ):
     '''
-    Writes all objects beginning with 'df_' in global space to path as 
-    .parquet. Modifier allows user to rename processed files with different 
-    prefix, 'processed' by default.
+    - Writes all objects beginning with 'df_' in global space to path as .parquet. 
+    - Prefix allows user to rename processed files upon writing.
+    - 'Messaging' allows user to output number of records to console.
     '''
-    globals_dict = globals()
     for name, data in globals_dict.items():
         if name.startswith('df_'):
-            data.to_parquet(
-                path + '/' + file_prefix + '_' + name[3:] + '.parquet'
-            )
+            data.to_parquet(f'{path}/{file_prefix}_{name[3:]}.parquet')
+            # ouputs filenames and number or records to console
+            if messaging:
+                sleep_log(
+                    f'- Wrote {file_prefix}_{name[3:]} ({len(data):,}) records.', 
+                    sleep_time = sleep_seconds
+                    )
             
-def write_pickle_global_df(path, file_prefix = 'processed'):
+def write_pickle_global_df(
+        globals_dict, 
+        path, 
+        file_prefix = 'processed',
+        messaging = True,
+        sleep_seconds = 0.1
+    ):
     '''
-    Writes all objects beginning with 'df_' in global space to path as 
-    .pickle. Modifier allows user to rename processed files with different 
-    prefix, 'processed' by default.
+    - Writes all objects beginning with 'df_' in global space to path as .pickle. 
+    - Prefix allows user to rename processed files upon writing.
+    - 'Messaging' allows user to output number of records to console.
     '''
-    globals_dict = globals()
     for name, data in globals_dict.items():
         if name.startswith('df_'):
-            data.to_pickle(
-                path + '/' + file_prefix + '_' + name[3:] + '.pickle'
-            )          
+            data.to_pickle(f'{path}/{file_prefix}_{name[3:]}.pickle')
+            # ouputs filenames and number or records to console
+            if messaging:
+                sleep_log(
+                    f'- Wrote {file_prefix}_{name[3:]} ({len(data):,}) records.', 
+                    sleep_time = sleep_seconds
+                    )         
                 
                 
-# Diagnostics and Information #################################################
-def fetch_all_sqlite_tables(db_path, print_names = False):
+# Diagnostics #################################################################
+def fetch_all_sqlite_tables(path):
     '''
-    Returns all table names present in a sqlite database.
+    Returns all table names present in a sqlite database as a list.
     '''
-    conn = sqlite3.connect(db_path)
+    conn = sqlite3.connect(path)
     cur = conn.cursor()
     # queries all tables in database
     cur.execute('''
@@ -277,21 +338,21 @@ def fetch_all_sqlite_tables(db_path, print_names = False):
         WHERE type = 'table';
     ''')
     table_names = cur.fetchall()
-    if print_names:
-        print('Table names:')
-        [print(f'- {table[0]}') for table in table_names]
-        return table_names
-    else:
-        return table_names
+    table_list = list()
+    for table in table_names:
+        # gets first element of each tuple in list of tuples (e.g. table name)
+        table_list.append(table[0])
+    return table_list
     
-def fetch_global_df():
+def fetch_all_global_df(globals_dict):
     '''
-    Lists all objects beginning with 'df_' in global space.
+    Returns all objects beginning with 'df_' in global space as a list.
     '''
-    globals_dict = globals()
+    list_df = list()
     for name in globals_dict:
         if name.startswith('df_'):
-            print(name)
+            list_df.append(name)
+    return list_df
 
 def sleep_log(message, sleep_time = 0):
     '''
