@@ -1,1 +1,1 @@
-from .main import *
+from . import read, write, clean, diagnostics

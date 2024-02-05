@@ -1,5 +1,5 @@
 # **dpypr**
-*(IPA: /diːpaɪpər/ -> 'data-piper')*
+*(IPA: /diːpaɪpər/ meaning 'data-piper')*
 *A data pipeline convenience tool for Python.*
 
 <p align = "center">
