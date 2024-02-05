@@ -169,6 +169,17 @@ def read_all_sqlite(path):
         query = f"SELECT * FROM {table_name[0]}"
         data_dictionary[table_name[0]] = pd.read_sql_query(query, conn)
     conn.close()
+    return data_dictionary     
+
+def gather_data_dictionary(globals_dict):
+    '''
+    Packages all objects in input dictionary beginning with 'df_' and returns
+    output dictionary.
+    '''
+    data_dictionary = dict()
+    for name, data in globals_dict.items():
+        if name.startswith('df_'):
+            data_dictionary.update({name: data})
     return data_dictionary
 
 def unpack_data_dictionary(
@@ -191,7 +202,7 @@ def unpack_data_dictionary(
 
 
 # Data Writing ################################################################
-def write_json_global_df(
+def write_dict_to_json(
         globals_dict, 
         path, 
         file_prefix = 'processed',
@@ -213,7 +224,7 @@ def write_json_global_df(
                     sleep_time = sleep_seconds
                     )
 
-def write_csv_global_df(
+def write_dict_to_csv(
         globals_dict, 
         path, 
         file_prefix = 'processed',
@@ -235,7 +246,7 @@ def write_csv_global_df(
                     sleep_time = sleep_seconds
                     )
             
-def write_xlsx_global_df(
+def write_dict_to_xlsx(
         globals_dict, 
         path, 
         file_prefix = 'processed',
@@ -257,7 +268,7 @@ def write_xlsx_global_df(
                     sleep_time = sleep_seconds
                     )
 
-def write_feather_global_df(
+def write_dict_to_feather(
         globals_dict, 
         path, 
         file_prefix = 'processed',
@@ -279,7 +290,7 @@ def write_feather_global_df(
                     sleep_time = sleep_seconds
                     )
             
-def write_parquet_global_df(
+def write_dicto_to_parquet(
         globals_dict, 
         path, 
         file_prefix = 'processed',
@@ -301,7 +312,7 @@ def write_parquet_global_df(
                     sleep_time = sleep_seconds
                     )
             
-def write_pickle_global_df(
+def write_dict_to_pickle(
         globals_dict, 
         path, 
         file_prefix = 'processed',
