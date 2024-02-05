@@ -1,5 +1,8 @@
 # Dependencies ################################################################
 import dpypr as dp
+import sqlite3
+from sqlite3 import OperationalError
+
 
 # Data Writing ################################################################
 def write_dict_to_json(
@@ -132,4 +135,36 @@ def write_dict_to_pickle(
                 dp.sleep_log(
                     f'- Wrote {file_prefix}_{name[3:]} ({len(data):,}) records.', 
                     sleep_time = sleep_seconds
-                    )         
+                    )
+                
+def write_dict_to_sqlite(
+        data_dictionary, 
+        path, 
+        file_prefix = 'processed',
+        messaging = True,
+        sleep_seconds = 0.1
+    ):
+    r'''
+    - Writes all objects beginning with 'df\_' in global space to path as
+    tables in sqlite database. 
+    - Prefix allows user to rename processed files upon writing.
+    - 'Messaging' allows user to output number of records to console.
+    '''
+    conn = sqlite3.connect(path)
+    cur = conn.cursor()
+    
+    try:
+        for name, data in data_dictionary.items():
+            if name.startswith('df_'):
+                cols = ', '.join(data.columns)
+                cur.execute(f'''
+                    CREATE TABLE {file_prefix}_{name[3:]} ({cols})
+                ''')
+                if messaging:
+                    dp.sleep_log(
+                        f'- Wrote {file_prefix}_{name[3:]} ({len(data):,}) records.', 
+                        sleep_time = sleep_seconds
+                        )
+        conn.commit()
+    except OperationalError:
+        print('Table already exists.')

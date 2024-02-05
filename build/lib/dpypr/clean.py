@@ -1,11 +1,5 @@
 # Dependencies ################################################################
 import pandas as pd
-import os
-import time
-import logging
-import sqlite3
-import pyarrow.feather as feather
-import openpyxl
 
 
 # Data Cleaning ###############################################################
@@ -18,6 +12,23 @@ def headers_to_snakecase(df, uppercase = False):
         df.columns = (df.columns.str.upper().str.replace(' ', '_'))
     else:
         df.columns = (df.columns.str.lower().str.replace(' ', '_'))
+    return df
+
+def values_to_snakecase(df, uppercase = False):
+    r'''
+    Converts all string values in dataframe to lower snake case by default and 
+    uppercase if 'uppercase' argument is True.
+    '''
+    if uppercase:
+        df = df.apply(
+                lambda col: col.str.upper().str.replace(' ', '_') 
+                if col.dtype == "object" else col
+            )
+    else:
+        df = df.apply(
+                lambda col: col.str.lower().str.replace(' ', '_') 
+                if col.dtype == "object" else col   
+            )
     return df
 
 def values_to_lowercase(df):

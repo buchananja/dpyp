@@ -21,13 +21,13 @@ def values_to_snakecase(df, uppercase = False):
     '''
     if uppercase:
         df = df.apply(
-                lambda x: x.str.upper().str.replace(' ', '_') 
-                if x.dtype == "object" else x
+                lambda col: col.str.upper().str.replace(' ', '_') 
+                if col.dtype == "object" else col
             )
     else:
         df = df.apply(
-                lambda x: x.str.lower().str.replace(' ', '_') 
-                if x.dtype == "object" else x
+                lambda col: col.str.lower().str.replace(' ', '_') 
+                if col.dtype == "object" else col   
             )
     return df
 
