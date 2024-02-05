@@ -5,7 +5,7 @@ import time
 import logging
 import sqlite3
 import pyarrow.feather as feather
-import openpyxl
+import dpypr as dp
 
 # Data Writing ################################################################
 def write_dict_to_json(
@@ -25,7 +25,7 @@ def write_dict_to_json(
             data.to_json(f'{path}/{file_prefix}_{name[3:]}.json')
             # ouputs filenames and number or records to console
             if messaging:
-                sleep_log(
+                dp.sleep_log(
                     f'- Wrote {file_prefix}_{name[3:]} ({len(data):,}) records.', 
                     sleep_time = sleep_seconds
                     )
@@ -47,7 +47,7 @@ def write_dict_to_csv(
             data.to_csv(f'{path}/{file_prefix}_{name[3:]}.csv')
             # ouputs filenames and number or records to console
             if messaging:
-                sleep_log(
+                dp.sleep_log(
                     f'- Wrote {file_prefix}_{name[3:]} ({len(data):,}) records.', 
                     sleep_time = sleep_seconds
                     )
@@ -69,7 +69,7 @@ def write_dict_to_xlsx(
             data.to_excel(f'{path}/{file_prefix}_{name[3:]}.xlsx')
             # ouputs filenames and number or records to console
             if messaging:
-                sleep_log(
+                dp.sleep_log(
                     f'- Wrote {file_prefix}_{name[3:]} ({len(data):,}) records.', 
                     sleep_time = sleep_seconds
                     )
@@ -91,7 +91,7 @@ def write_dict_to_feather(
             data.to_feather(f'{path}/{file_prefix}_{name[3:]}.feather')
             # ouputs filenames and number or records to console
             if messaging:
-                sleep_log(
+                dp.sleep_log(
                     f'- Wrote {file_prefix}_{name[3:]} ({len(data):,}) records.', 
                     sleep_time = sleep_seconds
                     )
@@ -113,7 +113,7 @@ def write_dict_to_parquet(
             data.to_parquet(f'{path}/{file_prefix}_{name[3:]}.parquet')
             # ouputs filenames and number or records to console
             if messaging:
-                sleep_log(
+                dp.sleep_log(
                     f'- Wrote {file_prefix}_{name[3:]} ({len(data):,}) records.', 
                     sleep_time = sleep_seconds
                     )
@@ -135,7 +135,7 @@ def write_dict_to_pickle(
             data.to_pickle(f'{path}/{file_prefix}_{name[3:]}.pickle')
             # ouputs filenames and number or records to console
             if messaging:
-                sleep_log(
+                dp.sleep_log(
                     f'- Wrote {file_prefix}_{name[3:]} ({len(data):,}) records.', 
                     sleep_time = sleep_seconds
                     )         

@@ -1,9 +1,9 @@
 from setuptools import setup, find_packages
 
 setup(
-    name = 'dypr',
+    name = 'dpypr',
     version = '1.0.0',
-    description = '(Data-Piper) a data pipeline convenience module for Python.',
+    description = '(data-piper) a data pipeline convenience module for Python.',
     author = 'James Buchanan',
     author_email = 'buchananja.github@pm.me',
     license = 'MIT',
@@ -12,5 +12,10 @@ setup(
         'pandas',
         'pyarrow'
     ],
-    packages = find_packages(exclude = 'testing*')
+    packages = find_packages(exclude = [
+        'testing*', 
+        'build', 
+        'docs', 
+        'logo'
+    ])
 )

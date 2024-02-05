@@ -6,7 +6,7 @@ import logging
 import sqlite3
 import pyarrow.feather as feather
 import openpyxl
-
+import dpypr as dp
 # Data Loading ################################################################
 def read_all_json(path):
     r'''
@@ -144,7 +144,7 @@ def unpack_data_dictionary(
     for key, value in data_dictionary.items():
         globals_dict[f'df_{key}'] = value
         if messaging:
-            sleep_log(
-                f'- Loaded df_{key} ({len(value):,}) records.', 
+            dp.sleep_log(
+                f'- Read df_{key} ({len(value):,}) records.', 
                 sleep_time = sleep_seconds
                 )
