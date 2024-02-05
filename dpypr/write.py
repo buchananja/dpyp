@@ -2,13 +2,14 @@
 import dpypr as dp
 import sqlite3
 from sqlite3 import OperationalError
+import os
 
 
 # Data Writing ################################################################
 def write_dict_to_json(
         globals_dict, 
         path, 
-        file_prefix = 'processed',
+        file_prefix = '',
         messaging = True,
         sleep_seconds = 0.1
     ):
@@ -30,7 +31,7 @@ def write_dict_to_json(
 def write_dict_to_csv(
         globals_dict, 
         path, 
-        file_prefix = 'processed',
+        file_prefix = '',
         messaging = True,
         sleep_seconds = 0.1
     ):
@@ -52,7 +53,7 @@ def write_dict_to_csv(
 def write_dict_to_xlsx(
         globals_dict, 
         path, 
-        file_prefix = 'processed',
+        file_prefix = '',
         messaging = True,
         sleep_seconds = 0.1
     ):
@@ -74,7 +75,7 @@ def write_dict_to_xlsx(
 def write_dict_to_feather(
         globals_dict, 
         path, 
-        file_prefix = 'processed',
+        file_prefix = '',
         messaging = True,
         sleep_seconds = 0.1
     ):
@@ -96,7 +97,7 @@ def write_dict_to_feather(
 def write_dict_to_parquet(
         globals_dict, 
         path, 
-        file_prefix = 'processed',
+        file_prefix = '',
         messaging = True,
         sleep_seconds = 0.1
     ):
@@ -118,7 +119,7 @@ def write_dict_to_parquet(
 def write_dict_to_pickle(
         globals_dict, 
         path, 
-        file_prefix = 'processed',
+        file_prefix = '',
         messaging = True,
         sleep_seconds = 0.1
     ):
@@ -139,8 +140,9 @@ def write_dict_to_pickle(
                 
 def write_dict_to_sqlite(
         data_dictionary, 
-        path, 
-        file_prefix = 'processed',
+        path,
+        overwrite = False,
+        file_prefix = '',
         messaging = True,
         sleep_seconds = 0.1
     ):
@@ -150,6 +152,15 @@ def write_dict_to_sqlite(
     - Prefix allows user to rename processed files upon writing.
     - 'Messaging' allows user to output number of records to console.
     '''
+    if overwrite:
+        try:
+            os.remove(path)
+        except PermissionError:
+            dp.sleep_log('- WARNING: File is being used by another process!')
+        except FileNotFoundError:
+            dp.sleep_log('- WARNING: File does not exist!')
+            pass  
+        
     conn = sqlite3.connect(path)
     cur = conn.cursor()
     
@@ -167,4 +178,4 @@ def write_dict_to_sqlite(
                         )
         conn.commit()
     except OperationalError:
-        print('Table already exists.')
+        dp.sleep_log('- WARNING: Database already exists!')
