@@ -1,5 +1,6 @@
 # **dpypr**
-*(Data-Piper) a data pipeline convenience tool for Python.*
+*(IPA: /diːpaɪpər/ -> 'data-piper')*
+*A data pipeline convenience tool for Python.*
 
 <p align = "center">
   <img src = "logo/dpypr_logo.png" alt = "image" width = "250" height = "250">
