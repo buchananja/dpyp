@@ -2,7 +2,7 @@
 *(Data-Piper) a data pipeline convenience tool for Python.*
 
 <p align = "center">
-  <img src = "logo/pyped_logo.png" alt = "image" width = "250" height = "250">
+  <img src = "logo/dpypr_logo.png" alt = "image" width = "250" height = "250">
 </p>
 
 #### About:
