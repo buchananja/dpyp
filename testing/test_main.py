@@ -4,7 +4,7 @@ import os
 import time
 import logging
 import sqlite3
-import pyped
+import dpypr
 
 
 @pytest.fixture
@@ -53,7 +53,7 @@ def test_headers_to_snakecase_is_lower(sample_dataframe):
     Tests whether column headers correctly set to lower snakecase.
     '''
     df = sample_dataframe
-    df = pyped.headers_to_snakecase(df)
+    df = dpypr.headers_to_snakecase(df)
     assert all((col.islower() and ' ' not in col) for col in df.columns)
 
 def test_headers_to_snakecase_is_upper(sample_dataframe):
@@ -61,7 +61,7 @@ def test_headers_to_snakecase_is_upper(sample_dataframe):
     Tests whether column headers correctly set to upper snakecase.
     '''
     df = sample_dataframe
-    df = pyped.headers_to_snakecase(df, uppercase = True)
+    df = dpypr.headers_to_snakecase(df, uppercase = True)
     assert all((col.isupper() and ' ' not in col) for col in df.columns)
     
 def test_values_to_lowercase(sample_dataframe):
@@ -69,7 +69,7 @@ def test_values_to_lowercase(sample_dataframe):
     Tests whether dataframe values correctly set to lowercase.
     '''
     df = sample_dataframe
-    df = pyped.values_to_lowercase(df)
+    df = dpypr.values_to_lowercase(df)
     
     # returns True if column is all lowercase or not object. Asserts if True.
     # i.e assert will only fail if columns contains uppercase letters.
@@ -84,7 +84,7 @@ def test_values_to_uppercase(sample_dataframe):
     Tests whether dataframe values correctly set to uppercase.
     '''
     df = sample_dataframe
-    df = pyped.values_to_uppercase(df)
+    df = dpypr.values_to_uppercase(df)
     
     # returns True if column is all uppercase or not object. Asserts if True.
     # i.e assert will only fail if columns contains lowercase letters.
