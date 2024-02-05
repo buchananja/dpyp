@@ -1,5 +1,5 @@
 # **dpypr**
-*(data-piper) a data pipeline convenience tool for Python.*
+*(data-piper) a data pipeline convenience tool for Python*
 
 <p align = "center">
   <img src = "logo/dpypr_logo.png" alt = "image" width = "300" height = "300">
