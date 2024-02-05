@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>dpypr.main &mdash; dpypr 1.0.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            dpypr
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <!-- Local TOC -->
+              <div class="local-toc"></div>
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">dpypr</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">dpypr.main</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for dpypr.main</h1><div class="highlight"><pre>
+<span></span><span class="c1"># Dependencies ################################################################</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">time</span>
+<span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">import</span> <span class="nn">sqlite3</span>
+<span class="kn">import</span> <span class="nn">pyarrow.feather</span> <span class="k">as</span> <span class="nn">feather</span>
+<span class="kn">import</span> <span class="nn">openpyxl</span>
+
+
+<span class="c1"># Data Cleaning ###############################################################</span>
+<div class="viewcode-block" id="headers_to_snakecase"><a class="viewcode-back" href="../../dpypr.html#dpypr.main.headers_to_snakecase">[docs]</a><span class="k">def</span> <span class="nf">headers_to_snakecase</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">uppercase</span> <span class="o">=</span> <span class="kc">False</span><span class="p">):</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Converts all column headers to lower snake case by defatul and uppercase if</span>
+<span class="sd">    &#39;uppercase&#39; argument is True.</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="k">if</span> <span class="n">uppercase</span><span class="p">:</span>
+        <span class="n">df</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">,</span> <span class="s1">&#39;_&#39;</span><span class="p">))</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">df</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">,</span> <span class="s1">&#39;_&#39;</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">df</span></div>
+
+<div class="viewcode-block" id="values_to_lowercase"><a class="viewcode-back" href="../../dpypr.html#dpypr.main.values_to_lowercase">[docs]</a><span class="k">def</span> <span class="nf">values_to_lowercase</span><span class="p">(</span><span class="n">df</span><span class="p">):</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Converts all string values in dataframe to lowercase.</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="k">if</span> <span class="n">x</span><span class="o">.</span><span class="n">dtype</span> <span class="o">==</span> <span class="s2">&quot;object&quot;</span> <span class="k">else</span> <span class="n">x</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">df</span></div>
+
+<div class="viewcode-block" id="values_to_uppercase"><a class="viewcode-back" href="../../dpypr.html#dpypr.main.values_to_uppercase">[docs]</a><span class="k">def</span> <span class="nf">values_to_uppercase</span><span class="p">(</span><span class="n">df</span><span class="p">):</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Converts all string values in dataframe to uppercase.</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span> <span class="k">if</span> <span class="n">x</span><span class="o">.</span><span class="n">dtype</span> <span class="o">==</span> <span class="s2">&quot;object&quot;</span> <span class="k">else</span> <span class="n">x</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">df</span></div>
+
+<div class="viewcode-block" id="values_strip_whitespace"><a class="viewcode-back" href="../../dpypr.html#dpypr.main.values_strip_whitespace">[docs]</a><span class="k">def</span> <span class="nf">values_strip_whitespace</span><span class="p">(</span><span class="n">df</span><span class="p">):</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Converts all string values to lowercase.</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="k">if</span> <span class="n">x</span><span class="o">.</span><span class="n">dtype</span> <span class="o">==</span> <span class="s2">&quot;object&quot;</span> <span class="k">else</span> <span class="n">x</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">df</span></div>
+
+<div class="viewcode-block" id="optimise_numeric_datatypes"><a class="viewcode-back" href="../../dpypr.html#dpypr.main.optimise_numeric_datatypes">[docs]</a><span class="k">def</span> <span class="nf">optimise_numeric_datatypes</span><span class="p">(</span><span class="n">df</span><span class="p">):</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Optimises the data types in a pandas DataFrame by attempting to convert</span>
+<span class="sd">    strings to numerical data where possible and to the smallest possible </span>
+<span class="sd">    integer datatype.</span>
+<span class="sd">    &#39;&#39;&#39;</span> 
+    <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">df</span><span class="p">[</span><span class="n">col</span><span class="p">]</span><span class="o">.</span><span class="n">dtype</span> <span class="o">==</span> <span class="nb">object</span><span class="p">:</span>
+            <span class="k">pass</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">all</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">col</span><span class="p">]</span> <span class="o">%</span> <span class="mi">1</span> <span class="o">==</span> <span class="mi">0</span><span class="p">):</span>
+                <span class="n">df</span><span class="p">[</span><span class="n">col</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_numeric</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">col</span><span class="p">],</span> <span class="n">downcast</span> <span class="o">=</span> <span class="s1">&#39;integer&#39;</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">df</span><span class="p">[</span><span class="n">col</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_numeric</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">col</span><span class="p">],</span> <span class="n">downcast</span> <span class="o">=</span> <span class="s1">&#39;float&#39;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">df</span></div>
+
+
+<span class="c1"># Data Loading ################################################################</span>
+<div class="viewcode-block" id="read_all_json"><a class="viewcode-back" href="../../dpypr.html#dpypr.main.read_all_json">[docs]</a><span class="k">def</span> <span class="nf">read_all_json</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Iteratively loads data.json from the data directory and assign to </span>
+<span class="sd">    dataframes. Unpacks dictionary to global variables names with the format </span>
+<span class="sd">    df_{filename}.</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">files</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+    <span class="n">data_dictionary</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">for</span> <span class="n">file</span> <span class="ow">in</span> <span class="n">files</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">file</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;.json&#39;</span><span class="p">):</span>
+            <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_json</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">file</span><span class="p">))</span>
+            <span class="n">filename</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">splitext</span><span class="p">(</span><span class="n">file</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">data_dictionary</span><span class="p">[</span><span class="sa">f</span><span class="s1">&#39;df_</span><span class="si">{</span><span class="n">filename</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span>
+    <span class="k">return</span> <span class="n">data_dictionary</span></div>
+
+<div class="viewcode-block" id="read_all_csv"><a class="viewcode-back" href="../../dpypr.html#dpypr.main.read_all_csv">[docs]</a><span class="k">def</span> <span class="nf">read_all_csv</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Iteratively loads data.csv from the data directory and assign to </span>
+<span class="sd">    dataframes. Unpacks dictionary to global variables names with the format </span>
+<span class="sd">    df_{filename}.</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">files</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+    <span class="n">data_dictionary</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">for</span> <span class="n">file</span> <span class="ow">in</span> <span class="n">files</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">file</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;.csv&#39;</span><span class="p">):</span>
+            <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">file</span><span class="p">))</span>
+            <span class="n">filename</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">splitext</span><span class="p">(</span><span class="n">file</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">data_dictionary</span><span class="p">[</span><span class="sa">f</span><span class="s1">&#39;df_</span><span class="si">{</span><span class="n">filename</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span>
+    <span class="k">return</span> <span class="n">data_dictionary</span></div>
+
+<div class="viewcode-block" id="read_all_xlsx"><a class="viewcode-back" href="../../dpypr.html#dpypr.main.read_all_xlsx">[docs]</a><span class="k">def</span> <span class="nf">read_all_xlsx</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Iteratively loads data.xlsx from the data directory and assign to </span>
+<span class="sd">    dataframes. Unpacks dictionary to global variables names with the format </span>
+<span class="sd">    df_{filename}.</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">files</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+    <span class="n">data_dictionary</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">for</span> <span class="n">file</span> <span class="ow">in</span> <span class="n">files</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">file</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;.xlsx&#39;</span><span class="p">):</span>
+            <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_excel</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">file</span><span class="p">))</span>
+            <span class="n">filename</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">splitext</span><span class="p">(</span><span class="n">file</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">data_dictionary</span><span class="p">[</span><span class="sa">f</span><span class="s1">&#39;df_</span><span class="si">{</span><span class="n">filename</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span>
+    <span class="k">return</span> <span class="n">data_dictionary</span></div>
+
+<div class="viewcode-block" id="read_all_feather"><a class="viewcode-back" href="../../dpypr.html#dpypr.main.read_all_feather">[docs]</a><span class="k">def</span> <span class="nf">read_all_feather</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Iteratively loads data.feather from the data directory and assign to </span>
+<span class="sd">    dataframes. Unpacks dictionary to global variables names with the format </span>
+<span class="sd">    df_{filename}.</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">files</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+    <span class="n">data_dictionary</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">for</span> <span class="n">file</span> <span class="ow">in</span> <span class="n">files</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">file</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;.feather&#39;</span><span class="p">):</span>
+            <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_feather</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">file</span><span class="p">))</span>
+            <span class="n">filename</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">splitext</span><span class="p">(</span><span class="n">file</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">data_dictionary</span><span class="p">[</span><span class="sa">f</span><span class="s1">&#39;df_</span><span class="si">{</span><span class="n">filename</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span>
+    <span class="k">return</span> <span class="n">data_dictionary</span></div>
+
+<div class="viewcode-block" id="read_all_parquet"><a class="viewcode-back" href="../../dpypr.html#dpypr.main.read_all_parquet">[docs]</a><span class="k">def</span> <span class="nf">read_all_parquet</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Iteratively loads data.parquet from the data directory and assign to </span>
+<span class="sd">    dataframes. Unpacks dictionary to global variables names with the format </span>
+<span class="sd">    df_{filename}.</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">files</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+    <span class="n">data_dictionary</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">for</span> <span class="n">file</span> <span class="ow">in</span> <span class="n">files</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">file</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;.parquet&#39;</span><span class="p">):</span>
+            <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_parquet</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">file</span><span class="p">))</span>
+            <span class="n">filename</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">splitext</span><span class="p">(</span><span class="n">file</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">data_dictionary</span><span class="p">[</span><span class="sa">f</span><span class="s1">&#39;df_</span><span class="si">{</span><span class="n">filename</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span>
+    <span class="k">return</span> <span class="n">data_dictionary</span></div>
+
+<div class="viewcode-block" id="read_all_pickle"><a class="viewcode-back" href="../../dpypr.html#dpypr.main.read_all_pickle">[docs]</a><span class="k">def</span> <span class="nf">read_all_pickle</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Iteratively loads data.pickle from the data directory and assign to </span>
+<span class="sd">    dataframes. Unpacks dictionary to global variables names with the format </span>
+<span class="sd">    df_{filename}.</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">files</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+    <span class="n">data_dictionary</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">for</span> <span class="n">file</span> <span class="ow">in</span> <span class="n">files</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">file</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;.pickle&#39;</span><span class="p">):</span>
+            <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_pickle</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">file</span><span class="p">))</span>
+            <span class="n">filename</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">splitext</span><span class="p">(</span><span class="n">file</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">data_dictionary</span><span class="p">[</span><span class="sa">f</span><span class="s1">&#39;df_</span><span class="si">{</span><span class="n">filename</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span>
+    <span class="k">return</span> <span class="n">data_dictionary</span></div>
+              
+<div class="viewcode-block" id="read_all_sqlite"><a class="viewcode-back" href="../../dpypr.html#dpypr.main.read_all_sqlite">[docs]</a><span class="k">def</span> <span class="nf">read_all_sqlite</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Returns all data from a sqlite database as a dictionary.</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">conn</span> <span class="o">=</span> <span class="n">sqlite3</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+    <span class="n">cur</span> <span class="o">=</span> <span class="n">conn</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+    <span class="c1"># queries all tables in database</span>
+    <span class="n">cur</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s1">&#39;&#39;&#39;</span>
+<span class="s1">        SELECT name </span>
+<span class="s1">        FROM sqlite_master </span>
+<span class="s1">        WHERE type = &#39;table&#39;;</span>
+<span class="s1">    &#39;&#39;&#39;</span><span class="p">)</span>
+    <span class="n">table_names</span> <span class="o">=</span> <span class="n">cur</span><span class="o">.</span><span class="n">fetchall</span><span class="p">()</span>
+    
+    <span class="n">data_dictionary</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">for</span> <span class="n">table_name</span> <span class="ow">in</span> <span class="n">table_names</span><span class="p">:</span>
+        <span class="c1"># selects everything from each table.</span>
+        <span class="n">query</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;SELECT * FROM </span><span class="si">{</span><span class="n">table_name</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="n">data_dictionary</span><span class="p">[</span><span class="n">table_name</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_sql_query</span><span class="p">(</span><span class="n">query</span><span class="p">,</span> <span class="n">conn</span><span class="p">)</span>
+    <span class="n">conn</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">data_dictionary</span>     </div>
+
+<div class="viewcode-block" id="gather_data_dictionary"><a class="viewcode-back" href="../../dpypr.html#dpypr.main.gather_data_dictionary">[docs]</a><span class="k">def</span> <span class="nf">gather_data_dictionary</span><span class="p">(</span><span class="n">globals_dict</span><span class="p">):</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Packages all objects in input dictionary beginning with &#39;df\_&#39; and returns</span>
+<span class="sd">    output dictionary.</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">data_dictionary</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">data</span> <span class="ow">in</span> <span class="n">globals_dict</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="k">if</span> <span class="n">name</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;df_&#39;</span><span class="p">):</span>
+            <span class="n">data_dictionary</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="n">name</span><span class="p">:</span> <span class="n">data</span><span class="p">})</span>
+    <span class="k">return</span> <span class="n">data_dictionary</span></div>
+
+<div class="viewcode-block" id="unpack_data_dictionary"><a class="viewcode-back" href="../../dpypr.html#dpypr.main.unpack_data_dictionary">[docs]</a><span class="k">def</span> <span class="nf">unpack_data_dictionary</span><span class="p">(</span>
+        <span class="n">data_dictionary</span><span class="p">,</span> 
+        <span class="n">globals_dict</span> <span class="o">=</span> <span class="nb">globals</span><span class="p">(),</span> 
+        <span class="n">sleep_seconds</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> 
+        <span class="n">messaging</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="p">):</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Loads all data from data_dictionary into global variables with record </span>
+<span class="sd">    counts.</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">data_dictionary</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="n">globals_dict</span><span class="p">[</span><span class="sa">f</span><span class="s1">&#39;df_</span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
+        <span class="k">if</span> <span class="n">messaging</span><span class="p">:</span>
+            <span class="n">sleep_log</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s1">&#39;- Loaded df_</span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="s1"> (</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">value</span><span class="p">)</span><span class="si">:</span><span class="s1">,</span><span class="si">}</span><span class="s1">) records.&#39;</span><span class="p">,</span> 
+                <span class="n">sleep_time</span> <span class="o">=</span> <span class="n">sleep_seconds</span>
+                <span class="p">)</span></div>
+
+
+<span class="c1"># Data Writing ################################################################</span>
+<div class="viewcode-block" id="write_dict_to_json"><a class="viewcode-back" href="../../dpypr.html#dpypr.main.write_dict_to_json">[docs]</a><span class="k">def</span> <span class="nf">write_dict_to_json</span><span class="p">(</span>
+        <span class="n">globals_dict</span><span class="p">,</span> 
+        <span class="n">path</span><span class="p">,</span> 
+        <span class="n">file_prefix</span> <span class="o">=</span> <span class="s1">&#39;processed&#39;</span><span class="p">,</span>
+        <span class="n">messaging</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+        <span class="n">sleep_seconds</span> <span class="o">=</span> <span class="mf">0.1</span>
+    <span class="p">):</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    - Writes all objects beginning with &#39;df\_&#39; in global space to path as .json. </span>
+<span class="sd">    - Prefix allows user to rename processed files upon writing.</span>
+<span class="sd">    - &#39;Messaging&#39; allows user to output number of records to console.</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">data</span> <span class="ow">in</span> <span class="n">globals_dict</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="k">if</span> <span class="n">name</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;df_&#39;</span><span class="p">):</span>
+            <span class="n">data</span><span class="o">.</span><span class="n">to_json</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">path</span><span class="si">}</span><span class="s1">/</span><span class="si">{</span><span class="n">file_prefix</span><span class="si">}</span><span class="s1">_</span><span class="si">{</span><span class="n">name</span><span class="p">[</span><span class="mi">3</span><span class="p">:]</span><span class="si">}</span><span class="s1">.json&#39;</span><span class="p">)</span>
+            <span class="c1"># ouputs filenames and number or records to console</span>
+            <span class="k">if</span> <span class="n">messaging</span><span class="p">:</span>
+                <span class="n">sleep_log</span><span class="p">(</span>
+                    <span class="sa">f</span><span class="s1">&#39;- Wrote </span><span class="si">{</span><span class="n">file_prefix</span><span class="si">}</span><span class="s1">_</span><span class="si">{</span><span class="n">name</span><span class="p">[</span><span class="mi">3</span><span class="p">:]</span><span class="si">}</span><span class="s1"> (</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)</span><span class="si">:</span><span class="s1">,</span><span class="si">}</span><span class="s1">) records.&#39;</span><span class="p">,</span> 
+                    <span class="n">sleep_time</span> <span class="o">=</span> <span class="n">sleep_seconds</span>
+                    <span class="p">)</span></div>
+
+<div class="viewcode-block" id="write_dict_to_csv"><a class="viewcode-back" href="../../dpypr.html#dpypr.main.write_dict_to_csv">[docs]</a><span class="k">def</span> <span class="nf">write_dict_to_csv</span><span class="p">(</span>
+        <span class="n">globals_dict</span><span class="p">,</span> 
+        <span class="n">path</span><span class="p">,</span> 
+        <span class="n">file_prefix</span> <span class="o">=</span> <span class="s1">&#39;processed&#39;</span><span class="p">,</span>
+        <span class="n">messaging</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+        <span class="n">sleep_seconds</span> <span class="o">=</span> <span class="mf">0.1</span>
+    <span class="p">):</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    - Writes all objects beginning with &#39;df\_&#39; in global space to path as .csv. </span>
+<span class="sd">    - Prefix allows user to rename processed files upon writing.</span>
+<span class="sd">    - &#39;Messaging&#39; allows user to output number of records to console.</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">data</span> <span class="ow">in</span> <span class="n">globals_dict</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="k">if</span> <span class="n">name</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;df_&#39;</span><span class="p">):</span>
+            <span class="n">data</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">path</span><span class="si">}</span><span class="s1">/</span><span class="si">{</span><span class="n">file_prefix</span><span class="si">}</span><span class="s1">_</span><span class="si">{</span><span class="n">name</span><span class="p">[</span><span class="mi">3</span><span class="p">:]</span><span class="si">}</span><span class="s1">.csv&#39;</span><span class="p">)</span>
+            <span class="c1"># ouputs filenames and number or records to console</span>
+            <span class="k">if</span> <span class="n">messaging</span><span class="p">:</span>
+                <span class="n">sleep_log</span><span class="p">(</span>
+                    <span class="sa">f</span><span class="s1">&#39;- Wrote </span><span class="si">{</span><span class="n">file_prefix</span><span class="si">}</span><span class="s1">_</span><span class="si">{</span><span class="n">name</span><span class="p">[</span><span class="mi">3</span><span class="p">:]</span><span class="si">}</span><span class="s1"> (</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)</span><span class="si">:</span><span class="s1">,</span><span class="si">}</span><span class="s1">) records.&#39;</span><span class="p">,</span> 
+                    <span class="n">sleep_time</span> <span class="o">=</span> <span class="n">sleep_seconds</span>
+                    <span class="p">)</span></div>
+            
+<div class="viewcode-block" id="write_dict_to_xlsx"><a class="viewcode-back" href="../../dpypr.html#dpypr.main.write_dict_to_xlsx">[docs]</a><span class="k">def</span> <span class="nf">write_dict_to_xlsx</span><span class="p">(</span>
+        <span class="n">globals_dict</span><span class="p">,</span> 
+        <span class="n">path</span><span class="p">,</span> 
+        <span class="n">file_prefix</span> <span class="o">=</span> <span class="s1">&#39;processed&#39;</span><span class="p">,</span>
+        <span class="n">messaging</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+        <span class="n">sleep_seconds</span> <span class="o">=</span> <span class="mf">0.1</span>
+    <span class="p">):</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    - Writes all objects beginning with &#39;df\_&#39; in global space to path as .xlsx. </span>
+<span class="sd">    - Prefix allows user to rename processed files upon writing.</span>
+<span class="sd">    - &#39;Messaging&#39; allows user to output number of records to console.</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">data</span> <span class="ow">in</span> <span class="n">globals_dict</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="k">if</span> <span class="n">name</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;df_&#39;</span><span class="p">):</span>
+            <span class="n">data</span><span class="o">.</span><span class="n">to_excel</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">path</span><span class="si">}</span><span class="s1">/</span><span class="si">{</span><span class="n">file_prefix</span><span class="si">}</span><span class="s1">_</span><span class="si">{</span><span class="n">name</span><span class="p">[</span><span class="mi">3</span><span class="p">:]</span><span class="si">}</span><span class="s1">.xlsx&#39;</span><span class="p">)</span>
+            <span class="c1"># ouputs filenames and number or records to console</span>
+            <span class="k">if</span> <span class="n">messaging</span><span class="p">:</span>
+                <span class="n">sleep_log</span><span class="p">(</span>
+                    <span class="sa">f</span><span class="s1">&#39;- Wrote </span><span class="si">{</span><span class="n">file_prefix</span><span class="si">}</span><span class="s1">_</span><span class="si">{</span><span class="n">name</span><span class="p">[</span><span class="mi">3</span><span class="p">:]</span><span class="si">}</span><span class="s1"> (</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)</span><span class="si">:</span><span class="s1">,</span><span class="si">}</span><span class="s1">) records.&#39;</span><span class="p">,</span> 
+                    <span class="n">sleep_time</span> <span class="o">=</span> <span class="n">sleep_seconds</span>
+                    <span class="p">)</span></div>
+
+<div class="viewcode-block" id="write_dict_to_feather"><a class="viewcode-back" href="../../dpypr.html#dpypr.main.write_dict_to_feather">[docs]</a><span class="k">def</span> <span class="nf">write_dict_to_feather</span><span class="p">(</span>
+        <span class="n">globals_dict</span><span class="p">,</span> 
+        <span class="n">path</span><span class="p">,</span> 
+        <span class="n">file_prefix</span> <span class="o">=</span> <span class="s1">&#39;processed&#39;</span><span class="p">,</span>
+        <span class="n">messaging</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+        <span class="n">sleep_seconds</span> <span class="o">=</span> <span class="mf">0.1</span>
+    <span class="p">):</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    - Writes all objects beginning with &#39;df\_&#39; in global space to path as .feather. </span>
+<span class="sd">    - Prefix allows user to rename processed files upon writing.</span>
+<span class="sd">    - &#39;Messaging&#39; allows user to output number of records to console.</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">data</span> <span class="ow">in</span> <span class="n">globals_dict</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="k">if</span> <span class="n">name</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;df_&#39;</span><span class="p">):</span>
+            <span class="n">data</span><span class="o">.</span><span class="n">to_feather</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">path</span><span class="si">}</span><span class="s1">/</span><span class="si">{</span><span class="n">file_prefix</span><span class="si">}</span><span class="s1">_</span><span class="si">{</span><span class="n">name</span><span class="p">[</span><span class="mi">3</span><span class="p">:]</span><span class="si">}</span><span class="s1">.feather&#39;</span><span class="p">)</span>
+            <span class="c1"># ouputs filenames and number or records to console</span>
+            <span class="k">if</span> <span class="n">messaging</span><span class="p">:</span>
+                <span class="n">sleep_log</span><span class="p">(</span>
+                    <span class="sa">f</span><span class="s1">&#39;- Wrote </span><span class="si">{</span><span class="n">file_prefix</span><span class="si">}</span><span class="s1">_</span><span class="si">{</span><span class="n">name</span><span class="p">[</span><span class="mi">3</span><span class="p">:]</span><span class="si">}</span><span class="s1"> (</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)</span><span class="si">:</span><span class="s1">,</span><span class="si">}</span><span class="s1">) records.&#39;</span><span class="p">,</span> 
+                    <span class="n">sleep_time</span> <span class="o">=</span> <span class="n">sleep_seconds</span>
+                    <span class="p">)</span></div>
+            
+<div class="viewcode-block" id="write_dict_to_parquet"><a class="viewcode-back" href="../../dpypr.html#dpypr.main.write_dict_to_parquet">[docs]</a><span class="k">def</span> <span class="nf">write_dict_to_parquet</span><span class="p">(</span>
+        <span class="n">globals_dict</span><span class="p">,</span> 
+        <span class="n">path</span><span class="p">,</span> 
+        <span class="n">file_prefix</span> <span class="o">=</span> <span class="s1">&#39;processed&#39;</span><span class="p">,</span>
+        <span class="n">messaging</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+        <span class="n">sleep_seconds</span> <span class="o">=</span> <span class="mf">0.1</span>
+    <span class="p">):</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    - Writes all objects beginning with &#39;df\_&#39; in global space to path as .parquet. </span>
+<span class="sd">    - Prefix allows user to rename processed files upon writing.</span>
+<span class="sd">    - &#39;Messaging&#39; allows user to output number of records to console.</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">data</span> <span class="ow">in</span> <span class="n">globals_dict</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="k">if</span> <span class="n">name</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;df_&#39;</span><span class="p">):</span>
+            <span class="n">data</span><span class="o">.</span><span class="n">to_parquet</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">path</span><span class="si">}</span><span class="s1">/</span><span class="si">{</span><span class="n">file_prefix</span><span class="si">}</span><span class="s1">_</span><span class="si">{</span><span class="n">name</span><span class="p">[</span><span class="mi">3</span><span class="p">:]</span><span class="si">}</span><span class="s1">.parquet&#39;</span><span class="p">)</span>
+            <span class="c1"># ouputs filenames and number or records to console</span>
+            <span class="k">if</span> <span class="n">messaging</span><span class="p">:</span>
+                <span class="n">sleep_log</span><span class="p">(</span>
+                    <span class="sa">f</span><span class="s1">&#39;- Wrote </span><span class="si">{</span><span class="n">file_prefix</span><span class="si">}</span><span class="s1">_</span><span class="si">{</span><span class="n">name</span><span class="p">[</span><span class="mi">3</span><span class="p">:]</span><span class="si">}</span><span class="s1"> (</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)</span><span class="si">:</span><span class="s1">,</span><span class="si">}</span><span class="s1">) records.&#39;</span><span class="p">,</span> 
+                    <span class="n">sleep_time</span> <span class="o">=</span> <span class="n">sleep_seconds</span>
+                    <span class="p">)</span></div>
+            
+<div class="viewcode-block" id="write_dict_to_pickle"><a class="viewcode-back" href="../../dpypr.html#dpypr.main.write_dict_to_pickle">[docs]</a><span class="k">def</span> <span class="nf">write_dict_to_pickle</span><span class="p">(</span>
+        <span class="n">globals_dict</span><span class="p">,</span> 
+        <span class="n">path</span><span class="p">,</span> 
+        <span class="n">file_prefix</span> <span class="o">=</span> <span class="s1">&#39;processed&#39;</span><span class="p">,</span>
+        <span class="n">messaging</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+        <span class="n">sleep_seconds</span> <span class="o">=</span> <span class="mf">0.1</span>
+    <span class="p">):</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    - Writes all objects beginning with &#39;df\_&#39; in global space to path as .pickle. </span>
+<span class="sd">    - Prefix allows user to rename processed files upon writing.</span>
+<span class="sd">    - &#39;Messaging&#39; allows user to output number of records to console.</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">data</span> <span class="ow">in</span> <span class="n">globals_dict</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="k">if</span> <span class="n">name</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;df_&#39;</span><span class="p">):</span>
+            <span class="n">data</span><span class="o">.</span><span class="n">to_pickle</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">path</span><span class="si">}</span><span class="s1">/</span><span class="si">{</span><span class="n">file_prefix</span><span class="si">}</span><span class="s1">_</span><span class="si">{</span><span class="n">name</span><span class="p">[</span><span class="mi">3</span><span class="p">:]</span><span class="si">}</span><span class="s1">.pickle&#39;</span><span class="p">)</span>
+            <span class="c1"># ouputs filenames and number or records to console</span>
+            <span class="k">if</span> <span class="n">messaging</span><span class="p">:</span>
+                <span class="n">sleep_log</span><span class="p">(</span>
+                    <span class="sa">f</span><span class="s1">&#39;- Wrote </span><span class="si">{</span><span class="n">file_prefix</span><span class="si">}</span><span class="s1">_</span><span class="si">{</span><span class="n">name</span><span class="p">[</span><span class="mi">3</span><span class="p">:]</span><span class="si">}</span><span class="s1"> (</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)</span><span class="si">:</span><span class="s1">,</span><span class="si">}</span><span class="s1">) records.&#39;</span><span class="p">,</span> 
+                    <span class="n">sleep_time</span> <span class="o">=</span> <span class="n">sleep_seconds</span>
+                    <span class="p">)</span>         </div>
+                
+                
+<span class="c1"># Diagnostics #################################################################</span>
+<div class="viewcode-block" id="fetch_all_sqlite_tables"><a class="viewcode-back" href="../../dpypr.html#dpypr.main.fetch_all_sqlite_tables">[docs]</a><span class="k">def</span> <span class="nf">fetch_all_sqlite_tables</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Returns all table names present in a sqlite database as a list.</span>
+<span class="sd">    r&#39;&#39;&#39;</span>
+    <span class="n">conn</span> <span class="o">=</span> <span class="n">sqlite3</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+    <span class="n">cur</span> <span class="o">=</span> <span class="n">conn</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+    <span class="c1"># queries all tables in database</span>
+    <span class="n">cur</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s1">&#39;&#39;&#39;</span>
+<span class="s1">        SELECT name </span>
+<span class="s1">        FROM sqlite_master </span>
+<span class="s1">        WHERE type = &#39;table&#39;;</span>
+<span class="s1">    &#39;&#39;&#39;</span><span class="p">)</span>
+    <span class="n">table_names</span> <span class="o">=</span> <span class="n">cur</span><span class="o">.</span><span class="n">fetchall</span><span class="p">()</span>
+    <span class="n">table_list</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">table</span> <span class="ow">in</span> <span class="n">table_names</span><span class="p">:</span>
+        <span class="c1"># gets first element of each tuple in list of tuples (e.g. table name)</span>
+        <span class="n">table_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">table</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+    <span class="k">return</span> <span class="n">table_list</span></div>
+    
+<div class="viewcode-block" id="fetch_all_global_df"><a class="viewcode-back" href="../../dpypr.html#dpypr.main.fetch_all_global_df">[docs]</a><span class="k">def</span> <span class="nf">fetch_all_global_df</span><span class="p">(</span><span class="n">globals_dict</span><span class="p">):</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Returns all objects beginning with &#39;df\_&#39; in global space as a list.</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">list_df</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">globals_dict</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">name</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;df_&#39;</span><span class="p">):</span>
+            <span class="n">list_df</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">list_df</span></div>
+
+<div class="viewcode-block" id="sleep_log"><a class="viewcode-back" href="../../dpypr.html#dpypr.main.sleep_log">[docs]</a><span class="k">def</span> <span class="nf">sleep_log</span><span class="p">(</span><span class="n">message</span><span class="p">,</span> <span class="n">sleep_time</span> <span class="o">=</span> <span class="mi">0</span><span class="p">):</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Outputs info logging mesage to console with variable sleep timer.</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="n">sleep_time</span><span class="p">)</span>
+    <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="n">message</span><span class="p">)</span></div>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, James Buchanan.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
