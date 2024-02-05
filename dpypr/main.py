@@ -1,8 +1,3 @@
-'''
-Pyped is a module containing functions useful to data pipeline
-construction, maintenance, and testing in Python.
-'''
-
 # Dependencies ################################################################
 import pandas as pd
 import os
@@ -193,6 +188,80 @@ def unpack_data_dictionary(
                 sleep_time = sleep_seconds
                 )
 
+
+# Data Writing ################################################################
+def write_json_global_df(path, file_prefix = 'processed'):
+    '''
+    Writes all objects beginning with 'df_' in global space to path as .json. 
+    Modifier allows user to rename processed files with different prefix, 
+    'processed' by default.
+    '''
+    globals_dict = globals()
+    for name, data in globals_dict.items():
+        if name.startswith('df_'):
+            data.to_json(path + '/' + file_prefix + '_' + name[3:] + '.json')
+
+def write_csv_global_df(path, file_prefix = 'processed'):
+    '''
+    Writes all objects beginning with 'df_' in global space to path as .csv. 
+    Modifier allows user to rename processed files with different prefix, 
+    'processed' by default.
+    '''
+    globals_dict = globals()
+    for name, data in globals_dict.items():
+        if name.startswith('df_'):
+            data.to_csv(path + '/' + file_prefix + '_' + name[3:] + '.csv')
+            
+def write_xlsx_global_df(path, file_prefix = 'processed'):
+    '''
+    Writes all objects beginning with 'df_' in global space to path as .xlsx. 
+    Modifier allows user to rename processed files with different prefix, 
+    'processed' by default.
+    '''
+    globals_dict = globals()
+    for name, data in globals_dict.items():
+        if name.startswith('df_'):
+            data.to_excel(path + '/' + file_prefix + '_' + name[3:] + '.xlsx')
+
+def write_feather_global_df(path, file_prefix = 'processed'):
+    '''
+    Writes all objects beginning with 'df_' in global space to path as 
+    .feather. Modifier allows user to rename processed files with different 
+    prefix, 'processed' by default.
+    '''
+    globals_dict = globals()
+    for name, data in globals_dict.items():
+        if name.startswith('df_'):
+            data.to_feather(
+                path + '/' + file_prefix + '_' + name[3:] + '.feather'
+            )
+            
+def write_parquet_global_df(path, file_prefix = 'processed'):
+    '''
+    Writes all objects beginning with 'df_' in global space to path as 
+    .parquet. Modifier allows user to rename processed files with different 
+    prefix, 'processed' by default.
+    '''
+    globals_dict = globals()
+    for name, data in globals_dict.items():
+        if name.startswith('df_'):
+            data.to_parquet(
+                path + '/' + file_prefix + '_' + name[3:] + '.parquet'
+            )
+            
+def write_pickle_global_df(path, file_prefix = 'processed'):
+    '''
+    Writes all objects beginning with 'df_' in global space to path as 
+    .pickle. Modifier allows user to rename processed files with different 
+    prefix, 'processed' by default.
+    '''
+    globals_dict = globals()
+    for name, data in globals_dict.items():
+        if name.startswith('df_'):
+            data.to_pickle(
+                path + '/' + file_prefix + '_' + name[3:] + '.pickle'
+            )          
+                
                 
 # Diagnostics and Information #################################################
 def fetch_all_sqlite_tables(db_path, print_names = False):
@@ -214,6 +283,15 @@ def fetch_all_sqlite_tables(db_path, print_names = False):
         return table_names
     else:
         return table_names
+    
+def fetch_global_df():
+    '''
+    Lists all objects beginning with 'df_' in global space.
+    '''
+    globals_dict = globals()
+    for name in globals_dict:
+        if name.startswith('df_'):
+            print(name)
 
 def sleep_log(message, sleep_time = 0):
     '''

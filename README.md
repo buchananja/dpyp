@@ -11,7 +11,6 @@
 analysing data.
 
 #### Aims:
-- Build common data manipulation procedures with clear syntax (e.g. select & 
-rename columns, groupby & aggregate, format headers, replace nulls with zeros, 
-etc.).
-r
+- Build common data manipulation procedures with clear syntax.
+- Build robust testing and error handling.
+- Allow customisation within functions for flexibility and ease of use.
