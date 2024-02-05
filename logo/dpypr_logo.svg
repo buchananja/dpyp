@@ -27,8 +27,8 @@
      inkscape:deskcolor="#505050"
      inkscape:document-units="px"
      inkscape:zoom="0.41012193"
-     inkscape:cx="533.98753"
-     inkscape:cy="493.7556"
+     inkscape:cx="448.64706"
+     inkscape:cy="608.35567"
      inkscape:window-width="1280"
      inkscape:window-height="657"
      inkscape:window-x="-8"
@@ -112,20 +112,20 @@
     <text
        xml:space="preserve"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:173.333px;line-height:0;font-family:'Roboto Mono';-inkscape-font-specification:'Roboto Mono';letter-spacing:0px;word-spacing:0px;fill:#477ccb;fill-opacity:1;stroke-width:1.15858"
-       x="-45.867836"
-       y="663.00647"
+       x="-46.366669"
+       y="671.33813"
        id="text12"
        transform="matrix(0.83560084,-0.14921554,0.19635558,1.1616799,0,0)"><tspan
          sodipodi:role="line"
          id="tspan12"
-         x="-45.867836"
-         y="663.00647"
+         x="-46.366669"
+         y="671.33813"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:173.333px;line-height:0;font-family:NewComputerModernMono10;-inkscape-font-specification:NewComputerModernMono10;letter-spacing:0px;word-spacing:0px;fill:#477ccb;fill-opacity:1;stroke-width:1.15858"
          rotate="0 0 0 0 0 0 0 0 0 0">101010101</tspan></text>
     <path
        id="path3"
-       style="fill:#479c9c;fill-opacity:1;stroke-width:0.635836"
-       d="m 1019.4033,419.18283 -436.72613,77.72508 0.018,0.17663 a 144.6415,71.286402 82.506446 0 1 83.57117,121.1163 144.6415,71.286402 82.506446 0 1 -40.136,162.86536 l 422.47907,-75.18853 z" />
+       style="fill:#479c9c;fill-opacity:1;stroke-width:0.626354"
+       d="m 1006.4748,419.18283 -423.79763,77.72508 0.0175,0.17663 a 144.57103,69.209812 82.85827 0 1 81.09719,121.1163 144.57103,69.209812 82.85827 0 1 -38.94784,162.86536 l 409.97228,-75.18853 z" />
     <path
        id="path23"
        style="fill:#e9f0f8;fill-opacity:1;stroke-width:0.979204"
