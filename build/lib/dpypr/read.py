@@ -1,9 +1,13 @@
+'''
+The 'read' module contains functionality for reading data of various datatypes
+into data pipelines.
+'''
+
 # Dependencies ################################################################
 import pandas as pd
 import os
 import sqlite3
 import dpypr as dp
-
 
 # Data Loading ################################################################
 def read_all_json(path):
@@ -13,12 +17,14 @@ def read_all_json(path):
     df_{filename}.
     '''
     files = os.listdir(path)
-    data_dictionary = {}
+    data_dictionary = dict()
     for file in files:
         if file.endswith('.json'):
             df = pd.read_json(os.path.join(path, file))
             filename = os.path.splitext(file)[0]
             data_dictionary[f'df_{filename}'] = df
+    if not data_dictionary:
+        dp.sleep_log('No files read.')
     return data_dictionary
 
 def read_all_csv(path):
@@ -28,12 +34,14 @@ def read_all_csv(path):
     df_{filename}.
     '''
     files = os.listdir(path)
-    data_dictionary = {}
+    data_dictionary = dict()
     for file in files:
         if file.endswith('.csv'):
             df = pd.read_csv(os.path.join(path, file))
             filename = os.path.splitext(file)[0]
             data_dictionary[f'df_{filename}'] = df
+    if not data_dictionary:
+        dp.sleep_log('No files read.')
     return data_dictionary
 
 def read_all_xlsx(path):
@@ -43,12 +51,14 @@ def read_all_xlsx(path):
     df_{filename}.
     '''
     files = os.listdir(path)
-    data_dictionary = {}
+    data_dictionary = dict()
     for file in files:
         if file.endswith('.xlsx'):
             df = pd.read_excel(os.path.join(path, file))
             filename = os.path.splitext(file)[0]
             data_dictionary[f'df_{filename}'] = df
+    if not data_dictionary:
+        dp.sleep_log('No files read.')
     return data_dictionary
 
 def read_all_feather(path):
@@ -58,12 +68,14 @@ def read_all_feather(path):
     df_{filename}.
     '''
     files = os.listdir(path)
-    data_dictionary = {}
+    data_dictionary = dict()
     for file in files:
         if file.endswith('.feather'):
             df = pd.read_feather(os.path.join(path, file))
             filename = os.path.splitext(file)[0]
             data_dictionary[f'df_{filename}'] = df
+    if not data_dictionary:
+        dp.sleep_log('No files read.')
     return data_dictionary
 
 def read_all_parquet(path):
@@ -73,12 +85,14 @@ def read_all_parquet(path):
     df_{filename}.
     '''
     files = os.listdir(path)
-    data_dictionary = {}
+    data_dictionary = dict()
     for file in files:
         if file.endswith('.parquet'):
             df = pd.read_parquet(os.path.join(path, file))
             filename = os.path.splitext(file)[0]
             data_dictionary[f'df_{filename}'] = df
+    if not data_dictionary:
+        dp.sleep_log('No files read.')
     return data_dictionary
 
 def read_all_pickle(path):
@@ -88,12 +102,14 @@ def read_all_pickle(path):
     df_{filename}.
     '''
     files = os.listdir(path)
-    data_dictionary = {}
+    data_dictionary = dict()
     for file in files:
         if file.endswith('.pickle'):
             df = pd.read_pickle(os.path.join(path, file))
             filename = os.path.splitext(file)[0]
             data_dictionary[f'df_{filename}'] = df
+    if not data_dictionary:
+        dp.sleep_log('No files read.')
     return data_dictionary
               
 def read_all_sqlite(path):
@@ -110,12 +126,14 @@ def read_all_sqlite(path):
     ''')
     table_names = cur.fetchall()
     
-    data_dictionary = {}
+    data_dictionary = dict()
     for table_name in table_names:
         # selects everything from each table.
         query = f"SELECT * FROM {table_name[0]}"
         data_dictionary[table_name[0]] = pd.read_sql_query(query, conn)
     conn.close()
+    if not data_dictionary:
+        dp.sleep_log('No files read.')
     return data_dictionary     
 
 def gather_data_dictionary(globals_dict):
@@ -127,6 +145,8 @@ def gather_data_dictionary(globals_dict):
     for name, data in globals_dict.items():
         if name.startswith('df_'):
             data_dictionary.update({name: data})
+    if not data_dictionary:
+        dp.sleep_log('No files read.')
     return data_dictionary
 
 def unpack_data_dictionary(

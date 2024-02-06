@@ -1,8 +1,8 @@
 Metadata-Version: 2.1
 Name: dpypr
 Version: 1.0.0
-Summary: (data-piper) a data pipeline convenience module for Python.
-Home-page: https://github.com/buchananja/pyped
+Summary: (data-piper) a data pipeline convenience tool for Python
+Home-page: https://github.com/buchananja/dpypr
 Author: James Buchanan
 Author-email: buchananja.github@pm.me
 License: MIT

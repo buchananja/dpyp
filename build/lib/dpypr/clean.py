@@ -1,6 +1,10 @@
+'''
+The 'clean' module contains functionality for cleaning, formatting, and
+standardising dataframes.
+'''
+
 # Dependencies ################################################################
 import pandas as pd
-
 
 # Data Cleaning ###############################################################
 def headers_to_snakecase(df, uppercase = False):

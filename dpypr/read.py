@@ -23,6 +23,8 @@ def read_all_json(path):
             df = pd.read_json(os.path.join(path, file))
             filename = os.path.splitext(file)[0]
             data_dictionary[f'df_{filename}'] = df
+    if not data_dictionary:
+        dp.sleep_log('No files read.')
     return data_dictionary
 
 def read_all_csv(path):
@@ -38,6 +40,8 @@ def read_all_csv(path):
             df = pd.read_csv(os.path.join(path, file))
             filename = os.path.splitext(file)[0]
             data_dictionary[f'df_{filename}'] = df
+    if not data_dictionary:
+        dp.sleep_log('No files read.')
     return data_dictionary
 
 def read_all_xlsx(path):
@@ -53,6 +57,8 @@ def read_all_xlsx(path):
             df = pd.read_excel(os.path.join(path, file))
             filename = os.path.splitext(file)[0]
             data_dictionary[f'df_{filename}'] = df
+    if not data_dictionary:
+        dp.sleep_log('No files read.')
     return data_dictionary
 
 def read_all_feather(path):
@@ -68,6 +74,8 @@ def read_all_feather(path):
             df = pd.read_feather(os.path.join(path, file))
             filename = os.path.splitext(file)[0]
             data_dictionary[f'df_{filename}'] = df
+    if not data_dictionary:
+        dp.sleep_log('No files read.')
     return data_dictionary
 
 def read_all_parquet(path):
@@ -83,6 +91,8 @@ def read_all_parquet(path):
             df = pd.read_parquet(os.path.join(path, file))
             filename = os.path.splitext(file)[0]
             data_dictionary[f'df_{filename}'] = df
+    if not data_dictionary:
+        dp.sleep_log('No files read.')
     return data_dictionary
 
 def read_all_pickle(path):
@@ -98,6 +108,8 @@ def read_all_pickle(path):
             df = pd.read_pickle(os.path.join(path, file))
             filename = os.path.splitext(file)[0]
             data_dictionary[f'df_{filename}'] = df
+    if not data_dictionary:
+        dp.sleep_log('No files read.')
     return data_dictionary
               
 def read_all_sqlite(path):
@@ -120,6 +132,8 @@ def read_all_sqlite(path):
         query = f"SELECT * FROM {table_name[0]}"
         data_dictionary[table_name[0]] = pd.read_sql_query(query, conn)
     conn.close()
+    if not data_dictionary:
+        dp.sleep_log('No files read.')
     return data_dictionary     
 
 def gather_data_dictionary(globals_dict):
@@ -131,6 +145,8 @@ def gather_data_dictionary(globals_dict):
     for name, data in globals_dict.items():
         if name.startswith('df_'):
             data_dictionary.update({name: data})
+    if not data_dictionary:
+        dp.sleep_log('No files read.')
     return data_dictionary
 
 def unpack_data_dictionary(
