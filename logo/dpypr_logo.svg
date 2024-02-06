@@ -27,8 +27,8 @@
      inkscape:deskcolor="#505050"
      inkscape:document-units="px"
      inkscape:zoom="0.41012193"
-     inkscape:cx="448.64706"
-     inkscape:cy="608.35567"
+     inkscape:cx="614.45141"
+     inkscape:cy="542.52159"
      inkscape:window-width="1280"
      inkscape:window-height="657"
      inkscape:window-x="-8"
@@ -102,13 +102,13 @@
        ry="143.66586"
        transform="matrix(0.95345773,-0.3015267,0.18189413,0.98331812,0,0)" />
     <ellipse
-       style="fill:#142c2c;fill-opacity:1;stroke-width:0.574512"
+       style="fill:#142c2c;fill-opacity:1;stroke-width:0.564502"
        id="ellipse2"
-       cx="491.72638"
-       cy="801.43744"
-       rx="64.868904"
-       ry="129.50116"
-       transform="matrix(0.95045967,-0.31084789,0.17537524,0.98450166,0,0)" />
+       cx="495.35281"
+       cy="807.09155"
+       rx="62.69828"
+       ry="129.35602"
+       transform="matrix(0.9468724,-0.32160949,0.1690566,0.98560634,0,0)" />
     <text
        xml:space="preserve"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:173.333px;line-height:0;font-family:'Roboto Mono';-inkscape-font-specification:'Roboto Mono';letter-spacing:0px;word-spacing:0px;fill:#477ccb;fill-opacity:1;stroke-width:1.15858"
