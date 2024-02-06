@@ -17,7 +17,7 @@ def read_all_json(path):
     df_{filename}.
     '''
     files = os.listdir(path)
-    data_dictionary = {}
+    data_dictionary = dict()
     for file in files:
         if file.endswith('.json'):
             df = pd.read_json(os.path.join(path, file))
@@ -32,7 +32,7 @@ def read_all_csv(path):
     df_{filename}.
     '''
     files = os.listdir(path)
-    data_dictionary = {}
+    data_dictionary = dict()
     for file in files:
         if file.endswith('.csv'):
             df = pd.read_csv(os.path.join(path, file))
@@ -47,7 +47,7 @@ def read_all_xlsx(path):
     df_{filename}.
     '''
     files = os.listdir(path)
-    data_dictionary = {}
+    data_dictionary = dict()
     for file in files:
         if file.endswith('.xlsx'):
             df = pd.read_excel(os.path.join(path, file))
@@ -62,7 +62,7 @@ def read_all_feather(path):
     df_{filename}.
     '''
     files = os.listdir(path)
-    data_dictionary = {}
+    data_dictionary = dict()
     for file in files:
         if file.endswith('.feather'):
             df = pd.read_feather(os.path.join(path, file))
@@ -77,7 +77,7 @@ def read_all_parquet(path):
     df_{filename}.
     '''
     files = os.listdir(path)
-    data_dictionary = {}
+    data_dictionary = dict()
     for file in files:
         if file.endswith('.parquet'):
             df = pd.read_parquet(os.path.join(path, file))
@@ -92,7 +92,7 @@ def read_all_pickle(path):
     df_{filename}.
     '''
     files = os.listdir(path)
-    data_dictionary = {}
+    data_dictionary = dict()
     for file in files:
         if file.endswith('.pickle'):
             df = pd.read_pickle(os.path.join(path, file))
@@ -114,7 +114,7 @@ def read_all_sqlite(path):
     ''')
     table_names = cur.fetchall()
     
-    data_dictionary = {}
+    data_dictionary = dict()
     for table_name in table_names:
         # selects everything from each table.
         query = f"SELECT * FROM {table_name[0]}"
