@@ -151,18 +151,30 @@ def gather_data_dictionary(globals_dict):
 
 def unpack_data_dictionary(
         data_dictionary, 
-        globals_dict = globals(), 
         sleep_seconds = 0, 
-        messaging = False
+        messaging = False,
+        global_output = False
     ):
     r'''
     Loads all data from data_dictionary into global variables with record 
     counts.
     '''
+    output_dictionary = dict()
     for key, value in data_dictionary.items():
-        globals_dict[f'df_{key}'] = value
-        if messaging:
-            dp.sleep_log(
-                    f'- Read df_{key} ({len(value):,}) records.', 
-                    sleep_time = sleep_seconds
-                )
+        if isinstance(value, pd.DataFrame):
+            if global_output:
+                globals[f'df_{key}'] = value
+                if messaging:
+                    dp.sleep_log(
+                            f'- Read df_{key} ({len(value):,}) records.', 
+                            sleep_time = sleep_seconds
+                        )
+            else:
+                output_dictionary[f'df_{key}'] = value
+                if messaging:
+                    dp.sleep_log(
+                            f'- Read df_{key} ({len(value):,}) records.', 
+                            sleep_time = sleep_seconds
+                        )
+    if output_dictionary:
+        return output_dictionary
