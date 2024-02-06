@@ -153,7 +153,7 @@ def unpack_data_dictionary(
         data_dictionary, 
         sleep_seconds = 0, 
         messaging = False,
-        global_output = False
+        global_out = False
     ):
     r'''
     Loads all data from data_dictionary into global variables with record 
@@ -162,7 +162,7 @@ def unpack_data_dictionary(
     output_dictionary = dict()
     for key, value in data_dictionary.items():
         if isinstance(value, pd.DataFrame):
-            if global_output:
+            if global_out:
                 globals[f'df_{key}'] = value
                 if messaging:
                     dp.sleep_log(

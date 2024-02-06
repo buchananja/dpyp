@@ -339,7 +339,7 @@ def test_unpack_data_dictionary(df_sample):
         'key_3': df_3,
         # 'key_4': ''
     }
-    output_dict = dp.unpack_data_dictionary(sample_dictionary, global_output = False)
+    output_dict = dp.unpack_data_dictionary(sample_dictionary, global_out = False)
     assert len(output_dict) == 3
     assert all(isinstance(data, pd.DataFrame) for data in output_dict.values())
     assert all(key in output_dict for key in ['df_key_1', 'df_key_2', 'df_key_3'])
