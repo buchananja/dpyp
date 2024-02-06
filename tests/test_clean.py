@@ -1,12 +1,13 @@
+'''
+This file tests whether the 'dpypr.clean' module is working correctly.
+'''
+
+# Dependencies ################################################################
 import pytest
 import pandas as pd
-import os
-import time
-import logging
-import sqlite3
 import dpypr as dp
 
-
+# Fixtures ####################################################################
 @pytest.fixture
 def sample_dataframe():
     df_sample = {
@@ -46,17 +47,27 @@ def sample_dataframe():
     df_sample = pd.DataFrame(df_sample)
     return df_sample
     
-
-# Data Cleaning ################################################################  
-def test_headers_to_snakecase_is_lower(sample_dataframe):
+    
+# Tests ####################################################################### 
+def test_headers_to_lower_snakecase_by_default(sample_dataframe):
     '''
-    Tests whether column headers correctly set to lower snakecase.
+    Tests whether column headers correctly set to lower snakecase when
+    'uppercase' argument is default.
     '''
     df = sample_dataframe
     df = dp.clean.headers_to_snakecase(df)
     assert all((col.islower() and ' ' not in col) for col in df.columns)
+    
+def test_headers_to_lower_snakecase_manually(sample_dataframe):
+    '''
+    Tests whether column headers correctly set to lower snakecase when
+    'uppercase' argument is set to False manually.
+    '''
+    df = sample_dataframe
+    df = dp.clean.headers_to_snakecase(df, uppercase = False)
+    assert all((col.islower() and ' ' not in col) for col in df.columns)
 
-def test_headers_to_snakecase_is_upper(sample_dataframe):
+def test_headers_to_upper_snakecase(sample_dataframe):
     '''
     Tests whether column headers correctly set to upper snakecase.
     '''

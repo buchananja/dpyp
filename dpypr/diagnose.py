@@ -1,8 +1,12 @@
+'''
+The 'diagnose' module contains functionality for monitoring data pipelines and
+outputting useful information to the console.
+'''
+
 # Dependencies ################################################################
 import time
 import logging
 import sqlite3
-
 
 # Diagnostics #################################################################
 def fetch_all_sqlite_tables(path):

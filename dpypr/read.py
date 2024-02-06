@@ -1,9 +1,13 @@
+'''
+The 'read' module contains functionality for reading data of various datatypes
+into data pipelines.
+'''
+
 # Dependencies ################################################################
 import pandas as pd
 import os
 import sqlite3
 import dpypr as dp
-
 
 # Data Loading ################################################################
 def read_all_json(path):

@@ -1,9 +1,13 @@
+'''
+The 'write' module contains functionality for writing data of various datatypes
+from data pipelines.
+'''
+
 # Dependencies ################################################################
 import dpypr as dp
 import sqlite3
 from sqlite3 import OperationalError
 import os
-
 
 # Data Writing ################################################################
 def write_dict_to_json(
