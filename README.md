@@ -2,7 +2,7 @@
 *(data-piper) a data pipeline convenience tool for Python*
 
 <p align = "center">
-  <img src = "logo/dpypr_logo.svg" alt = "image" width = "300" height = "300">
+  <img src = "logo/dpypr_logo.png" alt = "image" width = "300" height = "300">
 </p>
 
 ## About:
