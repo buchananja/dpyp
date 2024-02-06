@@ -7,7 +7,6 @@ This file tests whether the 'dpypr.read' module is working correctly.
 import pytest
 import pandas as pd
 import dpypr as dp
-import warnings
 
     
 # Fixtures ####################################################################
@@ -291,3 +290,36 @@ def test_read_all_pickle_reads_correct_multiple_files(tmp_path, df_sample):
     assert data_dictionary['df_test_2'].equals(df_2)
     assert data_dictionary['df_test_3'].equals(df_3)
     assert 'df_test_4' not in data_dictionary
+    
+# gather_data_dictionary ######################################################
+def test_gather_data_dictionary_gets_correct_objects(df_sample):
+    '''
+    - Ensures all pandas dataframes in input dictionary beginning with 'df\_' 
+    are correctly inputted into the data_dictionary. 
+    - Ensures non-dataframes and invalid names are ignored.
+    '''
+    df_1 = df_sample
+    df_2 = df_sample
+    df_3 = df_sample
+    df_4 = df_sample
+    sample_dictionary = {
+        'df_1_key': df_1, 
+        'df_2_key': df_2, 
+        'df_3_key': df_3,
+        'invalid': df_4
+    }
+    bad_dictionary = {
+        'a': ['nonsense'], 
+        'b': 2222, 
+        'c': '',
+        'd': '!'
+    }
+    data_dictionary = dp.gather_data_dictionary(sample_dictionary)
+    bad_data_dictionary = dp.gather_data_dictionary(bad_dictionary)
+    assert len(data_dictionary) == 3
+    assert all(isinstance(data, pd.DataFrame) for data in data_dictionary.values())
+    assert 'invalid' not in data_dictionary.keys()
+    assert all(key in data_dictionary for key in ['df_1_key', 'df_2_key', 'df_3_key'])
+    assert len(bad_data_dictionary) == 0
+       
+# unpack_data_dictionary ######################################################

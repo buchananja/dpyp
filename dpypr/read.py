@@ -138,15 +138,15 @@ def read_all_sqlite(path):
 
 def gather_data_dictionary(globals_dict):
     r'''
-    Packages all objects in input dictionary beginning with 'df\_' and returns
+    Packages all pandas dataframes in input dictionary beginning with 'df\_' and returns
     output dictionary.
     '''
     data_dictionary = dict()
     for name, data in globals_dict.items():
-        if name.startswith('df_'):
+        if name.startswith('df_') and isinstance(data, pd.DataFrame):
             data_dictionary.update({name: data})
     if not data_dictionary:
-        dp.sleep_log('No files read.')
+        dp.sleep_log('No files found.')
     return data_dictionary
 
 def unpack_data_dictionary(
@@ -163,6 +163,6 @@ def unpack_data_dictionary(
         globals_dict[f'df_{key}'] = value
         if messaging:
             dp.sleep_log(
-                f'- Read df_{key} ({len(value):,}) records.', 
-                sleep_time = sleep_seconds
+                    f'- Read df_{key} ({len(value):,}) records.', 
+                    sleep_time = sleep_seconds
                 )
