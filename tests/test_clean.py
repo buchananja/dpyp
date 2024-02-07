@@ -15,6 +15,7 @@ def df_sample():
     '''
     Basic example of 'student number planning'-style data.
     '''
+    
     df = {
         'Student Number': [
             123456,
@@ -71,6 +72,7 @@ def test_headers_to_lower_snakecase_by_default(df_sample):
     df = dp.headers_to_snakecase(df)
     assert all((col.islower() and ' ' not in col) for col in df.columns)
     
+    
 def test_headers_to_lower_snakecase_manually(df_sample):
     '''
     Tests whether column headers correctly set to lower snakecase when
@@ -80,6 +82,7 @@ def test_headers_to_lower_snakecase_manually(df_sample):
     df = dp.headers_to_snakecase(df, uppercase = False)
     assert all((col.islower() and ' ' not in col) for col in df.columns)
 
+
 def test_headers_to_upper_snakecase(df_sample):
     '''
     Tests whether column headers correctly set to upper snakecase.
@@ -87,6 +90,7 @@ def test_headers_to_upper_snakecase(df_sample):
     df = df_sample
     df = dp.headers_to_snakecase(df, uppercase = True)
     assert all((col.isupper() and ' ' not in col) for col in df.columns)
+    
     
 def test_values_to_lowercase(df_sample):
     '''
@@ -103,6 +107,7 @@ def test_values_to_lowercase(df_sample):
         else True
     ).all()
 
+
 def test_values_to_uppercase(df_sample):
     '''
     Tests whether dataframe values correctly set to uppercase.
@@ -117,6 +122,7 @@ def test_values_to_uppercase(df_sample):
         if col.dtype == 'object'
         else True
     ).all()
+    
     
 def test_values_to_lower_snakecase_by_default(df_sample):
     '''
@@ -133,6 +139,7 @@ def test_values_to_lower_snakecase_by_default(df_sample):
         if col.dtype == 'object'
         else True
     ).all()
+    
     
 def test_values_to_lower_snakecase_manually(df_sample):
     '''
@@ -151,6 +158,7 @@ def test_values_to_lower_snakecase_manually(df_sample):
         else True
     ).all()
     
+    
 def test_values_to_upper_snakecase(df_sample):
     '''
     Tests whether dataframe values correctly set to upper snakecase.
@@ -167,6 +175,7 @@ def test_values_to_upper_snakecase(df_sample):
         else True
     ).all()
     
+    
 def test_values_strip_whitespace(df_sample):
     '''
     Tests whether whitespace has been correctly removed from dataframe values.
@@ -179,6 +188,7 @@ def test_values_strip_whitespace(df_sample):
         if col.dtype == 'object'
         else True
     ).all()
+        
         
 def test_optimise_numeric_datatypes(df_sample):
     '''

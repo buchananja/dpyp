@@ -12,6 +12,7 @@ import dpypr as dp
 # Fixtures ####################################################################
 @pytest.fixture
 def df_sample():
+    
     df = {
         'Student Number': [
             123456,
@@ -51,6 +52,8 @@ def df_sample():
 
 
 # Tests #######################################################################
+# def read_everything(tmp_path)
+
 
 # read_all_json ###############################################################
 def test_read_all_json_empty_directory(tmp_path):
@@ -59,6 +62,7 @@ def test_read_all_json_empty_directory(tmp_path):
     '''
     data_dictionary = dp.read_all_json(tmp_path)
     assert data_dictionary == dict()
+
 
 def test_read_all_json_reads_correct_files(tmp_path, df_sample):
     '''
@@ -69,6 +73,7 @@ def test_read_all_json_reads_correct_files(tmp_path, df_sample):
     df.to_json(tmp_path/'test.json')
     data_dictionary = dp.read_all_json(tmp_path)
     assert data_dictionary['df_test'].equals(df)
+    
     
 def test_read_all_json_reads_correct_multiple_files(tmp_path, df_sample):
     '''
@@ -100,6 +105,7 @@ def test_read_all_csv_empty_directory(tmp_path):
     data_dictionary = dp.read_all_csv(tmp_path)
     assert data_dictionary == dict()
 
+
 def test_read_all_csv_reads_correct_files(tmp_path, df_sample):
     '''
     Tests that read_all_csv correclty reads csv files and assigns correct
@@ -109,6 +115,7 @@ def test_read_all_csv_reads_correct_files(tmp_path, df_sample):
     df.to_csv(tmp_path/'test.csv', index = False)
     data_dictionary = dp.read_all_csv(tmp_path)
     assert data_dictionary['df_test'].equals(df)
+    
     
 def test_read_all_csv_reads_correct_multiple_files(tmp_path, df_sample):
     '''
@@ -140,6 +147,7 @@ def test_read_all_xlsx_empty_directory(tmp_path):
     data_dictionary = dp.read_all_xlsx(tmp_path)
     assert data_dictionary == dict()
 
+
 def test_read_all_xlsx_reads_correct_files(tmp_path, df_sample):
     '''
     Tests that read_all_xlsx correclty reads xlsx files and assigns correct
@@ -149,6 +157,7 @@ def test_read_all_xlsx_reads_correct_files(tmp_path, df_sample):
     df.to_excel(tmp_path/'test.xlsx', index = False)
     data_dictionary = dp.read_all_xlsx(tmp_path)
     assert data_dictionary['df_test'].equals(df)
+    
     
 def test_read_all_xlsx_reads_correct_multiple_files(tmp_path, df_sample):
     '''
@@ -180,6 +189,7 @@ def test_read_all_feather_empty_directory(tmp_path):
     data_dictionary = dp.read_all_feather(tmp_path)
     assert data_dictionary == dict()
 
+
 def test_read_all_feather_reads_correct_files(tmp_path, df_sample):
     '''
     Tests that read_all_feather correclty reads feather files and assigns correct
@@ -189,6 +199,7 @@ def test_read_all_feather_reads_correct_files(tmp_path, df_sample):
     df.to_feather(tmp_path/'test.feather')
     data_dictionary = dp.read_all_feather(tmp_path)
     assert data_dictionary['df_test'].equals(df)
+    
     
 def test_read_all_feather_reads_correct_multiple_files(tmp_path, df_sample):
     '''
@@ -220,6 +231,7 @@ def test_read_all_parquet_empty_directory(tmp_path):
     data_dictionary = dp.read_all_parquet(tmp_path)
     assert data_dictionary == dict()
 
+
 def test_read_all_parquet_reads_correct_files(tmp_path, df_sample):
     '''
     Tests that read_all_parquet correclty reads parquet files and assigns correct
@@ -229,6 +241,7 @@ def test_read_all_parquet_reads_correct_files(tmp_path, df_sample):
     df.to_parquet(tmp_path/'test.parquet')
     data_dictionary = dp.read_all_parquet(tmp_path)
     assert data_dictionary['df_test'].equals(df)
+    
     
 def test_read_all_parquet_reads_correct_multiple_files(tmp_path, df_sample):
     '''
@@ -260,6 +273,7 @@ def test_read_all_pickle_empty_directory(tmp_path):
     data_dictionary = dp.read_all_pickle(tmp_path)
     assert data_dictionary == dict()
 
+
 def test_read_all_pickle_reads_correct_files(tmp_path, df_sample):
     '''
     Tests that read_all_pickle correclty reads pickle files and assigns correct
@@ -269,6 +283,7 @@ def test_read_all_pickle_reads_correct_files(tmp_path, df_sample):
     df.to_pickle(tmp_path/'test.pickle')
     data_dictionary = dp.read_all_pickle(tmp_path)
     assert data_dictionary['df_test'].equals(df)
+    
     
 def test_read_all_pickle_reads_correct_multiple_files(tmp_path, df_sample):
     '''
@@ -290,6 +305,7 @@ def test_read_all_pickle_reads_correct_multiple_files(tmp_path, df_sample):
     assert data_dictionary['df_test_2'].equals(df_2)
     assert data_dictionary['df_test_3'].equals(df_3)
     assert 'df_test_4' not in data_dictionary
+    
     
 # gather_data_dictionary ######################################################
 def test_gather_data_dictionary_gets_correct_objects(df_sample):
@@ -322,6 +338,7 @@ def test_gather_data_dictionary_gets_correct_objects(df_sample):
     assert all(key in data_dictionary for key in ['df_1_key', 'df_2_key', 'df_3_key'])
     assert len(bad_data_dictionary) == 0
        
+       
 # unpack_data_dictionary ######################################################
 def test_unpack_data_dictionary(df_sample):
     '''
@@ -340,6 +357,7 @@ def test_unpack_data_dictionary(df_sample):
     assert len(output_dict) == 3
     assert all(isinstance(data, pd.DataFrame) for data in output_dict.values())
     assert all(key in output_dict for key in ['df_key_1', 'df_key_2', 'df_key_3'])
+    
     
 def test_unpack_data_dictionary_global_out(df_sample):
     '''
