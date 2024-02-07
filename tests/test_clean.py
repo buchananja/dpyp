@@ -68,7 +68,7 @@ def test_headers_to_lower_snakecase_by_default(df_sample):
     'uppercase' argument is default.
     '''
     df = df_sample
-    df = dp.clean.headers_to_snakecase(df)
+    df = dp.headers_to_snakecase(df)
     assert all((col.islower() and ' ' not in col) for col in df.columns)
     
 def test_headers_to_lower_snakecase_manually(df_sample):
@@ -77,7 +77,7 @@ def test_headers_to_lower_snakecase_manually(df_sample):
     'uppercase' argument is set to False manually.
     '''
     df = df_sample
-    df = dp.clean.headers_to_snakecase(df, uppercase = False)
+    df = dp.headers_to_snakecase(df, uppercase = False)
     assert all((col.islower() and ' ' not in col) for col in df.columns)
 
 def test_headers_to_upper_snakecase(df_sample):
@@ -85,7 +85,7 @@ def test_headers_to_upper_snakecase(df_sample):
     Tests whether column headers correctly set to upper snakecase.
     '''
     df = df_sample
-    df = dp.clean.headers_to_snakecase(df, uppercase = True)
+    df = dp.headers_to_snakecase(df, uppercase = True)
     assert all((col.isupper() and ' ' not in col) for col in df.columns)
     
 def test_values_to_lowercase(df_sample):
@@ -93,7 +93,7 @@ def test_values_to_lowercase(df_sample):
     Tests whether dataframe values correctly set to lowercase.
     '''
     df = df_sample
-    df = dp.clean.values_to_lowercase(df)
+    df = dp.values_to_lowercase(df)
     
     # returns True if column is all lowercase or not object. Asserts if True.
     # i.e assert will only fail if columns contains uppercase letters.
@@ -108,7 +108,7 @@ def test_values_to_uppercase(df_sample):
     Tests whether dataframe values correctly set to uppercase.
     '''
     df = df_sample
-    df = dp.clean.values_to_uppercase(df)
+    df = dp.values_to_uppercase(df)
     
     # returns True if column is all uppercase or not object. Asserts if True.
     # i.e assert will only fail if columns contains lowercase letters.
@@ -123,7 +123,7 @@ def test_values_to_lower_snakecase_by_default(df_sample):
     Tests whether dataframe values correctly set to lower snakecase by default.
     '''
     df = df_sample
-    df = dp.clean.values_to_snakecase(df)
+    df = dp.values_to_snakecase(df)
     
     # returns True if column is all lowercase with spaces replaced by 
     # underscores or not object. Asserts if True.
@@ -140,7 +140,7 @@ def test_values_to_lower_snakecase_manually(df_sample):
     'uppercase' argument is set to False manually.
     '''
     df = df_sample
-    df = dp.clean.values_to_snakecase(df, uppercase = False)
+    df = dp.values_to_snakecase(df, uppercase = False)
     
     # returns True if column is all lowercase with spaces replaced by 
     # underscores or not object. Asserts if True.
@@ -156,7 +156,7 @@ def test_values_to_upper_snakecase(df_sample):
     Tests whether dataframe values correctly set to upper snakecase.
     '''
     df = df_sample
-    df = dp.clean.values_to_snakecase(df, uppercase = True)
+    df = dp.values_to_snakecase(df, uppercase = True)
     
     # returns True if column is all uppercase with spaces replaced by 
     # underscores or not object. Asserts if True.
@@ -172,7 +172,7 @@ def test_values_strip_whitespace(df_sample):
     Tests whether whitespace has been correctly removed from dataframe values.
     '''
     df = df_sample
-    df = dp.clean.values_to_snakecase(df, uppercase = True)
+    df = dp.values_to_snakecase(df, uppercase = True)
     
     assert df.apply(
         lambda col: (col.str.strip() if col.dtype == "object" else col).all()
@@ -188,7 +188,7 @@ def test_optimise_numeric_datatypes(df_sample):
     - Tests whether object values are ignored correcgtly.
     '''
     df = df_sample
-    df = dp.clean.optimise_numeric_datatypes(df)
+    df = dp.optimise_numeric_datatypes(df)
     
     assert df['Student Number'].dtype == 'int32'
     assert df['Fees'].dtype == 'float32'

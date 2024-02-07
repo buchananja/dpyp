@@ -138,31 +138,37 @@ def read_all_sqlite(path):
 
 def gather_data_dictionary(globals_dict):
     r'''
-    Packages all objects in input dictionary beginning with 'df\_' and returns
+    Packages all pandas dataframes in input dictionary beginning with 'df\_' and returns
     output dictionary.
     '''
     data_dictionary = dict()
     for name, data in globals_dict.items():
-        if name.startswith('df_'):
+        if name.startswith('df_') and isinstance(data, pd.DataFrame):
             data_dictionary.update({name: data})
     if not data_dictionary:
-        dp.sleep_log('No files read.')
+        dp.sleep_log('No files found.')
     return data_dictionary
 
 def unpack_data_dictionary(
-        data_dictionary, 
-        globals_dict = globals(), 
+        data_dictionary,
+        output_dictionary = '',
         sleep_seconds = 0, 
-        messaging = False
+        messaging = False,
     ):
     r'''
-    Loads all data from data_dictionary into global variables with record 
-    counts.
+    - Loads all dataframes from data_dictionary into output_dictionary if 
+    argument present, returns output_dictionary if not.
+    - Logs number of records to console for each file if messaging is True.
     '''
+    if not output_dictionary:
+        output_dictionary = dict()
+        
     for key, value in data_dictionary.items():
-        globals_dict[f'df_{key}'] = value
-        if messaging:
-            dp.sleep_log(
-                f'- Read df_{key} ({len(value):,}) records.', 
-                sleep_time = sleep_seconds
-                )
+            if isinstance(value, pd.DataFrame):
+                    output_dictionary[f'df_{key}'] = value
+                    if messaging:
+                        dp.sleep_log(
+                            f'- Read df_{key} ({len(value):,}) records.', 
+                            sleep_time = sleep_seconds
+                        )
+    return output_dictionary

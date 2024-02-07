@@ -326,20 +326,38 @@ def test_gather_data_dictionary_gets_correct_objects(df_sample):
 def test_unpack_data_dictionary(df_sample):
     '''
     - Tests whether all data in dictionary is successfully transferred to new
-    dictionary (typically globals()).
+    dictionary.
     - Tests whether names are correctly prefixed with 'df\_'.r
     '''
-    df_1 = df_sample
-    df_2 = df_sample
-    df_3 = df_sample
-    df_4 = df_sample
     sample_dictionary = {
-        'key_1': df_1, 
-        'key_2': df_2, 
-        'key_3': df_3,
-        # 'key_4': ''
+        'key_1': df_sample,
+        'key_2': df_sample,
+        'key_3': df_sample,
+        'key_4': ''
     }
-    output_dict = dp.unpack_data_dictionary(sample_dictionary, global_out = False)
+    output_dict = dp.unpack_data_dictionary(sample_dictionary)
+    print(output_dict)
     assert len(output_dict) == 3
     assert all(isinstance(data, pd.DataFrame) for data in output_dict.values())
     assert all(key in output_dict for key in ['df_key_1', 'df_key_2', 'df_key_3'])
+    
+def test_unpack_data_dictionary_global_out(df_sample):
+    '''
+    - Tests whether all data in dictionary is successfully transferred to 
+    globals().
+    - Tests whether names are correctly prefixed with 'df\_'.
+    - Tests whether all data from data_dictionary are dataframes.
+    '''
+    sample_dictionary = {
+        'key_1': df_sample,
+        'key_2': df_sample,
+        'key_3': df_sample,
+        'key_4': ''
+    }
+    dp.unpack_data_dictionary(sample_dictionary, output_dictionary = globals())
+    assert all(key in globals() for key in ['df_key_1', 'df_key_2', 'df_key_3'])
+    assert all(isinstance(globals()[key], pd.DataFrame) for key in ['df_key_1', 'df_key_2', 'df_key_3'])    
+    # cleaning data from globals
+    for key in ['df_key_1', 'df_key_2', 'df_key_3']:
+        if key in globals():
+            del globals()[key]

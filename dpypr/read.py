@@ -150,31 +150,25 @@ def gather_data_dictionary(globals_dict):
     return data_dictionary
 
 def unpack_data_dictionary(
-        data_dictionary, 
+        data_dictionary,
+        output_dictionary = '',
         sleep_seconds = 0, 
         messaging = False,
-        global_out = False
     ):
     r'''
-    Loads all data from data_dictionary into global variables with record 
-    counts.
+    - Loads all dataframes from data_dictionary into output_dictionary if 
+    argument present, returns output_dictionary if not.
+    - Logs number of records to console for each file if messaging is True.
     '''
-    output_dictionary = dict()
+    if not output_dictionary:
+        output_dictionary = dict()
+        
     for key, value in data_dictionary.items():
-        if isinstance(value, pd.DataFrame):
-            if global_out:
-                globals[f'df_{key}'] = value
-                if messaging:
-                    dp.sleep_log(
+            if isinstance(value, pd.DataFrame):
+                    output_dictionary[f'df_{key}'] = value
+                    if messaging:
+                        dp.sleep_log(
                             f'- Read df_{key} ({len(value):,}) records.', 
                             sleep_time = sleep_seconds
                         )
-            else:
-                output_dictionary[f'df_{key}'] = value
-                if messaging:
-                    dp.sleep_log(
-                            f'- Read df_{key} ({len(value):,}) records.', 
-                            sleep_time = sleep_seconds
-                        )
-    if output_dictionary:
-        return output_dictionary
+    return output_dictionary

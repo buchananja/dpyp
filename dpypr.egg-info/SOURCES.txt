@@ -12,6 +12,5 @@ dpypr.egg-info/dependency_links.txt
 dpypr.egg-info/requires.txt
 dpypr.egg-info/top_level.txt
 tests/test_clean.py
-tests/test_diagnose.py
 tests/test_read.py
 tests/test_write.py
