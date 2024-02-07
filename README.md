@@ -14,7 +14,7 @@ corresponding with dataframe values. This makes gathering, cleaning, and
 writing batches of data quick and simple.
 
 #### Use:
-- Dpypr allows users to gather target files from directories into data 
+- dpypr allows users to gather target files from directories into data 
 dictionaries (e.g. all ending in .csv, .xlsx, .parquet, etc.).
 - Users can then clean data using cleaning and transformation funcions that are
 iteratively applied to all data in the dictionary, making batch processing
