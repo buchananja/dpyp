@@ -146,7 +146,7 @@ def write_dict_to_sqlite(
         data_dictionary, 
         path,
         overwrite = False,
-        file_prefix = '',
+        file_prefix = 'out',
         messaging = True,
         sleep_seconds = 0.1
     ):
@@ -169,6 +169,9 @@ def write_dict_to_sqlite(
     cur = conn.cursor()
     
     try:
+        if messaging:
+            dp.sleep_log('\nWriting data...', sleep_time = 1)
+            
         for name, data in data_dictionary.items():
             if name.startswith('df_'):
                 cols = ', '.join(data.columns)
@@ -181,5 +184,8 @@ def write_dict_to_sqlite(
                         sleep_time = sleep_seconds
                         )
         conn.commit()
+        if messaging:
+            dp.sleep_log('All data written successfully.\n', sleep_time = 1)
+            
     except OperationalError:
         dp.sleep_log('- WARNING: Database already exists!')

@@ -10,6 +10,41 @@ import sqlite3
 import dpypr as dp
 
 # Data Loading ################################################################
+def read_everything(path):
+    r'''
+    #################### all doc strings are wrong.
+    '''
+    files = os.listdir(path)
+    data_dictionary = dict()
+    for file in files:
+            if file.endswith('.json'):
+                df = pd.read_json(os.path.join(path, file))
+                filename = os.path.splitext(file)[0]
+                data_dictionary[f'df_{filename}'] = df
+            elif file.endswith('.csv'):
+                df = pd.read_csv(os.path.join(path, file))
+                filename = os.path.splitext(file)[0]
+                data_dictionary[f'df_{filename}'] = df
+            elif file.endswith('.xlsx'):
+                df = pd.read_excel(os.path.join(path, file))
+                filename = os.path.splitext(file)[0]
+                data_dictionary[f'df_{filename}'] = df
+            elif file.endswith('.feather'):
+                df = pd.read_feather(os.path.join(path, file))
+                filename = os.path.splitext(file)[0]
+                data_dictionary[f'df_{filename}'] = df
+            elif file.endswith('.parquet'):
+                df = pd.read_parquet(os.path.join(path, file))
+                filename = os.path.splitext(file)[0]
+                data_dictionary[f'df_{filename}'] = df
+            elif file.endswith('.pickle'):
+                df = pd.read_pickle(os.path.join(path, file))
+                filename = os.path.splitext(file)[0]
+                data_dictionary[f'df_{filename}'] = df
+    if not data_dictionary:
+        dp.sleep_log('No files read.')
+    return data_dictionary
+        
 def read_all_json(path):
     r'''
     Iteratively loads data.json from the data directory and assign to 
