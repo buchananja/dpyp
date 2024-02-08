@@ -298,30 +298,21 @@ def gather_data_dictionary(globals_dict):
 
 def unpack_data_dictionary(
         data_dictionary,
-        output_dictionary=None,
-        sleep_seconds=0, 
-        messaging=False,
+        sleep_seconds = 0.1, 
+        messaging = False,
     ):
     '''
-    - Loads all dataframes in input dictionary into the provided dictionary.
-    - If output_dictionary is not provided, a new dictionary is created and returned.
-    - If output_dictionary is globals(), the global namespace is updated and nothing is returned.
+    - Loads all dataframes in input dictionary into a new dictionary and returns it.
     - Messaging logs statements about number of records.
     '''
     
-    is_globals = output_dictionary is globals()
-
-    if output_dictionary is None:
-        output_dictionary = {}
-
+    output_dictionary = {}
     for key, value in data_dictionary.items():
         if isinstance(value, pd.DataFrame):
             output_dictionary[key] = value
             if messaging:
                 dp.sleep_log(
                     f'- Read {key} ({len(value):,}) records.', 
-                    sleep_time=sleep_seconds
+                    sleep_time = sleep_seconds
                 )
-
-    if not is_globals:
-        return output_dictionary
+    return output_dictionary
