@@ -87,5 +87,6 @@ def columns_to_datetime(df, date_key = 'date', date_format = '%Y-%m-%d'):
     Converts columns containing 'date' to datetime datatype.
     '''
     date_columns = [col for col in df.columns if date_key in col]
-    df[date_columns] = pd.to_datetime(df[date_columns], format = date_format)
+    for col in date_columns:
+        df[col] = pd.to_datetime(df[col], format = date_format)
     return df
