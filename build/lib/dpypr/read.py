@@ -12,15 +12,19 @@ import dpypr as dp
 
 
 # Data Loading ################################################################
-def read_everything(path):
+def read_everything(path, messaging = True, sleep_seconds = 0.1):
     '''
     - Iteratively loads all json, csv, xlsx, parquet, feather, and pickle files 
-    from the data directory and assigns to dataframes. 
+    from the data directory and assigns to dataframes within a dictionary.
     - Messaging logs statements about number of records.
     '''
 
     files = os.listdir(path)
     data_dictionary = dict()
+    
+    if messaging:
+        dp.sleep_log('\nReading data...', sleep_time = sleep_seconds)
+        
     for file in files:
             if file.endswith('.json'):
                 df = pd.read_json(os.path.join(path, file))
@@ -46,8 +50,12 @@ def read_everything(path):
                 df = pd.read_pickle(os.path.join(path, file))
                 filename = os.path.splitext(file)[0]
                 data_dictionary[f'df_{filename}'] = df
+                
     if not data_dictionary:
         dp.sleep_log('No files read.')
+    if messaging:
+        dp.sleep_log('All data read successfully.\n', sleep_time = sleep_seconds)
+        
     return data_dictionary
         
         
@@ -62,7 +70,7 @@ def read_all_json(path, messaging = True, sleep_seconds = 0.1):
     data_dictionary = dict()
     
     if messaging:
-        dp.sleep_log('\nWriting data...', sleep_time = sleep_seconds)
+        dp.sleep_log('\nReading data...', sleep_time = sleep_seconds)
     
     for file in files:
         if file.endswith('.json'):
@@ -95,7 +103,7 @@ def read_all_csv(path, messaging = True, sleep_seconds = 0.1):
     data_dictionary = dict()
     
     if messaging:
-        dp.sleep_log('\nWriting data...', sleep_time = sleep_seconds)
+        dp.sleep_log('\nReading data...', sleep_time = sleep_seconds)
         
     for file in files:
         if file.endswith('.csv'):
@@ -128,7 +136,7 @@ def read_all_xlsx(path, messaging = True, sleep_seconds = 0.1):
     data_dictionary = dict()
     
     if messaging:
-        dp.sleep_log('\nWriting data...', sleep_time = sleep_seconds)
+        dp.sleep_log('\nReading data...', sleep_time = sleep_seconds)
         
     for file in files:
         if file.endswith('.xlsx'):
@@ -161,7 +169,7 @@ def read_all_feather(path, messaging = True, sleep_seconds = 0.1):
     data_dictionary = dict()
     
     if messaging:
-        dp.sleep_log('\nWriting data...', sleep_time = sleep_seconds)
+        dp.sleep_log('\nReading data...', sleep_time = sleep_seconds)
         
     for file in files:
         if file.endswith('.feather'):
@@ -194,7 +202,7 @@ def read_all_parquet(path, messaging = True, sleep_seconds = 0.1):
     data_dictionary = dict()
     
     if messaging:
-        dp.sleep_log('\nWriting data...', sleep_time = sleep_seconds)
+        dp.sleep_log('\nReading data...', sleep_time = sleep_seconds)
         
     for file in files:
         if file.endswith('.parquet'):
@@ -227,7 +235,7 @@ def read_all_pickle(path, messaging = True, sleep_seconds = 0.1):
     data_dictionary = dict()
     
     if messaging:
-        dp.sleep_log('\nWriting data...', sleep_time = sleep_seconds)
+        dp.sleep_log('\nReading data...', sleep_time = sleep_seconds)
         
     for file in files:
         if file.endswith('.pickle'):
@@ -299,7 +307,7 @@ def gather_data_dictionary(globals_dict):
 def unpack_data_dictionary(
         data_dictionary, 
         output_dict = None, 
-        sleep_seconds = 0, 
+        sleep_seconds = 0.1, 
         messaging = False
     ):
     '''
@@ -308,17 +316,25 @@ def unpack_data_dictionary(
     - If output_dict is provided, output_dict will be updated and not returned.
     - If output_dict is not provided, a new dictionary will be returned.
     '''
+    # checks whether output dictionary provided
     if output_dict is None:
         output_dict = dict()
         return_dict = True
     else:
         return_dict = False
+    
+    if messaging:
+        dp.sleep_log('\nReading data...', sleep_time = sleep_seconds)
 
+    # unpacks all dataframes to globals are prefixes name with 'df_'
     for key, value in data_dictionary.items():
         if isinstance(value, pd.DataFrame):
             output_dict[f'df_{key}'] = value
+            
             if messaging:
                 dp.sleep_log(f'- Loaded df_{key} ({len(value):,}) records.', sleep_time=sleep_seconds)
+    if messaging:
+        dp.sleep_log('All data read successfully.\n', sleep_time = sleep_seconds)
 
     if return_dict:
         return output_dict

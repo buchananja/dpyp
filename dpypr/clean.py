@@ -8,7 +8,7 @@ import pandas as pd
 
 # Data Cleaning ###############################################################
 def headers_to_snakecase(df, uppercase = False):
-    r'''
+    '''
     Converts all column headers to lower snake case by defatul and uppercase if
     'uppercase' argument is True.
     '''
@@ -36,28 +36,28 @@ def values_to_snakecase(df, uppercase = False):
     return df
 
 def values_to_lowercase(df):
-    r'''
+    '''
     Converts all string values in dataframe to lowercase.
     '''
-    df = df.apply(lambda x: x.str.lower() if x.dtype == "object" else x)
+    df = df.apply(lambda col: col.str.lower() if col.dtype == "object" else col)
     return df
 
 def values_to_uppercase(df):
-    r'''
+    '''
     Converts all string values in dataframe to uppercase.
     '''
-    df = df.apply(lambda x: x.str.upper() if x.dtype == "object" else x)
+    df = df.apply(lambda col: col.str.upper() if col.dtype == "object" else col)
     return df
 
 def values_strip_whitespace(df):
-    r'''
+    '''
     Converts all string values to lowercase.
     '''
-    df = df.apply(lambda x: x.str.strip() if x.dtype == "object" else x)
+    df = df.apply(lambda col: col.str.strip() if col.dtype == "object" else col)
     return df
 
 def optimise_numeric_datatypes(df):
-    r'''
+    '''
     Optimises the data types in a pandas DataFrame by attempting to convert
     strings to numerical data where possible and to the smallest possible 
     integer datatype.
@@ -70,4 +70,14 @@ def optimise_numeric_datatypes(df):
                 df[col] = pd.to_numeric(df[col], downcast = 'integer')
             else:
                 df[col] = pd.to_numeric(df[col], downcast = 'float')
+    return df
+
+def values_to_string(df, clean_columns = [], all = False):
+    '''
+    - Converts all columns in clean_columns to strings.
+    - If all is True, converts all values to lowercase.
+    '''
+    if all:
+        clean_columns = df.columns.to_list()
+    df.loc[:, clean_columns] = df.loc[:, clean_columns].astype(str)
     return df

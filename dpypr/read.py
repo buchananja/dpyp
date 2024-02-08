@@ -324,7 +324,7 @@ def unpack_data_dictionary(
         return_dict = False
     
     if messaging:
-        dp.sleep_log('\nUnpacking dictionary...', sleep_time = sleep_seconds)
+        dp.sleep_log('\nReading data...', sleep_time = sleep_seconds)
 
     # unpacks all dataframes to globals are prefixes name with 'df_'
     for key, value in data_dictionary.items():
@@ -334,7 +334,7 @@ def unpack_data_dictionary(
             if messaging:
                 dp.sleep_log(f'- Loaded df_{key} ({len(value):,}) records.', sleep_time=sleep_seconds)
     if messaging:
-        dp.sleep_log('Dictionary unpacked successfully.\n', sleep_time = sleep_seconds)
+        dp.sleep_log('All data read successfully.\n', sleep_time = sleep_seconds)
 
     if return_dict:
         return output_dict
