@@ -12,7 +12,11 @@ import dpypr as dp
 
 
 # Data Loading ################################################################
-def read_everything(path, messaging = True, sleep_seconds = 0.1):
+def read_everything(
+        path, 
+        messaging = True,
+        file_extensions = ['.json', '.csv', '.xlsx', '.feather', '.parquet', '.pickle']
+    ):
     '''
     - Iteratively loads all json, csv, xlsx, parquet, feather, and pickle files 
     from the data directory and assigns to dataframes within a dictionary.
@@ -23,43 +27,36 @@ def read_everything(path, messaging = True, sleep_seconds = 0.1):
     data_dictionary = dict()
     
     if messaging:
-        dp.sleep_log('\nReading data...', sleep_time = sleep_seconds)
+        dp.sleep_log('\nReading data...')
         
     for file in files:
-            if file.endswith('.json'):
+        filename, file_extension = os.path.splitext(file)
+        if file_extension in file_extensions:
+            if file_extension == '.json':
                 df = pd.read_json(os.path.join(path, file))
-                filename = os.path.splitext(file)[0]
-                data_dictionary[f'df_{filename}'] = df
-            elif file.endswith('.csv'):
+            elif file_extension == '.csv':
                 df = pd.read_csv(os.path.join(path, file))
-                filename = os.path.splitext(file)[0]
-                data_dictionary[f'df_{filename}'] = df
-            elif file.endswith('.xlsx'):
+            elif file_extension == '.xlsx':
                 df = pd.read_excel(os.path.join(path, file))
-                filename = os.path.splitext(file)[0]
-                data_dictionary[f'df_{filename}'] = df
-            elif file.endswith('.feather'):
+            elif file_extension == '.feather':
                 df = pd.read_feather(os.path.join(path, file))
-                filename = os.path.splitext(file)[0]
-                data_dictionary[f'df_{filename}'] = df
-            elif file.endswith('.parquet'):
+            elif file_extension == '.parquet':
                 df = pd.read_parquet(os.path.join(path, file))
-                filename = os.path.splitext(file)[0]
-                data_dictionary[f'df_{filename}'] = df
-            elif file.endswith('.pickle'):
+            elif file_extension == '.pickle':
                 df = pd.read_pickle(os.path.join(path, file))
-                filename = os.path.splitext(file)[0]
-                data_dictionary[f'df_{filename}'] = df
-                
+            data_dictionary[f'df_{filename}_{file_extension[1:]}'] = df
+            
+            if messaging:
+                dp.sleep_log(f'- read {f'df_{filename}_{file_extension[1:]}'} ({len(filename):,}) records.')      
     if not data_dictionary:
         dp.sleep_log('No files read.')
-    if messaging:
-        dp.sleep_log('All data read successfully.\n', sleep_time = sleep_seconds)
-        
+    else:
+        if messaging:
+            dp.sleep_log('All data read successfully.\n')
     return data_dictionary
         
         
-def read_all_json(path, messaging = True, sleep_seconds = 0.1):
+def read_all_json(path, messaging = True):
     '''
     - Iteratively loads all json files from the data directory and assigns to 
     dataframes. 
@@ -70,7 +67,7 @@ def read_all_json(path, messaging = True, sleep_seconds = 0.1):
     data_dictionary = dict()
     
     if messaging:
-        dp.sleep_log('\nReading data...', sleep_time = sleep_seconds)
+        dp.sleep_log('\nReading data...')
     
     for file in files:
         if file.endswith('.json'):
@@ -79,20 +76,17 @@ def read_all_json(path, messaging = True, sleep_seconds = 0.1):
             data_dictionary[f'df_{filename}'] = df
             
             if messaging:
-                dp.sleep_log(
-                        f'- read {f'df_{filename}'} ({len(filename):,}) records.',
-                        sleep_time = sleep_seconds 
-                    )
+                dp.sleep_log(f'- read {f'df_{filename}'} ({len(filename):,}) records.')
                 
     if not data_dictionary:
         dp.sleep_log('No files read.')
     if messaging:
-        dp.sleep_log('All data read successfully.\n', sleep_time = sleep_seconds)
+        dp.sleep_log('All data read successfully.\n')
         
     return data_dictionary
 
 
-def read_all_csv(path, messaging = True, sleep_seconds = 0.1):
+def read_all_csv(path, messaging = True):
     '''
     - Iteratively loads all csv files from the data directory and assigns to 
     dataframes. 
@@ -103,7 +97,7 @@ def read_all_csv(path, messaging = True, sleep_seconds = 0.1):
     data_dictionary = dict()
     
     if messaging:
-        dp.sleep_log('\nReading data...', sleep_time = sleep_seconds)
+        dp.sleep_log('\nReading data...')
         
     for file in files:
         if file.endswith('.csv'):
@@ -112,20 +106,17 @@ def read_all_csv(path, messaging = True, sleep_seconds = 0.1):
             data_dictionary[f'df_{filename}'] = df
             
             if messaging:
-                dp.sleep_log(
-                        f'- read {f'df_{filename}'} ({len(filename):,}) records.',
-                        sleep_time = sleep_seconds 
-                    )
+                dp.sleep_log(f'- read {f'df_{filename}'} ({len(filename):,}) records.')
                 
     if not data_dictionary:
         dp.sleep_log('No files read.')
     if messaging:
-        dp.sleep_log('All data read successfully.\n', sleep_time = sleep_seconds)
+        dp.sleep_log('All data read successfully.\n')
         
     return data_dictionary
 
 
-def read_all_xlsx(path, messaging = True, sleep_seconds = 0.1):
+def read_all_xlsx(path, messaging = True):
     '''
     - Iteratively loads all xlsx files from the data directory and assigns to 
     dataframes. 
@@ -136,7 +127,7 @@ def read_all_xlsx(path, messaging = True, sleep_seconds = 0.1):
     data_dictionary = dict()
     
     if messaging:
-        dp.sleep_log('\nReading data...', sleep_time = sleep_seconds)
+        dp.sleep_log('\nReading data...')
         
     for file in files:
         if file.endswith('.xlsx'):
@@ -145,20 +136,17 @@ def read_all_xlsx(path, messaging = True, sleep_seconds = 0.1):
             data_dictionary[f'df_{filename}'] = df
             
             if messaging:
-                dp.sleep_log(
-                        f'- read {f'df_{filename}'} ({len(filename):,}) records.',
-                        sleep_time = sleep_seconds 
-                    )
+                dp.sleep_log(f'- read {f'df_{filename}'} ({len(filename):,}) records.')
                 
     if not data_dictionary:
         dp.sleep_log('No files read.')
     if messaging:
-        dp.sleep_log('All data read successfully.\n', sleep_time = sleep_seconds)
+        dp.sleep_log('All data read successfully.\n')
         
     return data_dictionary
 
 
-def read_all_feather(path, messaging = True, sleep_seconds = 0.1):
+def read_all_feather(path, messaging = True):
     '''
     - Iteratively loads all feather files from the data directory and assigns to 
     dataframes. 
@@ -169,7 +157,7 @@ def read_all_feather(path, messaging = True, sleep_seconds = 0.1):
     data_dictionary = dict()
     
     if messaging:
-        dp.sleep_log('\nReading data...', sleep_time = sleep_seconds)
+        dp.sleep_log('\nReading data...')
         
     for file in files:
         if file.endswith('.feather'):
@@ -178,20 +166,17 @@ def read_all_feather(path, messaging = True, sleep_seconds = 0.1):
             data_dictionary[f'df_{filename}'] = df
             
             if messaging:
-                dp.sleep_log(
-                        f'- read {f'df_{filename}'} ({len(filename):,}) records.',
-                        sleep_time = sleep_seconds 
-                    )
+                dp.sleep_log(f'- read {f'df_{filename}'} ({len(filename):,}) records.')
                 
     if not data_dictionary:
         dp.sleep_log('No files read.')
     if messaging:
-        dp.sleep_log('All data read successfully.\n', sleep_time = sleep_seconds)
+        dp.sleep_log('All data read successfully.\n')
         
     return data_dictionary
 
 
-def read_all_parquet(path, messaging = True, sleep_seconds = 0.1):
+def read_all_parquet(path, messaging = True):
     '''
     - Iteratively loads all parquet files from the data directory and assigns to 
     dataframes. 
@@ -202,7 +187,7 @@ def read_all_parquet(path, messaging = True, sleep_seconds = 0.1):
     data_dictionary = dict()
     
     if messaging:
-        dp.sleep_log('\nReading data...', sleep_time = sleep_seconds)
+        dp.sleep_log('\nReading data...')
         
     for file in files:
         if file.endswith('.parquet'):
@@ -211,20 +196,17 @@ def read_all_parquet(path, messaging = True, sleep_seconds = 0.1):
             data_dictionary[f'df_{filename}'] = df
             
             if messaging:
-                dp.sleep_log(
-                        f'- read {f'df_{filename}'} ({len(filename):,}) records.',
-                        sleep_time = sleep_seconds 
-                    )
+                dp.sleep_log(f'- read {f'df_{filename}'} ({len(filename):,}) records.')
                 
     if not data_dictionary:
         dp.sleep_log('No files read.')
     if messaging:
-        dp.sleep_log('All data read successfully.\n', sleep_time = sleep_seconds)
+        dp.sleep_log('All data read successfully.\n')
         
     return data_dictionary
 
 
-def read_all_pickle(path, messaging = True, sleep_seconds = 0.1):
+def read_all_pickle(path, messaging = True):
     '''
     - Iteratively loads all pickle files from the data directory and assigns to 
     dataframes. 
@@ -235,7 +217,7 @@ def read_all_pickle(path, messaging = True, sleep_seconds = 0.1):
     data_dictionary = dict()
     
     if messaging:
-        dp.sleep_log('\nReading data...', sleep_time = sleep_seconds)
+        dp.sleep_log('\nReading data...')
         
     for file in files:
         if file.endswith('.pickle'):
@@ -244,15 +226,12 @@ def read_all_pickle(path, messaging = True, sleep_seconds = 0.1):
             data_dictionary[f'df_{filename}'] = df
             
             if messaging:
-                dp.sleep_log(
-                        f'- read {f'df_{filename}'} ({len(filename):,}) records.',
-                        sleep_time = sleep_seconds 
-                    )
+                dp.sleep_log(f'- read {f'df_{filename}'} ({len(filename):,}) records.')
                 
     if not data_dictionary:
         dp.sleep_log('No files read.')
     if messaging:
-        dp.sleep_log('All data read successfully.\n', sleep_time = sleep_seconds)
+        dp.sleep_log('All data read successfully.\n')
         
     return data_dictionary
      
@@ -304,10 +283,10 @@ def gather_data_dictionary(globals_dict):
         
     return data_dictionary
 
+
 def unpack_data_dictionary(
         data_dictionary, 
         output_dict = None, 
-        sleep_seconds = 0.1, 
         messaging = False
     ):
     '''
@@ -324,7 +303,7 @@ def unpack_data_dictionary(
         return_dict = False
     
     if messaging:
-        dp.sleep_log('\nReading data...', sleep_time = sleep_seconds)
+        dp.sleep_log('\nReading data...')
 
     # unpacks all dataframes to globals are prefixes name with 'df_'
     for key, value in data_dictionary.items():
@@ -332,9 +311,9 @@ def unpack_data_dictionary(
             output_dict[f'df_{key}'] = value
             
             if messaging:
-                dp.sleep_log(f'- Loaded df_{key} ({len(value):,}) records.', sleep_time=sleep_seconds)
+                dp.sleep_log(f'- Loaded df_{key} ({len(value):,}) records.')
     if messaging:
-        dp.sleep_log('All data read successfully.\n', sleep_time = sleep_seconds)
+        dp.sleep_log('All data read successfully.\n')
 
     if return_dict:
         return output_dict

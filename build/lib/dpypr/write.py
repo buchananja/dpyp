@@ -16,174 +16,150 @@ def write_dict_to_json(
         globals_dict, 
         path, 
         file_prefix = 'out',
-        messaging = True,
-        sleep_seconds = 0.1
+        messaging = True
     ):
-    r'''
-    - Writes all objects beginning with 'df\_' in global space to path as .json. 
+    '''
+    - Writes all objects beginning with 'df_' in global space to path as .json. 
     - Prefix allows user to rename processed files upon writing.
     - Messaging logs statements about number of records.
     '''
     
     if messaging:
-        dp.sleep_log('\nWriting data...', sleep_time = sleep_seconds)
+        dp.sleep_log('\nWriting data...')
         
     for name, data in globals_dict.items():
         if name.startswith('df_'):
             data.to_json(f'{path}/{file_prefix}_{name[3:]}.json')
 
             if messaging:
-                dp.sleep_log(
-                    f'- Wrote {file_prefix}_{name[3:]} ({len(data):,}) records.', 
-                    sleep_time = sleep_seconds
-                    )
+                dp.sleep_log(f'- Wrote {file_prefix}_{name[3:]} ({len(data):,}) records.')
     if messaging:
-        dp.sleep_log('All data written successfully.\n', sleep_time = sleep_seconds)
+        dp.sleep_log('All data written successfully.\n')
 
 
 def write_dict_to_csv(
         globals_dict, 
         path, 
         file_prefix = 'out',
-        messaging = True,
-        sleep_seconds = 0.1
+        messaging = True
     ):
-    r'''
-    - Writes all objects beginning with 'df\_' in global space to path as .csv. 
+    '''
+    - Writes all objects beginning with 'df_' in global space to path as .csv. 
     - Prefix allows user to rename processed files upon writing.
     - Messaging logs statements about number of records.
     '''
     
     if messaging:
-        dp.sleep_log('\nWriting data...', sleep_time = sleep_seconds)
+        dp.sleep_log('\nWriting data...')
         
     for name, data in globals_dict.items():
         if name.startswith('df_'):
             data.to_csv(f'{path}/{file_prefix}_{name[3:]}.csv')
 
             if messaging:
-                dp.sleep_log(
-                    f'- Wrote {file_prefix}_{name[3:]} ({len(data):,}) records.', 
-                    sleep_time = sleep_seconds
-                    )
+                dp.sleep_log(f'- Wrote {file_prefix}_{name[3:]} ({len(data):,}) records.')
     if messaging:
-        dp.sleep_log('All data written successfully.\n', sleep_time = sleep_seconds)
+        dp.sleep_log('All data written successfully.\n')
        
             
 def write_dict_to_xlsx(
         globals_dict, 
         path, 
         file_prefix = 'out',
-        messaging = True,
-        sleep_seconds = 0.1
+        messaging = True
     ):
-    r'''
-    - Writes all objects beginning with 'df\_' in global space to path as .xlsx. 
+    '''
+    - Writes all objects beginning with 'df_' in global space to path as .xlsx. 
     - Prefix allows user to rename processed files upon writing.
     - Messaging logs statements about number of records.
     '''
     
     if messaging:
-        dp.sleep_log('\nWriting data...', sleep_time = sleep_seconds)
+        dp.sleep_log('\nWriting data...')
         
     for name, data in globals_dict.items():
         if name.startswith('df_'):
             data.to_excel(f'{path}/{file_prefix}_{name[3:]}.xlsx')
 
             if messaging:
-                dp.sleep_log(
-                    f'- Wrote {file_prefix}_{name[3:]} ({len(data):,}) records.', 
-                    sleep_time = sleep_seconds
-                    )
+                dp.sleep_log(f'- Wrote {file_prefix}_{name[3:]} ({len(data):,}) records.')
     if messaging:
-        dp.sleep_log('All data written successfully.\n', sleep_time = sleep_seconds)
+        dp.sleep_log('All data written successfully.\n')
 
 
 def write_dict_to_feather(
         globals_dict, 
         path, 
         file_prefix = 'out',
-        messaging = True,
-        sleep_seconds = 0.1
+        messaging = True
     ):
-    r'''
-    - Writes all objects beginning with 'df\_' in global space to path as .feather. 
+    '''
+    - Writes all objects beginning with 'df_' in global space to path as .feather. 
     - Prefix allows user to rename processed files upon writing.
     - Messaging logs statements about number of records.
     '''
     
     if messaging:
-        dp.sleep_log('\nWriting data...', sleep_time = sleep_seconds)
+        dp.sleep_log('\nWriting data...')
         
     for name, data in globals_dict.items():
         if name.startswith('df_'):
             data.to_feather(f'{path}/{file_prefix}_{name[3:]}.feather')
 
             if messaging:
-                dp.sleep_log(
-                    f'- Wrote {file_prefix}_{name[3:]} ({len(data):,}) records.', 
-                    sleep_time = sleep_seconds
-                    )
+                dp.sleep_log(f'- Wrote {file_prefix}_{name[3:]} ({len(data):,}) records.')
     if messaging:
-        dp.sleep_log('All data written successfully.\n', sleep_time = sleep_seconds)
+        dp.sleep_log('All data written successfully.\n')
         
             
 def write_dict_to_parquet(
         globals_dict, 
         path, 
         file_prefix = 'out',
-        messaging = True,
-        sleep_seconds = 0.1
+        messaging = True
     ):
-    r'''
-    - Writes all objects beginning with 'df\_' in global space to path as .parquet. 
+    '''
+    - Writes all objects beginning with 'df_' in global space to path as .parquet. 
     - Prefix allows user to rename processed files upon writing.
     - Messaging logs statements about number of records.
     '''
     
     if messaging:
-        dp.sleep_log('\nWriting data...', sleep_time = sleep_seconds)
+        dp.sleep_log('\nWriting data...')
         
     for name, data in globals_dict.items():
         if name.startswith('df_'):
             data.to_parquet(f'{path}/{file_prefix}_{name[3:]}.parquet')
 
             if messaging:
-                dp.sleep_log(
-                    f'- Wrote {file_prefix}_{name[3:]} ({len(data):,}) records.', 
-                    sleep_time = sleep_seconds
-                    )
+                dp.sleep_log(f'- Wrote {file_prefix}_{name[3:]} ({len(data):,}) records.')
     if messaging:
-        dp.sleep_log('All data written successfully.\n', sleep_time = sleep_seconds)
+        dp.sleep_log('All data written successfully.\n')
         
         
 def write_dict_to_pickle(
         globals_dict, 
         path, 
         file_prefix = 'out',
-        messaging = True,
-        sleep_seconds = 0.1
+        messaging = True
     ):
-    r'''
-    - Writes all objects beginning with 'df\_' in global space to path as .pickle. 
+    '''
+    - Writes all objects beginning with 'df_' in global space to path as .pickle. 
     - Prefix allows user to rename processed files upon writing.
     - Messaging logs statements about number of records.
     '''
     
     if messaging:
-        dp.sleep_log('\nWriting data...', sleep_time = sleep_seconds)
+        dp.sleep_log('\nWriting data...')
         
     for name, data in globals_dict.items():
         if name.startswith('df_'):
             data.to_pickle(f'{path}/{file_prefix}_{name[3:]}.pickle')
 
             if messaging:
-                dp.sleep_log(
-                    f'- Wrote {file_prefix}_{name[3:]} ({len(data):,}) records.', 
-                    sleep_time = sleep_seconds
-                    )
+                dp.sleep_log(f'- Wrote {file_prefix}_{name[3:]} ({len(data):,}) records.')
     if messaging:
-        dp.sleep_log('All data written successfully.\n', sleep_time = sleep_seconds)
+        dp.sleep_log('All data written successfully.\n')
           
                 
 def write_dict_to_sqlite(
@@ -191,11 +167,10 @@ def write_dict_to_sqlite(
         path,
         overwrite = False,
         file_prefix = 'out',
-        messaging = True,
-        sleep_seconds = 0.1
+        messaging = True
     ):
-    r'''
-    - Writes all objects beginning with 'df\_' in global space to path as
+    '''
+    - Writes all objects beginning with 'df_' in global space to path as
     tables in sqlite database. 
     - Prefix allows user to rename processed files upon writing.
     - Messaging logs statements about number of records.
@@ -216,7 +191,7 @@ def write_dict_to_sqlite(
     
     try:
         if messaging:
-            dp.sleep_log('\nWriting data...', sleep_time = sleep_seconds)
+            dp.sleep_log('\nWriting data...')
             
         # create tables in new database
         for name, data in data_dictionary.items():
@@ -227,15 +202,11 @@ def write_dict_to_sqlite(
                 ''')
                 
                 if messaging:
-                    dp.sleep_log(
-                            f'- Wrote {file_prefix}_{name[3:]} ({len(data):,}) records.', 
-                            sleep_time = sleep_seconds
-                        )
+                    dp.sleep_log(f'- Wrote {file_prefix}_{name[3:]} ({len(data):,}) records.')
         # write tables to new database
         conn.commit()
-        
+    
         if messaging:
-            dp.sleep_log('All data written successfully.\n', sleep_time = sleep_seconds)
-            
+            dp.sleep_log('All data written successfully.\n')
     except OperationalError:
         dp.sleep_log('WARNING: Database already exists!')
