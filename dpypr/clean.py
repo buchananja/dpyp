@@ -82,11 +82,11 @@ def values_to_string(df, clean_columns = [], all = False):
     df.loc[:, clean_columns] = df.loc[:, clean_columns].astype(str)
     return df
 
-def columns_to_datetime(df, date_key = 'date', date_format = '%Y-%m-%d'):
-    '''
-    Converts columns containing 'date' to datetime datatype.
-    '''
-    date_columns = [col for col in df.columns if date_key in col]
-    for col in date_columns:
-        df[col] = pd.to_datetime(df[col], format = date_format)
-    return df
+# def columns_to_datetime(df, date_key = 'date', date_format = '%Y-%m-%d'):
+#     '''
+#     Converts columns containing 'date' to datetime datatype.
+#     '''
+#     date_columns = [col for col in df.columns if date_key in col]
+#     for col in date_columns:
+#         df[col] = pd.to_datetime(df[col], format = date_format)
+#     return df
