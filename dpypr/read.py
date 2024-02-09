@@ -26,36 +26,28 @@ def read_everything(path, messaging = True, sleep_seconds = 0.1):
         dp.sleep_log('\nReading data...', sleep_time = sleep_seconds)
         
     for file in files:
-            if file.endswith('.json'):
+        filename, file_extension = os.path.splitext(file)
+        print(f"Filename: {filename}, Extension: {file_extension}")
+        if file_extension in ['.json', '.csv', '.xlsx', '.feather', '.parquet', '.pickle']:
+            if file_extension == '.json':
                 df = pd.read_json(os.path.join(path, file))
-                filename = os.path.splitext(file)[0]
-                data_dictionary[f'df_{filename}'] = df
-            elif file.endswith('.csv'):
+            elif file_extension == '.csv':
                 df = pd.read_csv(os.path.join(path, file))
-                filename = os.path.splitext(file)[0]
-                data_dictionary[f'df_{filename}'] = df
-            elif file.endswith('.xlsx'):
+            elif file_extension == '.xlsx':
                 df = pd.read_excel(os.path.join(path, file))
-                filename = os.path.splitext(file)[0]
-                data_dictionary[f'df_{filename}'] = df
-            elif file.endswith('.feather'):
+            elif file_extension == '.feather':
                 df = pd.read_feather(os.path.join(path, file))
-                filename = os.path.splitext(file)[0]
-                data_dictionary[f'df_{filename}'] = df
-            elif file.endswith('.parquet'):
+            elif file_extension == '.parquet':
                 df = pd.read_parquet(os.path.join(path, file))
-                filename = os.path.splitext(file)[0]
-                data_dictionary[f'df_{filename}'] = df
-            elif file.endswith('.pickle'):
+            elif file_extension == '.pickle':
                 df = pd.read_pickle(os.path.join(path, file))
-                filename = os.path.splitext(file)[0]
-                data_dictionary[f'df_{filename}'] = df
+            data_dictionary[f'df_{filename}_{file_extension[1:]}'] = df
                 
     if not data_dictionary:
         dp.sleep_log('No files read.')
-    if messaging:
-        dp.sleep_log('All data read successfully.\n', sleep_time = sleep_seconds)
-        
+    else:
+        if messaging:
+            dp.sleep_log('All data read successfully.\n', sleep_time = sleep_seconds)
     return data_dictionary
         
         

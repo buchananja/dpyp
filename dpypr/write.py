@@ -19,8 +19,8 @@ def write_dict_to_json(
         messaging = True,
         sleep_seconds = 0.1
     ):
-    r'''
-    - Writes all objects beginning with 'df\_' in global space to path as .json. 
+    '''
+    - Writes all objects beginning with 'df_' in global space to path as .json. 
     - Prefix allows user to rename processed files upon writing.
     - Messaging logs statements about number of records.
     '''
@@ -48,8 +48,8 @@ def write_dict_to_csv(
         messaging = True,
         sleep_seconds = 0.1
     ):
-    r'''
-    - Writes all objects beginning with 'df\_' in global space to path as .csv. 
+    '''
+    - Writes all objects beginning with 'df_' in global space to path as .csv. 
     - Prefix allows user to rename processed files upon writing.
     - Messaging logs statements about number of records.
     '''
@@ -77,8 +77,8 @@ def write_dict_to_xlsx(
         messaging = True,
         sleep_seconds = 0.1
     ):
-    r'''
-    - Writes all objects beginning with 'df\_' in global space to path as .xlsx. 
+    '''
+    - Writes all objects beginning with 'df_' in global space to path as .xlsx. 
     - Prefix allows user to rename processed files upon writing.
     - Messaging logs statements about number of records.
     '''
@@ -106,8 +106,8 @@ def write_dict_to_feather(
         messaging = True,
         sleep_seconds = 0.1
     ):
-    r'''
-    - Writes all objects beginning with 'df\_' in global space to path as .feather. 
+    '''
+    - Writes all objects beginning with 'df_' in global space to path as .feather. 
     - Prefix allows user to rename processed files upon writing.
     - Messaging logs statements about number of records.
     '''
@@ -135,8 +135,8 @@ def write_dict_to_parquet(
         messaging = True,
         sleep_seconds = 0.1
     ):
-    r'''
-    - Writes all objects beginning with 'df\_' in global space to path as .parquet. 
+    '''
+    - Writes all objects beginning with 'df_' in global space to path as .parquet. 
     - Prefix allows user to rename processed files upon writing.
     - Messaging logs statements about number of records.
     '''
@@ -164,8 +164,8 @@ def write_dict_to_pickle(
         messaging = True,
         sleep_seconds = 0.1
     ):
-    r'''
-    - Writes all objects beginning with 'df\_' in global space to path as .pickle. 
+    '''
+    - Writes all objects beginning with 'df_' in global space to path as .pickle. 
     - Prefix allows user to rename processed files upon writing.
     - Messaging logs statements about number of records.
     '''
@@ -194,8 +194,8 @@ def write_dict_to_sqlite(
         messaging = True,
         sleep_seconds = 0.1
     ):
-    r'''
-    - Writes all objects beginning with 'df\_' in global space to path as
+    '''
+    - Writes all objects beginning with 'df_' in global space to path as
     tables in sqlite database. 
     - Prefix allows user to rename processed files upon writing.
     - Messaging logs statements about number of records.
