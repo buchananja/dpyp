@@ -12,7 +12,11 @@ import dpypr as dp
 
 
 # Data Loading ################################################################
-def read_everything(path, messaging = True, sleep_seconds = 0.1):
+def read_everything(
+    path, 
+    messaging = True, 
+    sleep_seconds = 0.1, 
+    file_extensions = ['.json', '.csv', '.xlsx', '.feather', '.parquet', '.pickle']):
     '''
     - Iteratively loads all json, csv, xlsx, parquet, feather, and pickle files 
     from the data directory and assigns to dataframes within a dictionary.
@@ -27,8 +31,7 @@ def read_everything(path, messaging = True, sleep_seconds = 0.1):
         
     for file in files:
         filename, file_extension = os.path.splitext(file)
-        print(f"Filename: {filename}, Extension: {file_extension}")
-        if file_extension in ['.json', '.csv', '.xlsx', '.feather', '.parquet', '.pickle']:
+        if file_extension in file_extensions:
             if file_extension == '.json':
                 df = pd.read_json(os.path.join(path, file))
             elif file_extension == '.csv':
@@ -42,7 +45,12 @@ def read_everything(path, messaging = True, sleep_seconds = 0.1):
             elif file_extension == '.pickle':
                 df = pd.read_pickle(os.path.join(path, file))
             data_dictionary[f'df_{filename}_{file_extension[1:]}'] = df
-                
+            
+            if messaging:
+                dp.sleep_log(
+                        f'- read {f'df_{filename}_{file_extension[1:]}'} ({len(filename):,}) records.',
+                        sleep_time = sleep_seconds 
+                    )      
     if not data_dictionary:
         dp.sleep_log('No files read.')
     else:
