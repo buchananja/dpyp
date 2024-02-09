@@ -6,6 +6,7 @@ from data pipelines.
 
 # Dependencies ################################################################
 import dpypr as dp
+import pandas as pd
 import sqlite3
 from sqlite3 import OperationalError
 import os
@@ -28,7 +29,7 @@ def write_dict_to_json(
         dp.sleep_log('\nWriting data...')
         
     for name, data in globals_dict.items():
-        if name.startswith('df_'):
+        if name.startswith('df_') & isinstance(data, pd.DataFrame):
             data.to_json(f'{path}/{file_prefix}_{name[3:]}.json')
 
             if messaging:
@@ -53,7 +54,7 @@ def write_dict_to_csv(
         dp.sleep_log('\nWriting data...')
         
     for name, data in globals_dict.items():
-        if name.startswith('df_'):
+        if name.startswith('df_') & isinstance(data, pd.DataFrame):
             data.to_csv(f'{path}/{file_prefix}_{name[3:]}.csv')
 
             if messaging:
@@ -78,7 +79,7 @@ def write_dict_to_xlsx(
         dp.sleep_log('\nWriting data...')
         
     for name, data in globals_dict.items():
-        if name.startswith('df_'):
+        if name.startswith('df_') & isinstance(data, pd.DataFrame):
             data.to_excel(f'{path}/{file_prefix}_{name[3:]}.xlsx')
 
             if messaging:
@@ -103,7 +104,7 @@ def write_dict_to_feather(
         dp.sleep_log('\nWriting data...')
         
     for name, data in globals_dict.items():
-        if name.startswith('df_'):
+        if name.startswith('df_') & isinstance(data, pd.DataFrame):
             data.to_feather(f'{path}/{file_prefix}_{name[3:]}.feather')
 
             if messaging:
@@ -128,7 +129,7 @@ def write_dict_to_parquet(
         dp.sleep_log('\nWriting data...')
         
     for name, data in globals_dict.items():
-        if name.startswith('df_'):
+        if name.startswith('df_') & isinstance(data, pd.DataFrame):
             data.to_parquet(f'{path}/{file_prefix}_{name[3:]}.parquet')
 
             if messaging:
@@ -153,7 +154,7 @@ def write_dict_to_pickle(
         dp.sleep_log('\nWriting data...')
         
     for name, data in globals_dict.items():
-        if name.startswith('df_'):
+        if name.startswith('df_') & isinstance(data, pd.DataFrame):
             data.to_pickle(f'{path}/{file_prefix}_{name[3:]}.pickle')
 
             if messaging:
@@ -195,7 +196,7 @@ def write_dict_to_sqlite(
             
         # create tables in new database
         for name, data in data_dictionary.items():
-            if name.startswith('df_'):
+            if name.startswith('df_') & isinstance(data, pd.DataFrame):
                 cols = ', '.join(data.columns)
                 cur.execute(f'''
                     CREATE TABLE {file_prefix}_{name[3:]} ({cols})

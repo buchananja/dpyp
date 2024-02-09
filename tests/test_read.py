@@ -446,3 +446,7 @@ def test_unpack_data_dictionary_to_dict(df_sample):
     output_dict = dp.unpack_data_dictionary(sample_dictionary)
     assert all(key in output_dict for key in ['df_key_1', 'df_key_2', 'df_key_3'])
     assert all(isinstance(output_dict[key], pd.DataFrame) for key in ['df_key_1', 'df_key_2', 'df_key_3'])
+    
+
+# read_all_sqlite #############################################################
+# def test_read_all_sqlite(df_sample):

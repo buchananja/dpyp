@@ -12,48 +12,48 @@ import dpypr as dp
 
 
 # Data Loading ################################################################
-def read_everything(
-        path, 
-        messaging = True,
-        file_extensions = ['.json', '.csv', '.xlsx', '.feather', '.parquet', '.pickle']
-    ):
-    '''
-    - Iteratively loads all json, csv, xlsx, parquet, feather, and pickle files 
-    from the data directory and assigns to dataframes within a dictionary.
-    - Messaging logs statements about number of records.
-    '''
+# def read_everything(
+#         path, 
+#         messaging = True,
+#         file_extensions = ['.json', '.csv', '.xlsx', '.feather', '.parquet', '.pickle']
+#     ):
+#     '''
+#     - Iteratively loads all json, csv, xlsx, parquet, feather, and pickle files 
+#     from the data directory and assigns to dataframes within a dictionary.
+#     - Messaging logs statements about number of records.
+#     '''
 
-    files = os.listdir(path)
-    data_dictionary = dict()
+#     files = os.listdir(path)
+#     data_dictionary = dict()
     
-    if messaging:
-        dp.sleep_log('\nReading data...')
+#     if messaging:
+#         dp.sleep_log('\nReading data...')
         
-    for file in files:
-        filename, file_extension = os.path.splitext(file)
-        if file_extension in file_extensions:
-            if file_extension == '.json':
-                df = pd.read_json(os.path.join(path, file))
-            elif file_extension == '.csv':
-                df = pd.read_csv(os.path.join(path, file))
-            elif file_extension == '.xlsx':
-                df = pd.read_excel(os.path.join(path, file))
-            elif file_extension == '.feather':
-                df = pd.read_feather(os.path.join(path, file))
-            elif file_extension == '.parquet':
-                df = pd.read_parquet(os.path.join(path, file))
-            elif file_extension == '.pickle':
-                df = pd.read_pickle(os.path.join(path, file))
-            data_dictionary[f'df_{filename}_{file_extension[1:]}'] = df
+#     for file in files:
+#         filename, file_extension = os.path.splitext(file)
+#         if file_extension in file_extensions:
+#             if file_extension == '.json':
+#                 df = pd.read_json(os.path.join(path, file))
+#             elif file_extension == '.csv':
+#                 df = pd.read_csv(os.path.join(path, file))
+#             elif file_extension == '.xlsx':
+#                 df = pd.read_excel(os.path.join(path, file))
+#             elif file_extension == '.feather':
+#                 df = pd.read_feather(os.path.join(path, file))
+#             elif file_extension == '.parquet':
+#                 df = pd.read_parquet(os.path.join(path, file))
+#             elif file_extension == '.pickle':
+#                 df = pd.read_pickle(os.path.join(path, file))
+#             data_dictionary[f'df_{filename}_{file_extension[1:]}'] = df
             
-            if messaging:
-                dp.sleep_log(f'- read {f'df_{filename}_{file_extension[1:]}'} ({len(filename):,}) records.')      
-    if not data_dictionary:
-        dp.sleep_log('No files read.')
-    else:
-        if messaging:
-            dp.sleep_log('All data read successfully.\n')
-    return data_dictionary
+#             if messaging:
+#                 dp.sleep_log(f'- read {f'df_{filename}_{file_extension[1:]}'} ({len(filename):,}) records.')      
+#     if not data_dictionary:
+#         dp.sleep_log('No files read.')
+#     else:
+#         if messaging:
+#             dp.sleep_log('All data read successfully.\n')
+#     return data_dictionary
         
         
 def read_all_json(path, messaging = True):

@@ -7,6 +7,7 @@ This file tests whether the 'dpypr.write' module is working correctly.
 import pytest
 import pandas as pd
 import dpypr as dp
+import os
 
     
 # Fixtures ####################################################################
@@ -52,3 +53,214 @@ def df_sample():
 
 
 # Tests #######################################################################
+# write_dict_to_json ##########################################################
+def test_write_dict_to_json_empty_dict(tmp_path):
+    '''
+    Tests that writing empty dictionary to path produces no output.
+    '''
+    sample_dictionary = dict()
+    dp.write_dict_to_json(sample_dictionary, tmp_path)
+    
+    assert os.listdir(tmp_path) == list()
+
+
+def test_write_dict_to_json_correct_files(df_sample, tmp_path):
+    '''
+    Tests that all correct files with correct extensions are outputted to path
+    and invalid/missing data skipped.
+    '''
+    df_1 = df_sample
+    df_2 = df_sample
+    df_3 = df_sample
+    df_4 = df_sample
+    sample_dictionary = {
+        'df_1_key': df_1, 
+        'df_2_key': df_2, 
+        'df_3_key': df_3,
+        'invalid': df_4, # should be skipped, invalid name + valid data
+        'df_5_key': '', # should be skipped, valid name + invalid data
+    }
+    dp.write_dict_to_json(sample_dictionary, tmp_path)
+    
+    assert len(os.listdir(tmp_path)) == 3
+    assert all(filename in os.listdir(tmp_path) for filename in [
+                'out_1_key.json', 'out_2_key.json', 'out_3_key.json'
+            ])
+
+
+# write_dict_to_csv ###########################################################
+def test_write_dict_to_csv_empty_dict(tmp_path):
+    '''
+    Tests that writing empty dictionary to path produces no output.
+    '''
+    sample_dictionary = dict()
+    dp.write_dict_to_csv(sample_dictionary, tmp_path)
+    
+    assert os.listdir(tmp_path) == list()
+
+
+def test_write_dict_to_csv_correct_files(df_sample, tmp_path):
+    '''
+    Tests that all correct files with correct extensions are outputted to path
+    and invalid/missing data skipped.
+    '''
+    df_1 = df_sample
+    df_2 = df_sample
+    df_3 = df_sample
+    df_4 = df_sample
+    sample_dictionary = {
+        'df_1_key': df_1, 
+        'df_2_key': df_2, 
+        'df_3_key': df_3,
+        'invalid': df_4, # should be skipped, invalid name + valid data
+        'df_5_key': '', # should be skipped, valid name + invalid data
+    }
+    dp.write_dict_to_csv(sample_dictionary, tmp_path)
+    
+    assert len(os.listdir(tmp_path)) == 3
+    assert all(filename in os.listdir(tmp_path) for filename in [
+                'out_1_key.csv', 'out_2_key.csv', 'out_3_key.csv'
+            ])
+    
+
+# write_dict_to_xlsx ##########################################################
+def test_write_dict_to_xlsx_empty_dict(tmp_path):
+    '''
+    Tests that writing empty dictionary to path produces no output.
+    '''
+    sample_dictionary = dict()
+    dp.write_dict_to_xlsx(sample_dictionary, tmp_path)
+    
+    assert os.listdir(tmp_path) == list()
+
+
+def test_write_dict_to_xlsx_correct_files(df_sample, tmp_path):
+    '''
+    Tests that all correct files with correct extensions are outputted to path
+    and invalid/missing data skipped.
+    '''
+    df_1 = df_sample
+    df_2 = df_sample
+    df_3 = df_sample
+    df_4 = df_sample
+    sample_dictionary = {
+        'df_1_key': df_1, 
+        'df_2_key': df_2, 
+        'df_3_key': df_3,
+        'invalid': df_4, # should be skipped, invalid name + valid data
+        'df_5_key': '', # should be skipped, valid name + invalid data
+    }
+    dp.write_dict_to_xlsx(sample_dictionary, tmp_path)
+    
+    assert len(os.listdir(tmp_path)) == 3
+    assert all(filename in os.listdir(tmp_path) for filename in [
+                'out_1_key.xlsx', 'out_2_key.xlsx', 'out_3_key.xlsx'
+            ])
+
+
+# write_dict_to_feather #######################################################
+def test_write_dict_to_feather_empty_dict(tmp_path):
+    '''
+    Tests that writing empty dictionary to path produces no output.
+    '''
+    sample_dictionary = dict()
+    dp.write_dict_to_feather(sample_dictionary, tmp_path)
+    
+    assert os.listdir(tmp_path) == list()
+
+
+def test_write_dict_to_feather_correct_files(df_sample, tmp_path):
+    '''
+    Tests that all correct files with correct extensions are outputted to path
+    and invalid/missing data skipped.
+    '''
+    df_1 = df_sample
+    df_2 = df_sample
+    df_3 = df_sample
+    df_4 = df_sample
+    sample_dictionary = {
+        'df_1_key': df_1, 
+        'df_2_key': df_2, 
+        'df_3_key': df_3,
+        'invalid': df_4, # should be skipped, invalid name + valid data
+        'df_5_key': '', # should be skipped, valid name + invalid data
+    }
+    dp.write_dict_to_feather(sample_dictionary, tmp_path)
+    
+    assert len(os.listdir(tmp_path)) == 3
+    assert all(filename in os.listdir(tmp_path) for filename in [
+                'out_1_key.feather', 'out_2_key.feather', 'out_3_key.feather'
+            ])
+
+
+# write_dict_to_parquet #######################################################
+def test_write_dict_to_parquet_empty_dict(tmp_path):
+    '''
+    Tests that writing empty dictionary to path produces no output.
+    '''
+    sample_dictionary = dict()
+    dp.write_dict_to_parquet(sample_dictionary, tmp_path)
+    
+    assert os.listdir(tmp_path) == list()
+
+
+def test_write_dict_to_parquet_correct_files(df_sample, tmp_path):
+    '''
+    Tests that all correct files with correct extensions are outputted to path
+    and invalid/missing data skipped.
+    '''
+    df_1 = df_sample
+    df_2 = df_sample
+    df_3 = df_sample
+    df_4 = df_sample
+    sample_dictionary = {
+        'df_1_key': df_1, 
+        'df_2_key': df_2, 
+        'df_3_key': df_3,
+        'invalid': df_4, # should be skipped, invalid name + valid data
+        'df_5_key': '', # should be skipped, valid name + invalid data
+    }
+    dp.write_dict_to_parquet(sample_dictionary, tmp_path)
+    
+    assert len(os.listdir(tmp_path)) == 3
+    assert all(filename in os.listdir(tmp_path) for filename in [
+                'out_1_key.parquet', 'out_2_key.parquet', 'out_3_key.parquet'
+            ])
+
+
+# write_dict_to_pickle ########################################################
+def test_write_dict_to_pickle_empty_dict(tmp_path):
+    '''
+    Tests that writing empty dictionary to path produces no output.
+    '''
+    sample_dictionary = dict()
+    dp.write_dict_to_pickle(sample_dictionary, tmp_path)
+    
+    assert os.listdir(tmp_path) == list()
+
+
+def test_write_dict_to_pickle_correct_files(df_sample, tmp_path):
+    '''
+    Tests that all correct files with correct extensions are outputted to path
+    and invalid/missing data skipped.
+    '''
+    df_1 = df_sample
+    df_2 = df_sample
+    df_3 = df_sample
+    df_4 = df_sample
+    sample_dictionary = {
+        'df_1_key': df_1, 
+        'df_2_key': df_2, 
+        'df_3_key': df_3,
+        'invalid': df_4, # should be skipped, invalid name + valid data
+        'df_5_key': '', # should be skipped, valid name + invalid data
+    }
+    dp.write_dict_to_pickle(sample_dictionary, tmp_path)
+    
+    assert len(os.listdir(tmp_path)) == 3
+    assert all(filename in os.listdir(tmp_path) for filename in [
+                'out_1_key.pickle', 'out_2_key.pickle', 'out_3_key.pickle'
+            ])
+
+# write_dict_to_sqlite ########################################################
+# def test_write_dict_to_sqlite(df_sample):
