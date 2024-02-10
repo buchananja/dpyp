@@ -22,7 +22,7 @@ quick to write and more readable.
 - Once batch processing is complete, data dictionaries can be unpacked as
 global objects for further processing.
 - When data processing is complete, dpypr allows users to gather global
-dataframes into data_dictionaries for writing to output directories with
+dataframes into data dictionaries for writing to output directories with
 renaming.
 
 ## Aims
