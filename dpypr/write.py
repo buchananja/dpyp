@@ -33,7 +33,7 @@ def write_dict_to_json(
             data.to_json(f'{path}/{file_prefix}_{name[3:]}.json')
 
             if messaging:
-                dp.sleep_log(f'- Wrote {file_prefix}_{name[3:]} ({len(data):,}) records.')
+                dp.sleep_log(f'- Wrote {file_prefix}_{name[3:]} ({len(data):,} records).')
     if messaging:
         dp.sleep_log('All data written successfully.\n')
 
@@ -58,7 +58,7 @@ def write_dict_to_csv(
             data.to_csv(f'{path}/{file_prefix}_{name[3:]}.csv')
 
             if messaging:
-                dp.sleep_log(f'- Wrote {file_prefix}_{name[3:]} ({len(data):,}) records.')
+                dp.sleep_log(f'- Wrote {file_prefix}_{name[3:]} ({len(data):,} records).')
     if messaging:
         dp.sleep_log('All data written successfully.\n')
        
@@ -83,7 +83,7 @@ def write_dict_to_xlsx(
             data.to_excel(f'{path}/{file_prefix}_{name[3:]}.xlsx')
 
             if messaging:
-                dp.sleep_log(f'- Wrote {file_prefix}_{name[3:]} ({len(data):,}) records.')
+                dp.sleep_log(f'- Wrote {file_prefix}_{name[3:]} ({len(data):,} records).')
     if messaging:
         dp.sleep_log('All data written successfully.\n')
 
@@ -108,7 +108,7 @@ def write_dict_to_feather(
             data.to_feather(f'{path}/{file_prefix}_{name[3:]}.feather')
 
             if messaging:
-                dp.sleep_log(f'- Wrote {file_prefix}_{name[3:]} ({len(data):,}) records.')
+                dp.sleep_log(f'- Wrote {file_prefix}_{name[3:]} ({len(data):,} records).')
     if messaging:
         dp.sleep_log('All data written successfully.\n')
         
@@ -133,7 +133,7 @@ def write_dict_to_parquet(
             data.to_parquet(f'{path}/{file_prefix}_{name[3:]}.parquet')
 
             if messaging:
-                dp.sleep_log(f'- Wrote {file_prefix}_{name[3:]} ({len(data):,}) records.')
+                dp.sleep_log(f'- Wrote {file_prefix}_{name[3:]} ({len(data):,} records).')
     if messaging:
         dp.sleep_log('All data written successfully.\n')
         
@@ -158,7 +158,7 @@ def write_dict_to_pickle(
             data.to_pickle(f'{path}/{file_prefix}_{name[3:]}.pickle')
 
             if messaging:
-                dp.sleep_log(f'- Wrote {file_prefix}_{name[3:]} ({len(data):,}) records.')
+                dp.sleep_log(f'- Wrote {file_prefix}_{name[3:]} ({len(data):,} records).')
     if messaging:
         dp.sleep_log('All data written successfully.\n')
           
@@ -203,7 +203,7 @@ def write_dict_to_sqlite(
                 ''')
                 
                 if messaging:
-                    dp.sleep_log(f'- Wrote {file_prefix}_{name[3:]} ({len(data):,}) records.')
+                    dp.sleep_log(f'- Wrote {file_prefix}_{name[3:]} ({len(data):,} records).')
         # write tables to new database
         conn.commit()
     
