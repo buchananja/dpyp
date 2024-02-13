@@ -16,7 +16,7 @@ import os
 def write_dict_to_json(
         globals_dict, 
         path, 
-        file_prefix = 'out',
+        file_prefix = 'df',
         messaging = True
     ):
     '''
@@ -41,7 +41,7 @@ def write_dict_to_json(
 def write_dict_to_csv(
         globals_dict, 
         path, 
-        file_prefix = 'out',
+        file_prefix = 'df',
         messaging = True
     ):
     '''
@@ -66,7 +66,7 @@ def write_dict_to_csv(
 def write_dict_to_xlsx(
         globals_dict, 
         path, 
-        file_prefix = 'out',
+        file_prefix = 'df',
         messaging = True
     ):
     '''
@@ -91,7 +91,7 @@ def write_dict_to_xlsx(
 def write_dict_to_feather(
         globals_dict, 
         path, 
-        file_prefix = 'out',
+        file_prefix = 'df',
         messaging = True
     ):
     '''
@@ -116,7 +116,7 @@ def write_dict_to_feather(
 def write_dict_to_parquet(
         globals_dict, 
         path, 
-        file_prefix = 'out',
+        file_prefix = 'df',
         messaging = True
     ):
     '''
@@ -141,7 +141,7 @@ def write_dict_to_parquet(
 def write_dict_to_pickle(
         globals_dict, 
         path, 
-        file_prefix = 'out',
+        file_prefix = 'df',
         messaging = True
     ):
     '''
@@ -167,7 +167,7 @@ def write_dict_to_sqlite(
         data_dictionary, 
         path,
         overwrite = False,
-        file_prefix = 'out',
+        file_prefix = 'df',
         messaging = True
     ):
     '''
