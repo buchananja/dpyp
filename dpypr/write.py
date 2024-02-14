@@ -197,17 +197,13 @@ def write_dict_to_sqlite(
         # create tables in new database
         for name, data in data_dictionary.items():
             if name.startswith('df_') & isinstance(data, pd.DataFrame):
-                cols = ', '.join(data.columns)
-                cur.execute(f'''
-                    CREATE TABLE {file_prefix}_{name[3:]} ({cols})
-                ''')
+                # write DataFrame to new database
+                data.to_sql(f'{file_prefix}_{name[3:]}', conn, if_exists = 'replace')
                 
                 if messaging:
                     dp.sleep_log(f'- Wrote {file_prefix}_{name[3:]} ({len(data):,} records).')
-        # write tables to new database
-        conn.commit()
-    
         if messaging:
             dp.sleep_log('All data written successfully.\n')
-    except OperationalError:
-        dp.sleep_log('WARNING: Database already exists!')
+            
+    except Exception as e:
+        dp.sleep_log(f'WARNING: {str(e)}')
