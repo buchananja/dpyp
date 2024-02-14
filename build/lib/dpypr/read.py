@@ -287,7 +287,8 @@ def gather_data_dictionary(globals_dict):
 def unpack_data_dictionary(
         data_dictionary, 
         output_dict = None, 
-        messaging = False
+        messaging = False,
+        file_prefix = ''
     ):
     '''
     - Loads all data from data_dictionary into global variables with record 
@@ -308,7 +309,7 @@ def unpack_data_dictionary(
     # unpacks all dataframes to globals are prefixes name with 'df_'
     for key, value in data_dictionary.items():
         if isinstance(value, pd.DataFrame):
-            output_dict[f'df_{key}'] = value
+            output_dict[f'{file_prefix}_{key}'] = value
             
             if messaging:
                 dp.sleep_log(f'- Loaded df_{key} ({len(value):,} records).')

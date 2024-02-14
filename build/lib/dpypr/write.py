@@ -171,7 +171,7 @@ def write_dict_to_sqlite(
         messaging = True
     ):
     '''
-    - Writes all objects beginning with 'df_' in global space to path as
+    - Writes all objects beginning with 'df_' in data_dictionary to path as
     tables in sqlite database. 
     - Prefix allows user to rename processed files upon writing.
     - Messaging logs statements about number of records.
@@ -188,7 +188,6 @@ def write_dict_to_sqlite(
      
     # connect to database       
     conn = sqlite3.connect(path)
-    cur = conn.cursor()
     
     try:
         if messaging:
