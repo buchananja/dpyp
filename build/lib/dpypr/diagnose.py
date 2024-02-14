@@ -45,7 +45,7 @@ def fetch_all_global_df(globals_dict):
     return list_df
 
 
-def sleep_log(message, sleep_seconds = 0.2): 
+def sleep_log(message, sleep_seconds = 0): 
     '''
     Outputs info logging mesage to console with variable sleep timer.
     '''

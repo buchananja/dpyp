@@ -198,7 +198,7 @@ def write_dict_to_sqlite(
         for name, data in data_dictionary.items():
             if name.startswith('df_') & isinstance(data, pd.DataFrame):
                 # write DataFrame to new database
-                data.to_sql(f'{file_prefix}_{name[3:]}', conn, if_exists='replace')
+                data.to_sql(f'{file_prefix}_{name[3:]}', conn, if_exists = 'replace')
                 
                 if messaging:
                     dp.sleep_log(f'- Wrote {file_prefix}_{name[3:]} ({len(data):,} records).')
