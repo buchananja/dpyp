@@ -76,7 +76,7 @@ def read_all_json(path, messaging = True):
             data_dictionary[f'df_{filename}'] = df
             
             if messaging:
-                dp.sleep_log(f'- read {f'df_{filename}'} ({len(filename):,} records).')
+                dp.sleep_log(f'- read df_{filename} ({len(filename):,} records).')
                 
     if not data_dictionary:
         dp.sleep_log('No files read.')
@@ -106,7 +106,7 @@ def read_all_csv(path, messaging = True):
             data_dictionary[f'df_{filename}'] = df
             
             if messaging:
-                dp.sleep_log(f'- read {f'df_{filename}'} ({len(filename):,} records).')
+                dp.sleep_log(f'- read df_{filename} ({len(filename):,} records).')
                 
     if not data_dictionary:
         dp.sleep_log('No files read.')
@@ -136,7 +136,7 @@ def read_all_xlsx(path, messaging = True):
             data_dictionary[f'df_{filename}'] = df
             
             if messaging:
-                dp.sleep_log(f'- read {f'df_{filename}'} ({len(filename):,} records).')
+                dp.sleep_log(f'- read df_{filename} ({len(filename):,} records).')
                 
     if not data_dictionary:
         dp.sleep_log('No files read.')
@@ -166,7 +166,7 @@ def read_all_feather(path, messaging = True):
             data_dictionary[f'df_{filename}'] = df
             
             if messaging:
-                dp.sleep_log(f'- read {f'df_{filename}'} ({len(filename):,} records).')
+                dp.sleep_log(f'- read df_{filename} ({len(filename):,} records).')
                 
     if not data_dictionary:
         dp.sleep_log('No files read.')
@@ -196,7 +196,7 @@ def read_all_parquet(path, messaging = True):
             data_dictionary[f'df_{filename}'] = df
             
             if messaging:
-                dp.sleep_log(f'- read {f'df_{filename}'} ({len(filename):,} records).')
+                dp.sleep_log(f'- read df_{filename} ({len(filename):,} records).')
                 
     if not data_dictionary:
         dp.sleep_log('No files read.')
@@ -226,7 +226,7 @@ def read_all_pickle(path, messaging = True):
             data_dictionary[f'df_{filename}'] = df
             
             if messaging:
-                dp.sleep_log(f'- read {f'df_{filename}'} ({len(filename):,} records).')
+                dp.sleep_log(f'- read df_{filename} ({len(filename):,} records).')
                 
     if not data_dictionary:
         dp.sleep_log('No files read.')
