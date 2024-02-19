@@ -27,7 +27,7 @@ import dpypr as dp
 #     data_dictionary = dict()
     
 #     if messaging:
-#         dp.sleep_log('\nReading data...')
+#         print('\nReading data...')
         
 #     for file in files:
 #         filename, file_extension = os.path.splitext(file)
@@ -47,12 +47,12 @@ import dpypr as dp
 #             data_dictionary[f'df_{filename}_{file_extension[1:]}'] = df
             
 #             if messaging:
-#                 dp.sleep_log(f'- read {f'df_{filename}_{file_extension[1:]}'} ({len(filename):,} records).')      
+#                 print(f'- read {f'df_{filename}_{file_extension[1:]}'} ({len(filename):,} records).')      
 #     if not data_dictionary:
-#         dp.sleep_log('No files read.')
+#         print('No files read.')
 #     else:
 #         if messaging:
-#             dp.sleep_log('All data read successfully.\n')
+#             print('All data read successfully.\n')
 #     return data_dictionary
         
         
@@ -67,7 +67,7 @@ def read_all_json(path, messaging = True):
     data_dictionary = dict()
     
     if messaging:
-        dp.sleep_log('\nReading data...')
+        print('\nReading data...')
     
     for file in files:
         if file.endswith('.json'):
@@ -76,12 +76,12 @@ def read_all_json(path, messaging = True):
             data_dictionary[f'df_{filename}'] = df
             
             if messaging:
-                dp.sleep_log(f'- read df_{filename} ({len(filename):,} records).')
+                print(f'- read df_{filename} ({len(filename):,} records).')
                 
     if not data_dictionary:
-        dp.sleep_log('No files read.')
+        print('No files read.')
     if messaging:
-        dp.sleep_log('All data read successfully.\n')
+        print('All data read successfully.\n')
         
     return data_dictionary
 
@@ -97,7 +97,7 @@ def read_all_csv(path, messaging = True):
     data_dictionary = dict()
     
     if messaging:
-        dp.sleep_log('\nReading data...')
+        print('\nReading data...')
         
     for file in files:
         if file.endswith('.csv'):
@@ -106,12 +106,12 @@ def read_all_csv(path, messaging = True):
             data_dictionary[f'df_{filename}'] = df
             
             if messaging:
-                dp.sleep_log(f'- read df_{filename} ({len(filename):,} records).')
+                print(f'- read df_{filename} ({len(filename):,} records).')
                 
     if not data_dictionary:
-        dp.sleep_log('No files read.')
+        print('No files read.')
     if messaging:
-        dp.sleep_log('All data read successfully.\n')
+        print('All data read successfully.\n')
         
     return data_dictionary
 
@@ -127,7 +127,7 @@ def read_all_xlsx(path, messaging = True):
     data_dictionary = dict()
     
     if messaging:
-        dp.sleep_log('\nReading data...')
+        print('\nReading data...')
         
     for file in files:
         if file.endswith('.xlsx'):
@@ -136,12 +136,12 @@ def read_all_xlsx(path, messaging = True):
             data_dictionary[f'df_{filename}'] = df
             
             if messaging:
-                dp.sleep_log(f'- read df_{filename} ({len(filename):,} records).')
+                print(f'- read df_{filename} ({len(filename):,} records).')
                 
     if not data_dictionary:
-        dp.sleep_log('No files read.')
+        print('No files read.')
     if messaging:
-        dp.sleep_log('All data read successfully.\n')
+        print('All data read successfully.\n')
         
     return data_dictionary
 
@@ -157,7 +157,7 @@ def read_all_feather(path, messaging = True):
     data_dictionary = dict()
     
     if messaging:
-        dp.sleep_log('\nReading data...')
+        print('\nReading data...')
         
     for file in files:
         if file.endswith('.feather'):
@@ -166,12 +166,12 @@ def read_all_feather(path, messaging = True):
             data_dictionary[f'df_{filename}'] = df
             
             if messaging:
-                dp.sleep_log(f'- read df_{filename} ({len(filename):,} records).')
+                print(f'- read df_{filename} ({len(filename):,} records).')
                 
     if not data_dictionary:
-        dp.sleep_log('No files read.')
+        print('No files read.')
     if messaging:
-        dp.sleep_log('All data read successfully.\n')
+        print('All data read successfully.\n')
         
     return data_dictionary
 
@@ -187,7 +187,7 @@ def read_all_parquet(path, messaging = True):
     data_dictionary = dict()
     
     if messaging:
-        dp.sleep_log('\nReading data...')
+        print('\nReading data...')
         
     for file in files:
         if file.endswith('.parquet'):
@@ -196,12 +196,12 @@ def read_all_parquet(path, messaging = True):
             data_dictionary[f'df_{filename}'] = df
             
             if messaging:
-                dp.sleep_log(f'- read df_{filename} ({len(filename):,} records).')
+                print(f'- read df_{filename} ({len(filename):,} records).')
                 
     if not data_dictionary:
-        dp.sleep_log('No files read.')
+        print('No files read.')
     if messaging:
-        dp.sleep_log('All data read successfully.\n')
+        print('All data read successfully.\n')
         
     return data_dictionary
 
@@ -217,7 +217,7 @@ def read_all_pickle(path, messaging = True):
     data_dictionary = dict()
     
     if messaging:
-        dp.sleep_log('\nReading data...')
+        print('\nReading data...')
         
     for file in files:
         if file.endswith('.pickle'):
@@ -226,12 +226,12 @@ def read_all_pickle(path, messaging = True):
             data_dictionary[f'df_{filename}'] = df
             
             if messaging:
-                dp.sleep_log(f'- read df_{filename} ({len(filename):,} records).')
+                print(f'- read df_{filename} ({len(filename):,} records).')
                 
     if not data_dictionary:
-        dp.sleep_log('No files read.')
+        print('No files read.')
     if messaging:
-        dp.sleep_log('All data read successfully.\n')
+        print('All data read successfully.\n')
         
     return data_dictionary
      
@@ -247,7 +247,7 @@ def read_all_sqlite(path, messaging = True):
     cur = conn.cursor()
 
     if messaging:
-        dp.sleep_log('\nReading data...')
+        print('\nReading data...')
     
     # queries all tables in database
     cur.execute('''
@@ -264,14 +264,14 @@ def read_all_sqlite(path, messaging = True):
         data_dictionary[table_name[0]] = pd.read_sql_query(query, conn)
         
         if messaging:
-            dp.sleep_log(f'- read df_{table_name[0]} ({len(data_dictionary[table_name[0]]):,} records).')
+            print(f'- read df_{table_name[0]} ({len(data_dictionary[table_name[0]]):,} records).')
     if messaging:
-        dp.sleep_log('All data read successfully.\n')
+        print('All data read successfully.\n')
             
     conn.close()
     
     if not data_dictionary:
-        dp.sleep_log('No files read.')
+        print('No files read.')
         
     return data_dictionary     
 
@@ -288,7 +288,7 @@ def gather_data_dictionary(globals_dict):
         if name.startswith('df_') and isinstance(data, pd.DataFrame):
             data_dictionary.update({name: data})
     if not data_dictionary:
-        dp.sleep_log('No files found.')
+        print('No files found.')
         
     return data_dictionary
 
@@ -312,7 +312,7 @@ def unpack_data_dictionary(
         return_dict = False
     
     if messaging:
-        dp.sleep_log('\nReading data...')
+        print('\nReading data...')
 
     # unpacks all dataframes to globals are prefixes name with 'df_'
     for key, value in data_dictionary.items():
@@ -320,9 +320,9 @@ def unpack_data_dictionary(
             output_dict[f'df_{key}'] = value
             
             if messaging:
-                dp.sleep_log(f'- Loaded df_{key} ({len(value):,} records).')
+                print(f'- Loaded df_{key} ({len(value):,} records).')
     if messaging:
-        dp.sleep_log('All data read successfully.\n')
+        print('All data read successfully.\n')
 
     if return_dict:
         return output_dict

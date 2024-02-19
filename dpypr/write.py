@@ -186,11 +186,11 @@ def write_dict_to_sqlite(
      
     # connect to database       
     conn = sqlite3.connect(path)
-    
-    try:
-        if messaging:
-            print('\nWriting data...')
-            
+
+    if messaging:
+        print('\nWriting data...')
+        
+    try:           
         # create tables in new database
         for name, data in data_dictionary.items():
             if name.startswith('df_') & isinstance(data, pd.DataFrame):

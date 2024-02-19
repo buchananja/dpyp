@@ -5,8 +5,6 @@ outputting useful information to the console.
 
 
 # Dependencies ################################################################
-import time
-import logging
 import sqlite3
 
 
@@ -43,11 +41,3 @@ def fetch_all_global_df(globals_dict):
         if name.startswith('df_'):
             list_df.append(name)
     return list_df
-
-
-def sleep_log(message, sleep_seconds = 0): 
-    '''
-    Outputs info logging mesage to console with variable sleep timer.
-    '''
-    time.sleep(sleep_seconds)
-    logging.info(str(message))
