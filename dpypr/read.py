@@ -236,7 +236,7 @@ def read_all_pickle(path, messaging = True):
     return data_dictionary
      
               
-def read_all_sqlite(path):
+def read_all_sqlite(path, messaging = True):
     '''
     - Iteratively loads all tables from sqlite database and assigns to 
     dataframes. 
@@ -245,6 +245,9 @@ def read_all_sqlite(path):
     
     conn = sqlite3.connect(path)
     cur = conn.cursor()
+
+    if messaging:
+        dp.sleep_log('\nReading data...')
     
     # queries all tables in database
     cur.execute('''
@@ -259,6 +262,12 @@ def read_all_sqlite(path):
         # selects everything from each table.
         query = f"SELECT * FROM {table_name[0]}"
         data_dictionary[table_name[0]] = pd.read_sql_query(query, conn)
+        
+        if messaging:
+            dp.sleep_log(f'- read df_{table_name[0]} ({len(data_dictionary[table_name[0]]):,} records).')
+    if messaging:
+        dp.sleep_log('All data read successfully.\n')
+            
     conn.close()
     
     if not data_dictionary:
