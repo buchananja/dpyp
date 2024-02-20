@@ -173,6 +173,9 @@ def write_dict_to_sqlite(
     tables in sqlite database. 
     - Prefix allows user to rename processed files upon writing.
     - Messaging logs statements about number of records.
+    - Overwrites table if set.
+    - Creates database if path does not exist.
+    - Appends to tables by default.
     '''
     
     if overwrite and os.path.exists(path):
@@ -193,10 +196,14 @@ def write_dict_to_sqlite(
         for name, data in data_dictionary.items():
             if name.startswith('df_') & isinstance(data, pd.DataFrame):
                 # write DataFrame to new table
-                data.to_sql(f'{file_prefix}_{name[3:]}', conn, if_exists = 'replace')
+                if overwrite:
+                    data.to_sql(f'{file_prefix}_{name[3:]}', conn, if_exists = 'replace')
+                else:
+                    data.to_sql(f'{file_prefix}_{name[3:]}', conn, if_exists = 'append')
                 
                 if messaging:
                     print(f'- Wrote {file_prefix}_{name[3:]} ({len(data):,} records).')
+                    
         if messaging:
             print('All data written successfully.\n')
             
