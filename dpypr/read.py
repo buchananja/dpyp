@@ -6,9 +6,10 @@ into data pipelines.
 
 # Dependencies ################################################################
 import pandas as pd
+import dpypr as dp
 import os
 import sqlite3
-import dpypr as dp
+from sqlite3 import OperationalError
 
 
 # Data Loading ################################################################
@@ -63,9 +64,12 @@ def read_all_json(path, messaging = True):
     - Messaging logs statements about number of records.
     '''
     
-    files = os.listdir(path)
-    data_dictionary = dict()
-    
+    if dp.check_path_valid(path):
+        files = os.listdir(path)
+        data_dictionary = dict()
+    else:
+        print('Please enter a valid path.')
+        
     if messaging:
         print('\nReading data...')
     
@@ -93,8 +97,11 @@ def read_all_csv(path, messaging = True):
     - Messaging logs statements about number of records.
     '''
     
-    files = os.listdir(path)
-    data_dictionary = dict()
+    if dp.check_path_valid(path):
+        files = os.listdir(path)
+        data_dictionary = dict()
+    else:
+        print('Please enter a valid path.')
     
     if messaging:
         print('\nReading data...')
@@ -123,8 +130,11 @@ def read_all_xlsx(path, messaging = True):
     - Messaging logs statements about number of records.
     '''
     
-    files = os.listdir(path)
-    data_dictionary = dict()
+    if dp.check_path_valid(path):
+        files = os.listdir(path)
+        data_dictionary = dict()
+    else:
+        print('Please enter a valid path.')
     
     if messaging:
         print('\nReading data...')
@@ -153,8 +163,11 @@ def read_all_feather(path, messaging = True):
     - Messaging logs statements about number of records.
     '''
     
-    files = os.listdir(path)
-    data_dictionary = dict()
+    if dp.check_path_valid(path):
+        files = os.listdir(path)
+        data_dictionary = dict()
+    else:
+        print('Please enter a valid path.')
     
     if messaging:
         print('\nReading data...')
@@ -183,8 +196,11 @@ def read_all_parquet(path, messaging = True):
     - Messaging logs statements about number of records.
     '''
     
-    files = os.listdir(path)
-    data_dictionary = dict()
+    if dp.check_path_valid(path):
+        files = os.listdir(path)
+        data_dictionary = dict()
+    else:
+        print('Please enter a valid path.')
     
     if messaging:
         print('\nReading data...')
@@ -213,8 +229,11 @@ def read_all_pickle(path, messaging = True):
     - Messaging logs statements about number of records.
     '''
     
-    files = os.listdir(path)
-    data_dictionary = dict()
+    if dp.check_path_valid(path):
+        files = os.listdir(path)
+        data_dictionary = dict()
+    else:
+        print('Please enter a valid path.')
     
     if messaging:
         print('\nReading data...')
@@ -243,9 +262,13 @@ def read_all_sqlite(path, messaging = True):
     - Messaging logs statements about number of records.
     '''
     
-    conn = sqlite3.connect(path)
-    cur = conn.cursor()
-
+    try:
+        if dp.check_path_valid(path):
+            conn = sqlite3.connect(path)
+            cur = conn.cursor()
+    except OperationalError:
+        print('WARNING: Failed to connect to database.')
+        
     if messaging:
         print('\nReading data...')
     
