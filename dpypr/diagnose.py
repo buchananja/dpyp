@@ -63,3 +63,13 @@ def get_last_modified_date(path, formatting = '%Y/%m/%d, %H:%M'):
     
     # return formatted most recent date
     return max(modified_dates).strftime(formatting)
+
+
+def check_path_valid(path):
+    '''
+    Returns True if path exists and False if not.
+    '''
+    
+    if os.path.exists(path):
+        return True
+    return False
