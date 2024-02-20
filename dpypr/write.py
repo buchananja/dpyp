@@ -175,15 +175,13 @@ def write_dict_to_sqlite(
     - Messaging logs statements about number of records.
     '''
     
-    if overwrite:
+    if overwrite and os.path.exists(path):
         # remove old database
         try:
             os.remove(path)
         except PermissionError:
             print('WARNING: File is being used by another process!')
-        except FileNotFoundError:
-            print('WARNING: File does not exist!')
-     
+                
     # connect to database       
     conn = sqlite3.connect(path)
 
@@ -194,7 +192,7 @@ def write_dict_to_sqlite(
         # create tables in new database
         for name, data in data_dictionary.items():
             if name.startswith('df_') & isinstance(data, pd.DataFrame):
-                # write DataFrame to new database
+                # write DataFrame to new table
                 data.to_sql(f'{file_prefix}_{name[3:]}', conn, if_exists = 'replace')
                 
                 if messaging:
@@ -204,3 +202,5 @@ def write_dict_to_sqlite(
             
     except Exception as e:
         print(f'WARNING: {str(e)}')
+    
+    conn.close()
