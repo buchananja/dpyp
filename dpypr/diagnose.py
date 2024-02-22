@@ -44,9 +44,7 @@ def fetch_all_global_df(globals_dict):
 
 def get_last_modified_date(path, formatting = '%Y/%m/%d, %H:%M'):
     '''
-    returns most recent modified date from path directory with default
-    formatting
-    '''
+    returns most recent modified date from path directory with formatting'''
     
     # gets list of files in path
     files = os.listdir(path)

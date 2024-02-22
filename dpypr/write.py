@@ -1,181 +1,178 @@
-'''
-The 'write' module contains functionality for writing data of various datatypes
-from data pipelines.
-'''
-
-
-# Dependencies ################################################################
 import pandas as pd
 import sqlite3
 import os
 
 
-# Data Writing ################################################################
+'''
+the 'write' module contains functionality for writing data of various datatypes
+from data pipelines
+'''
+
+
 def write_dict_to_json(
-        globals_dict, 
+        input_dict, 
         path, 
-        file_prefix = 'df',
+        output_prefix = 'df',
         messaging = True
     ):
     '''
-    - Writes all objects beginning with 'df_' in global space to path as .json. 
-    - Prefix allows user to rename processed files upon writing.
-    - Messaging logs statements about number of records.
+    - writes all objects beginning with 'df_' in input_dict to path as .json
+    - prefix allows user to rename processed files upon writing
+    - prints number of records
     '''
     
     if messaging:
         print('\nWriting data...')
         
-    for name, data in globals_dict.items():
+    for name, data in input_dict.items():
         if name.startswith('df_') & isinstance(data, pd.DataFrame):
-            data.to_json(f'{path}/{file_prefix}_{name[3:]}.json')
+            data.to_json(f'{path}/{output_prefix}_{name[3:]}.json')
 
             if messaging:
-                print(f'- Wrote {file_prefix}_{name[3:]} ({len(data):,} records).')
+                print(f'- Wrote {output_prefix}_{name[3:]} ({len(data):,} records).')
     if messaging:
         print('All data written successfully.\n')
 
 
 def write_dict_to_csv(
-        globals_dict, 
+        input_dict, 
         path, 
-        file_prefix = 'df',
+        output_prefix = 'df',
         messaging = True
     ):
     '''
-    - Writes all objects beginning with 'df_' in global space to path as .csv. 
-    - Prefix allows user to rename processed files upon writing.
-    - Messaging logs statements about number of records.
+    - writes all objects beginning with 'df_' in input_dict to path as .csv
+    - prefix allows user to rename processed files upon writing
+    - prints number of records
     '''
     
     if messaging:
         print('\nWriting data...')
         
-    for name, data in globals_dict.items():
+    for name, data in input_dict.items():
         if name.startswith('df_') & isinstance(data, pd.DataFrame):
-            data.to_csv(f'{path}/{file_prefix}_{name[3:]}.csv')
+            data.to_csv(f'{path}/{output_prefix}_{name[3:]}.csv')
 
             if messaging:
-                print(f'- Wrote {file_prefix}_{name[3:]} ({len(data):,} records).')
+                print(f'- Wrote {output_prefix}_{name[3:]} ({len(data):,} records).')
     if messaging:
         print('All data written successfully.\n')
        
             
 def write_dict_to_xlsx(
-        globals_dict, 
+        input_dict, 
         path, 
-        file_prefix = 'df',
+        output_prefix = 'df',
         messaging = True
     ):
     '''
-    - Writes all objects beginning with 'df_' in global space to path as .xlsx. 
-    - Prefix allows user to rename processed files upon writing.
-    - Messaging logs statements about number of records.
+    - writes all objects beginning with 'df_' in input_dict to path as .xlsx 
+    - prefix allows user to rename processed files upon writing
+    - prints number of records
     '''
     
     if messaging:
         print('\nWriting data...')
         
-    for name, data in globals_dict.items():
+    for name, data in input_dict.items():
         if name.startswith('df_') & isinstance(data, pd.DataFrame):
-            data.to_excel(f'{path}/{file_prefix}_{name[3:]}.xlsx')
+            data.to_excel(f'{path}/{output_prefix}_{name[3:]}.xlsx')
 
             if messaging:
-                print(f'- Wrote {file_prefix}_{name[3:]} ({len(data):,} records).')
+                print(f'- Wrote {output_prefix}_{name[3:]} ({len(data):,} records).')
     if messaging:
         print('All data written successfully.\n')
 
 
 def write_dict_to_feather(
-        globals_dict, 
+        input_dict, 
         path, 
-        file_prefix = 'df',
+        output_prefix = 'df',
         messaging = True
     ):
     '''
-    - Writes all objects beginning with 'df_' in global space to path as .feather. 
-    - Prefix allows user to rename processed files upon writing.
-    - Messaging logs statements about number of records.
+    - writes all objects beginning with 'df_' in input_dict to path as .feather
+    - prefix allows user to rename processed files upon writing
+    - prints number of records
     '''
     
     if messaging:
         print('\nWriting data...')
         
-    for name, data in globals_dict.items():
+    for name, data in input_dict.items():
         if name.startswith('df_') & isinstance(data, pd.DataFrame):
-            data.to_feather(f'{path}/{file_prefix}_{name[3:]}.feather')
+            data.to_feather(f'{path}/{output_prefix}_{name[3:]}.feather')
 
             if messaging:
-                print(f'- Wrote {file_prefix}_{name[3:]} ({len(data):,} records).')
+                print(f'- Wrote {output_prefix}_{name[3:]} ({len(data):,} records).')
     if messaging:
         print('All data written successfully.\n')
         
             
 def write_dict_to_parquet(
-        globals_dict, 
+        input_dict, 
         path, 
-        file_prefix = 'df',
+        output_prefix = 'df',
         messaging = True
     ):
     '''
-    - Writes all objects beginning with 'df_' in global space to path as .parquet. 
-    - Prefix allows user to rename processed files upon writing.
-    - Messaging logs statements about number of records.
+    - writes all objects beginning with 'df_' in input_dict to path as .parquet
+    - prefix allows user to rename processed files upon writing
+    - prints number of records
     '''
     
     if messaging:
         print('\nWriting data...')
         
-    for name, data in globals_dict.items():
+    for name, data in input_dict.items():
         if name.startswith('df_') & isinstance(data, pd.DataFrame):
-            data.to_parquet(f'{path}/{file_prefix}_{name[3:]}.parquet')
+            data.to_parquet(f'{path}/{output_prefix}_{name[3:]}.parquet')
 
             if messaging:
-                print(f'- Wrote {file_prefix}_{name[3:]} ({len(data):,} records).')
+                print(f'- Wrote {output_prefix}_{name[3:]} ({len(data):,} records).')
     if messaging:
         print('All data written successfully.\n')
         
         
 def write_dict_to_pickle(
-        globals_dict, 
+        input_dict, 
         path, 
-        file_prefix = 'df',
+        output_prefix = 'df',
         messaging = True
     ):
     '''
-    - Writes all objects beginning with 'df_' in global space to path as .pickle. 
-    - Prefix allows user to rename processed files upon writing.
-    - Messaging logs statements about number of records.
+    - writes all objects beginning with 'df_' in input_dict to path as .pickle
+    - prefix allows user to rename processed files upon writing
+    - prints number of records
     '''
     
     if messaging:
         print('\nWriting data...')
         
-    for name, data in globals_dict.items():
+    for name, data in input_dict.items():
         if name.startswith('df_') & isinstance(data, pd.DataFrame):
-            data.to_pickle(f'{path}/{file_prefix}_{name[3:]}.pickle')
+            data.to_pickle(f'{path}/{output_prefix}_{name[3:]}.pickle')
 
             if messaging:
-                print(f'- Wrote {file_prefix}_{name[3:]} ({len(data):,} records).')
+                print(f'- Wrote {output_prefix}_{name[3:]} ({len(data):,} records).')
     if messaging:
         print('All data written successfully.\n')
           
                 
 def write_dict_to_sqlite(
-        data_dictionary, 
+        input_dict, 
         path,
         overwrite = False,
-        file_prefix = 'df',
+        output_prefix = 'df',
         messaging = True
     ):
     '''
-    - Writes all objects beginning with 'df_' in data_dictionary to path as
-    tables in sqlite database. 
-    - Prefix allows user to rename processed files upon writing.
-    - Messaging logs statements about number of records.
-    - Overwrites table if set.
-    - Creates database if path does not exist.
-    - Appends to tables by default.
+    - writes all beginning 'df_' in input_dict to path as tables in database 
+    - prefix allows user to rename processed files upon writing
+    - prints number of records
+    - overwrites table if set
+    - creates database if path does not exist
+    - appends to tables by default
     '''
     
     if overwrite and os.path.exists(path):
@@ -193,21 +190,31 @@ def write_dict_to_sqlite(
         
     try:           
         # create tables in new database
-        for name, data in data_dictionary.items():
+        for name, data in input_dict.items():
             if name.startswith('df_') & isinstance(data, pd.DataFrame):
                 # write DataFrame to new table
                 if overwrite:
-                    data.to_sql(f'{file_prefix}_{name[3:]}', conn, if_exists = 'replace')
+                    data.to_sql(
+                        f'{output_prefix}_{name[3:]}', 
+                        conn, 
+                        if_exists = 'replace'
+                    )
                 else:
-                    data.to_sql(f'{file_prefix}_{name[3:]}', conn, if_exists = 'append')
-                
+                    data.to_sql(
+                        f'{output_prefix}_{name[3:]}', 
+                        conn, 
+                        if_exists = 'append'
+                    )
                 if messaging:
-                    print(f'- Wrote {file_prefix}_{name[3:]} ({len(data):,} records).')
-                    
+                    print(
+                        f'- Wrote {output_prefix}_{name[3:]} '\
+                        f'({len(data):,} records).'
+                    )
         if messaging:
-            print('All data written successfully.\n')
+            print('All data written successfully.\n') 
             
     except Exception as e:
         print(f'WARNING: {str(e)}')
     
+    # close connection to database
     conn.close()
