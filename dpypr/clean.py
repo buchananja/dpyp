@@ -9,7 +9,7 @@ standardising dataframes
 
 def headers_to_snakecase(df, uppercase = False):
     '''
-    converts all column headers to lower snake case by defatul and uppercase 
+    converts all column headers to lower snake case by default and uppercase 
     if 'uppercase' if specified
     '''
     
@@ -20,7 +20,7 @@ def headers_to_snakecase(df, uppercase = False):
     return df
 
 
-def values_to_snakecase(df, uppercase = False):
+def columns_to_snakecase(df, uppercase = False):
     '''converts all string values in dataframe to lower snake case by default 
     and uppercase if specified.
     '''
@@ -38,7 +38,7 @@ def values_to_snakecase(df, uppercase = False):
     return df
 
 
-def values_to_lowercase(df):
+def columns_to_lowercase(df):
     '''converts all string values in dataframe to lowercase'''
     
     df = df.apply(
@@ -47,7 +47,7 @@ def values_to_lowercase(df):
     return df
 
 
-def values_to_uppercase(df):
+def columns_to_uppercase(df):
     '''converts all string values in dataframe to uppercase'''
     
     df = df.apply(
@@ -56,7 +56,7 @@ def values_to_uppercase(df):
     return df
 
 
-def values_strip_whitespace(df):
+def columns_strip_whitespace(df):
     '''converts all string values to lowercase'''
     
     df = df.apply(
@@ -65,7 +65,7 @@ def values_strip_whitespace(df):
     return df
 
 
-def optimise_numeric_datatypes(df):
+def columns_optimise_numerics(df):
     '''downcasts numeric datatypes in numeric columns of dataframe''' 
     
     for col in df.columns:
