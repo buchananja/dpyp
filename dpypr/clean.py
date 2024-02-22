@@ -1,123 +1,118 @@
 import pandas as pd
 
 
-class DataCleaner:
+'''
+the 'clean' module contains functionality for cleaning, formatting, and
+standardising dataframes
+'''
+
+
+def headers_to_snakecase(df, uppercase = False):
     '''
-    the 'clean' module contains functionality for cleaning, formatting, and
-    standardising dataframes
+    converts all column headers to lower snake case by defatul and uppercase 
+    if 'uppercase' if specified
     '''
     
+    if uppercase:
+        df.columns = (df.columns.str.upper().str.replace(' ', '_'))
+    else:
+        df.columns = (df.columns.str.lower().str.replace(' ', '_'))
+    return df
+
+
+def values_to_snakecase(df, uppercase = False):
+    '''converts all string values in dataframe to lower snake case by default 
+    and uppercase if specified.
+    '''
     
-    def __init__(self, df):
-        self.df = df
+    if uppercase:
+        df = df.apply(
+            lambda col: col.str.upper().str.replace(' ', '_') 
+            if col.dtype == "object" else col
+        )
+    else:
+        df = df.apply(
+            lambda col: col.str.lower().str.replace(' ', '_') 
+            if col.dtype == "object" else col   
+        )
+    return df
+
+
+def values_to_lowercase(df):
+    '''converts all string values in dataframe to lowercase'''
     
+    df = df.apply(
+        lambda col: col.str.lower() if col.dtype == "object" else col
+    )
+    return df
+
+
+def values_to_uppercase(df):
+    '''converts all string values in dataframe to uppercase'''
     
-    def headers_to_snakecase(df, uppercase = False):
-        '''
-        converts all column headers to lower snake case by defatul and uppercase 
-        if 'uppercase' if specified
-        '''
-        
-        if uppercase:
-            df.columns = (df.columns.str.upper().str.replace(' ', '_'))
+    df = df.apply(
+        lambda col: col.str.upper() if col.dtype == "object" else col
+    )
+    return df
+
+
+def values_strip_whitespace(df):
+    '''converts all string values to lowercase'''
+    
+    df = df.apply(
+        lambda col: col.str.strip() if col.dtype == "object" else col
+    )
+    return df
+
+
+def optimise_numeric_datatypes(df):
+    '''downcasts numeric datatypes in numeric columns of dataframe''' 
+    
+    for col in df.columns:
+        # skips object columns
+        if df[col].dtype == object:
+            pass
+        # checks whether column contains only intigers
         else:
-            df.columns = (df.columns.str.lower().str.replace(' ', '_'))
-        return df
-
-
-    def values_to_snakecase(df, uppercase = False):
-        '''converts all string values in dataframe to lower snake case by default 
-        and uppercase if specified.
-        '''
-        
-        if uppercase:
-            df = df.apply(
-                lambda col: col.str.upper().str.replace(' ', '_') 
-                if col.dtype == "object" else col
-            )
-        else:
-            df = df.apply(
-                lambda col: col.str.lower().str.replace(' ', '_') 
-                if col.dtype == "object" else col   
-            )
-        return df
-
-
-    def values_to_lowercase(df):
-        '''converts all string values in dataframe to lowercase'''
-        
-        df = df.apply(
-            lambda col: col.str.lower() if col.dtype == "object" else col
-        )
-        return df
-
-
-    def values_to_uppercase(df):
-        '''converts all string values in dataframe to uppercase'''
-        
-        df = df.apply(
-            lambda col: col.str.upper() if col.dtype == "object" else col
-        )
-        return df
-
-
-    def values_strip_whitespace(df):
-        '''converts all string values to lowercase'''
-        
-        df = df.apply(
-            lambda col: col.str.strip() if col.dtype == "object" else col
-        )
-        return df
-
-
-    def optimise_numeric_datatypes(df):
-        '''downcasts numeric datatypes in numeric columns of dataframe''' 
-        
-        for col in df.columns:
-            # skips object columns
-            if df[col].dtype == object:
-                pass
-            # checks whether column contains only intigers
+            if all(df[col] % 1 == 0):
+                df[col] = pd.to_numeric(df[col], downcast = 'integer')
             else:
-                if all(df[col] % 1 == 0):
-                    df[col] = pd.to_numeric(df[col], downcast = 'integer')
-                else:
-                    df[col] = pd.to_numeric(df[col], downcast = 'float')
-        return df
+                df[col] = pd.to_numeric(df[col], downcast = 'float')
+    return df
 
 
-    def columns_to_string(df, clean_columns = []):
-        '''converts all columns in clean_columns to strings'''
+def columns_to_string(df, clean_columns = []):
+    '''converts all columns in clean_columns to strings'''
 
-        # finds columns common to both df.columns and clean_columns
-        clean_columns = list(set(clean_columns) & set(df.columns))
-        df.loc[:, clean_columns] = df.loc[:, clean_columns].astype(str)
-        return df
-
-
-    def columns_to_datetime(df, clean_columns = []):
-        '''converts all columns in clean_columns to datetime'''
-        
-        # finds columns common to both df.columns and clean_columns
-        clean_columns = list(set(clean_columns) & set(df.columns))
-        
-        # converts columns to datetime
-        for col in clean_columns:
-            df.loc[:, col] = pd.to_datetime(df.loc[:, col])
-        return df
+    # finds columns common to both df.columns and clean_columns
+    clean_columns = list(set(clean_columns) & set(df.columns))
+    df.loc[:, clean_columns] = df.loc[:, clean_columns].astype(str)
+    return df
 
 
-    def columns_to_boolean(df, clean_columns = []):
-        '''converts all columns in clean_columns to True if "true", else False'''
-        
-        clean_columns = list(set(clean_columns) & set(df.columns))
-        
-        # converts string values to True if "true", else False
-        for col in clean_columns:
-                df[col] = df[col].apply(
-                    lambda val: True 
-                    if isinstance(val, str) 
-                    and val.lower() == 'true' 
-                    else False
-                )
-        return df
+def columns_to_datetime(df, clean_columns = []):
+    '''converts all columns in clean_columns to datetime'''
+    
+    # finds columns common to both df.columns and clean_columns
+    clean_columns = list(set(clean_columns) & set(df.columns))
+    
+    # converts columns to datetime
+    for col in clean_columns:
+        df.loc[:, col] = pd.to_datetime(df.loc[:, col])
+    return df
+
+
+def columns_to_boolean(df, clean_columns = []):
+    '''converts all columns in clean_columns to True if "true", else False'''
+    
+    clean_columns = list(set(clean_columns) & set(df.columns))
+    
+    # converts string values to True if "true", else False
+    for col in clean_columns:
+            df[col] = df[col].apply(
+                lambda val: True 
+                if isinstance(val, str) 
+                and val.lower() == 'true' 
+                else False
+            )
+    return df
