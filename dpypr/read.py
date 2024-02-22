@@ -244,7 +244,9 @@ def read_all_sqlite(path, messaging = True):
             print(f'- read df_{table_name[0]} ({len(data_dictionary[table_name[0]]):,} records).')
     if messaging:
         print('All data read successfully.\n')
-            
+    
+    # closes cursor and connection
+    cur.close() 
     conn.close()
     
     if not data_dictionary:
