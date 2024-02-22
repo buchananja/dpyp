@@ -1,10 +1,3 @@
-'''
-The 'read' module contains functionality for reading data of various datatypes
-into data pipelines.
-'''
-
-
-# Dependencies ################################################################
 import pandas as pd
 import dpypr as dp
 import os
@@ -12,56 +5,17 @@ import sqlite3
 from sqlite3 import OperationalError
 
 
-# Data Loading ################################################################
-# def read_everything(
-#         path, 
-#         messaging = True,
-#         file_extensions = ['.json', '.csv', '.xlsx', '.feather', '.parquet', '.pickle']
-#     ):
-#     '''
-#     - Iteratively loads all json, csv, xlsx, parquet, feather, and pickle files 
-#     from the data directory and assigns to dataframes within a dictionary.
-#     - Messaging logs statements about number of records.
-#     '''
+'''
+the 'read' module contains functionality for reading data of various datatypes
+into data pipelines
+'''
 
-#     files = os.listdir(path)
-#     data_dictionary = dict()
-    
-#     if messaging:
-#         print('\nReading data...')
-        
-#     for file in files:
-#         filename, file_extension = os.path.splitext(file)
-#         if file_extension in file_extensions:
-#             if file_extension == '.json':
-#                 df = pd.read_json(os.path.join(path, file))
-#             elif file_extension == '.csv':
-#                 df = pd.read_csv(os.path.join(path, file))
-#             elif file_extension == '.xlsx':
-#                 df = pd.read_excel(os.path.join(path, file))
-#             elif file_extension == '.feather':
-#                 df = pd.read_feather(os.path.join(path, file))
-#             elif file_extension == '.parquet':
-#                 df = pd.read_parquet(os.path.join(path, file))
-#             elif file_extension == '.pickle':
-#                 df = pd.read_pickle(os.path.join(path, file))
-#             data_dictionary[f'df_{filename}_{file_extension[1:]}'] = df
-            
-#             if messaging:
-#                 print(f'- read {f'df_{filename}_{file_extension[1:]}'} ({len(filename):,} records).')      
-#     if not data_dictionary:
-#         print('No files read.')
-#     else:
-#         if messaging:
-#             print('All data read successfully.\n')
-#     return data_dictionary
-        
-        
+
 def read_all_json(path, messaging = True):
     '''
-    - Iteratively loads all json files from the data directory and assigns to 
-    dataframes. 
-    - Messaging logs statements about number of records.
+    - iteratively loads all json files from the data directory and assigns to 
+    dataframes
+    - prints number of records
     '''
     
     if dp.check_path_valid(path):
@@ -92,9 +46,9 @@ def read_all_json(path, messaging = True):
 
 def read_all_csv(path, messaging = True):
     '''
-    - Iteratively loads all csv files from the data directory and assigns to 
-    dataframes. 
-    - Messaging logs statements about number of records.
+    - iteratively loads all csv files from the data directory and assigns to 
+    dataframes
+    - prints number of records
     '''
     
     if dp.check_path_valid(path):
@@ -125,9 +79,9 @@ def read_all_csv(path, messaging = True):
 
 def read_all_xlsx(path, messaging = True):
     '''
-    - Iteratively loads all xlsx files from the data directory and assigns to 
-    dataframes. 
-    - Messaging logs statements about number of records.
+    - iteratively loads all xlsx files from the data directory and assigns to 
+    dataframes
+    - prints number of records
     '''
     
     if dp.check_path_valid(path):
@@ -158,9 +112,9 @@ def read_all_xlsx(path, messaging = True):
 
 def read_all_feather(path, messaging = True):
     '''
-    - Iteratively loads all feather files from the data directory and assigns to 
-    dataframes. 
-    - Messaging logs statements about number of records.
+    - iteratively loads all feather files from the data directory and assigns to 
+    dataframes
+    - prints number of records
     '''
     
     if dp.check_path_valid(path):
@@ -191,9 +145,9 @@ def read_all_feather(path, messaging = True):
 
 def read_all_parquet(path, messaging = True):
     '''
-    - Iteratively loads all parquet files from the data directory and assigns to 
-    dataframes. 
-    - Messaging logs statements about number of records.
+    - iteratively loads all parquet files from the data directory and assigns to 
+    dataframes
+    - prints number of records
     '''
     
     if dp.check_path_valid(path):
@@ -224,9 +178,9 @@ def read_all_parquet(path, messaging = True):
 
 def read_all_pickle(path, messaging = True):
     '''
-    - Iteratively loads all pickle files from the data directory and assigns to 
-    dataframes. 
-    - Messaging logs statements about number of records.
+    - iteratively loads all pickle files from the data directory and assigns to 
+    dataframes
+    - prints number of records
     '''
     
     if dp.check_path_valid(path):
@@ -257,9 +211,9 @@ def read_all_pickle(path, messaging = True):
               
 def read_all_sqlite(path, messaging = True):
     '''
-    - Iteratively loads all tables from sqlite database and assigns to 
-    dataframes. 
-    - Messaging logs statements about number of records.
+    - iteratively loads all tables from sqlite database and assigns to 
+    dataframes
+    - prints number of records
     '''
     
     try:
@@ -301,8 +255,8 @@ def read_all_sqlite(path, messaging = True):
 
 def gather_data_dictionary(globals_dict):
     '''
-    Packages all dataframes in input dictionary beginning with 'df_' and 
-    returns output dictionary.
+    packages all dataframes in input dictionary beginning with 'df_' and 
+    returns output dictionary
     '''
     
     data_dictionary = dict()
@@ -317,16 +271,17 @@ def gather_data_dictionary(globals_dict):
 
 
 def unpack_data_dictionary(
-        data_dictionary, 
+        input_dictionary, 
         output_dict = None, 
         messaging = False
     ):
     '''
-    - Loads all data from data_dictionary into global variables with record 
-    counts.
-    - If output_dict is provided, output_dict will be updated and not returned.
-    - If output_dict is not provided, a new dictionary will be returned.
+    - loads all data from data_dictionary into global variables with record 
+    counts
+    - if output_dict is provided, output_dict will be updated and not returned
+    - if output_dict is not provided, a new dictionary will be returned
     '''
+    
     # checks whether output dictionary provided
     if output_dict is None:
         output_dict = dict()
@@ -338,7 +293,7 @@ def unpack_data_dictionary(
         print('\nReading data...')
 
     # unpacks all dataframes to globals are prefixes name with 'df_'
-    for key, value in data_dictionary.items():
+    for key, value in input_dictionary.items():
         if isinstance(value, pd.DataFrame):
             output_dict[f'df_{key}'] = value
             
