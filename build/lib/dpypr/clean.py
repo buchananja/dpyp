@@ -79,21 +79,40 @@ def optimise_numeric_datatypes(df):
                 df[col] = pd.to_numeric(df[col], downcast = 'float')
     return df
 
-def values_to_string(df, clean_columns = [], all = False):
+def columns_to_string(df, clean_columns = []):
     '''
-    - Converts all columns in clean_columns to strings.
-    - If all is True, converts all values to lowercase.
+    Converts all columns in clean_columns to strings. If all is True, converts 
+    all columns to strings.
     '''
-    if all:
-        clean_columns = df.columns.to_list()
+    # finds columns common to both df.columns and clean_columns
+    clean_columns = list(set(clean_columns) & set(df.columns))
     df.loc[:, clean_columns] = df.loc[:, clean_columns].astype(str)
     return df
 
-# def columns_to_datetime(df, date_key = 'date', date_format = '%Y-%m-%d'):
-#     '''
-#     Converts columns containing 'date' to datetime datatype.
-#     '''
-#     date_columns = [col for col in df.columns if date_key in col]
-#     for col in date_columns:
-#         df[col] = pd.to_datetime(df[col], format = date_format)
-#     return df
+def columns_to_datetime(df, clean_columns = []):
+    '''
+    Converts all columns in clean_columns to datetime.
+    '''
+    # finds columns common to both df.columns and clean_columns
+    clean_columns = list(set(clean_columns) & set(df.columns))
+    
+    # converts columns to datetime
+    for col in clean_columns:
+        df.loc[:, col] = pd.to_datetime(df.loc[:, col])
+    return df
+
+def columns_to_boolean(df, clean_columns = []):
+    '''
+    Converts all columns in clean_columns to True if "true", else False.
+    '''
+    clean_columns = list(set(clean_columns) & set(df.columns))
+    
+    # converts string values to True if "true", else False
+    for col in clean_columns:
+            df[col] = df[col].apply(
+                lambda val: True 
+                if isinstance(val, str) 
+                and val.lower() == 'true' 
+                else False
+            )
+    return df

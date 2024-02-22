@@ -1,20 +1,18 @@
-'''
-The 'diagnose' module contains functionality for monitoring data pipelines and
-outputting useful information to the console.
-'''
-
-
-# Dependencies ################################################################
 import sqlite3
 import os
 from datetime import datetime
 
 
-# Diagnostics #################################################################
+'''
+the 'diagnose' module contains functionality for monitoring data pipelines and
+retriving useful information
+'''
+
+
 def fetch_all_sqlite_tables(path):
-    '''
-    Returns all table names present in a sqlite database as a list.
-    '''
+    '''returns all table names present in a sqlite database as a list'''
+    
+    # connects to database
     conn = sqlite3.connect(path)
     cur = conn.cursor()
     
@@ -35,9 +33,8 @@ def fetch_all_sqlite_tables(path):
     
     
 def fetch_all_global_df(globals_dict):
-    '''
-    Returns all objects beginning with 'df_' in global space as a list.
-    '''
+    '''returns all objects beginning with 'df_' in global space as a list'''
+    
     list_df = list()
     for name in globals_dict:
         if name.startswith('df_'):
@@ -47,8 +44,8 @@ def fetch_all_global_df(globals_dict):
 
 def get_last_modified_date(path, formatting = '%Y/%m/%d, %H:%M'):
     '''
-    Returns most recent modified date from path directory with default
-    formatting.
+    returns most recent modified date from path directory with default
+    formatting
     '''
     
     # gets list of files in path
@@ -66,9 +63,7 @@ def get_last_modified_date(path, formatting = '%Y/%m/%d, %H:%M'):
 
 
 def check_path_valid(path):
-    '''
-    Returns True if path exists and False if not.
-    '''
+    '''returns True if path exists and False if not'''
     
     if os.path.exists(path):
         return True

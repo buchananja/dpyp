@@ -1,11 +1,13 @@
 '''
 The 'diagnose' module contains functionality for monitoring data pipelines and
-outputting useful information to the console.
+retriving useful information.
 '''
 
 
 # Dependencies ################################################################
 import sqlite3
+import os
+from datetime import datetime
 
 
 # Diagnostics #################################################################
@@ -41,3 +43,33 @@ def fetch_all_global_df(globals_dict):
         if name.startswith('df_'):
             list_df.append(name)
     return list_df
+
+
+def get_last_modified_date(path, formatting = '%Y/%m/%d, %H:%M'):
+    '''
+    Returns most recent modified date from path directory with default
+    formatting.
+    '''
+    
+    # gets list of files in path
+    files = os.listdir(path)
+    
+    # gets last modified date for all files in path
+    modified_dates = []
+    for file in files:
+        full_file_path = os.path.join(path, file) 
+        modified_date = datetime.fromtimestamp(os.path.getmtime(full_file_path))
+        modified_dates.append(modified_date)
+    
+    # return formatted most recent date
+    return max(modified_dates).strftime(formatting)
+
+
+def check_path_valid(path):
+    '''
+    Returns True if path exists and False if not.
+    '''
+    
+    if os.path.exists(path):
+        return True
+    return False

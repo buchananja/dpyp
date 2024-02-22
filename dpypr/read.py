@@ -1,6 +1,6 @@
 '''
-The 'read' module contains functionality for reading data of various datatypes
-into data pipelines.
+the 'read' module contains functionality for reading data of various datatypes
+into data pipelines
 '''
 
 
