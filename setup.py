@@ -14,8 +14,7 @@ setup(
     ],
     packages = find_packages(exclude = [
         'tests', 
-        'build', 
-        'docs', 
+        'build',
         'logo'
     ])
 )
