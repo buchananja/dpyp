@@ -50,6 +50,14 @@ def df_sample():
             1900.0133,
             5,
             10.000001
+        ],
+        'Snapshot Date': [
+            '2024/02/01',
+            '2024/02/01',
+            '2024/02/01',
+            '2024/02/01',
+            '2024/02/01',
+            '2024/02/01'
         ]
     }
     df = pd.DataFrame(df)
@@ -193,7 +201,7 @@ def test_optimise_numeric_datatypes(df_sample):
     '''
     
     df = df_sample
-    df = dp.optimise_numeric_datatypes(df)
+    df = dp.columns_optimise_numerics(df)
     
     assert df['Student Number'].dtype == 'int32'
     assert df['Fees'].dtype == 'float32'

@@ -232,6 +232,8 @@ def read_all_sqlite(path, messaging = True):
         FROM sqlite_master 
         WHERE type = 'table';
     ''')
+    
+    # returns list of table names
     table_names = cur.fetchall()
     
     data_dictionary = dict()
@@ -244,7 +246,9 @@ def read_all_sqlite(path, messaging = True):
             print(f'- read df_{table_name[0]} ({len(data_dictionary[table_name[0]]):,} records).')
     if messaging:
         print('All data read successfully.\n')
-            
+    
+    # closes cursor and connection to database
+    cur.close() 
     conn.close()
     
     if not data_dictionary:
