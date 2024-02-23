@@ -1,17 +1,14 @@
-'''
-This file tests whether the 'dpypr.read' module is working correctly.
-'''
+'''this file tests whether the 'dpypr.read' module is working correctly'''
 
 
-# Dependencies ################################################################
 import pytest
 import pandas as pd
 import dpypr as dp
 
     
-# Fixtures ####################################################################
 @pytest.fixture
 def df_sample():
+    '''basic example of 'student number planning'-style data'''
     
     df = {
         'Student Number': [
@@ -51,73 +48,20 @@ def df_sample():
     return df
 
 
-# Tests #######################################################################
-# # read_everything #############################################################
-# def test_read_everything_empty_dictionary(tmp_path):
-#     '''
-#     Tests whether empty directory correctly handled by read_everything.
-#     '''
-#     data_dictionary = dp.read_everything(tmp_path)
-#     assert data_dictionary == dict()
-
-# def test_read_everything_reads_correct_files(tmp_path, df_sample):
-#     '''
-#     Tests that read_everything correctly reads all supported files and assigns 
-#     correct names.
-#     '''
-#     df = df_sample
-
-#     df.to_json(tmp_path/'test_1.json')
-#     df.to_csv(tmp_path/'test_2.csv', index = False)
-#     df.to_excel(tmp_path/'test_3.xlsx', index = False)
-#     df.to_feather(tmp_path/'test_4.feather')
-#     df.to_parquet(tmp_path/'test_5.parquet')
-#     df.to_pickle(tmp_path/'test_6.pickle')
-#     data_dictionary = dp.read_everything(tmp_path)
-
-#     assert data_dictionary['df_test_1_json'].equals(df)
-#     assert data_dictionary['df_test_2_csv'].equals(df)
-
-    
-# # def test_read_everything_reads_correct_files_same_names(tmp_path, df_sample):
-#     '''
-#     Tests that read_everything correctly reads all supported files with same 
-#     names and assigns correct names.
-#     '''
-#     df = df_sample
-
-#     df.to_json(tmp_path/'test.json')
-#     df.to_csv(tmp_path/'test.csv', index = False)
-#     df.to_excel(tmp_path/'test.xlsx', index = False)
-#     df.to_feather(tmp_path/'test.feather')
-#     df.to_parquet(tmp_path/'test.parquet')
-#     df.to_pickle(tmp_path/'test.pickle')
-#     data_dictionary = dp.read_everything(tmp_path)
-    
-#     print(data_dictionary.keys())
-#     assert data_dictionary['df_test_json'].equals(df)
-#     assert data_dictionary['df_test_csv'].equals(df)
-#     assert data_dictionary['df_test_xlsx'].equals(df)
-#     assert data_dictionary['df_test_feather'].equals(df)
-#     assert data_dictionary['df_test_parquet'].equals(df)
-#     assert data_dictionary['df_test_pickle'].equals(df)
-#     assert len(data_dictionary) == 6
-    
-    
 # read_all_json ###############################################################
 def test_read_all_json_empty_directory(tmp_path):
-    '''
-    Tests whether empty directory correctly handled by read_all_json.
-    '''
+    '''tests whether empty directory correctly handled by read_all_json'''
+    
     data_dictionary = dp.read_all_json(tmp_path)
     assert data_dictionary == dict()
 
 
 def test_read_all_json_reads_correct_files(tmp_path, df_sample):
     '''
-    Tests that read_all_json correctly reads json files and assigns correct
-    names.
+    tests that read_all_json correctly reads json files and assigns correct
+    names
     '''
+    
     df = df_sample
     df.to_json(tmp_path/'test.json')
     data_dictionary = dp.read_all_json(tmp_path)
@@ -126,9 +70,10 @@ def test_read_all_json_reads_correct_files(tmp_path, df_sample):
     
 def test_read_all_json_reads_correct_multiple_files(tmp_path, df_sample):
     '''
-    Tests that read_all_json correclty reads json files and assigns correct
-    names when multiple are present and ignores non-json files.
+    tests that read_all_json correclty reads json files and assigns correct
+    names when multiple are present and ignores non-json files
     '''
+    
     # write multiple identical dataframes to temporary path
     df_1 = df_sample
     df_1.to_json(tmp_path/'test_1.json')
@@ -148,18 +93,15 @@ def test_read_all_json_reads_correct_multiple_files(tmp_path, df_sample):
     
 # read_all_csv ################################################################
 def test_read_all_csv_empty_directory(tmp_path):
-    '''
-    Tests whether empty directory correctly handled by read_all_csv.
-    '''
+    '''tests whether empty directory correctly handled by read_all_csv'''
+    
     data_dictionary = dp.read_all_csv(tmp_path)
     assert data_dictionary == dict()
 
 
 def test_read_all_csv_reads_correct_files(tmp_path, df_sample):
-    '''
-    Tests that read_all_csv correclty reads csv files and assigns correct
-    name.
-    '''
+    '''tests that correct files read and assigns correct names'''
+    
     df = df_sample
     df.to_csv(tmp_path/'test.csv', index = False)
     data_dictionary = dp.read_all_csv(tmp_path)
@@ -168,9 +110,10 @@ def test_read_all_csv_reads_correct_files(tmp_path, df_sample):
     
 def test_read_all_csv_reads_correct_multiple_files(tmp_path, df_sample):
     '''
-    Tests that read_all_csv correclty reads csv files and assigns correct
-    names when multiple are present and ignores non-csv files.
+    tests that read_all_csv correclty reads csv files and assigns correct
+    names when multiple are present and ignores non-csv files
     '''
+    
     # write multiple identical dataframes to temporary path
     df_1 = df_sample
     df_1.to_csv(tmp_path/'test_1.csv', index = False)
@@ -190,18 +133,18 @@ def test_read_all_csv_reads_correct_multiple_files(tmp_path, df_sample):
 
 # read_all_xlsx ###############################################################
 def test_read_all_xlsx_empty_directory(tmp_path):
-    '''
-    Tests whether empty directory correctly handled by read_all_xlsx.
-    '''
+    '''tests whether empty directory correctly handled by read_all_xlsx'''
+    
     data_dictionary = dp.read_all_xlsx(tmp_path)
     assert data_dictionary == dict()
 
 
 def test_read_all_xlsx_reads_correct_files(tmp_path, df_sample):
     '''
-    Tests that read_all_xlsx correclty reads xlsx files and assigns correct
-    name.
+    tests that read_all_xlsx correclty reads xlsx files and assigns correct
+    name
     '''
+    
     df = df_sample
     df.to_excel(tmp_path/'test.xlsx', index = False)
     data_dictionary = dp.read_all_xlsx(tmp_path)
@@ -210,9 +153,10 @@ def test_read_all_xlsx_reads_correct_files(tmp_path, df_sample):
     
 def test_read_all_xlsx_reads_correct_multiple_files(tmp_path, df_sample):
     '''
-    Tests that read_all_xlsx correclty reads xlsx files and assigns correct
-    names when multiple are present and ignores non-xlsx files.
+    tests that read_all_xlsx correclty reads xlsx files and assigns correct
+    names when multiple are present and ignores non-xlsx files
     '''
+    
     # write multiple identical dataframes to temporary path
     df_1 = df_sample
     df_1.to_excel(tmp_path/'test_1.xlsx', index = False)
@@ -232,18 +176,18 @@ def test_read_all_xlsx_reads_correct_multiple_files(tmp_path, df_sample):
     
 # read_all_feather ############################################################
 def test_read_all_feather_empty_directory(tmp_path):
-    '''
-    Tests whether empty directory correctly handled by read_all_feather.
-    '''
+    '''tests whether empty directory correctly handled by read_all_feather'''
+    
     data_dictionary = dp.read_all_feather(tmp_path)
     assert data_dictionary == dict()
 
 
 def test_read_all_feather_reads_correct_files(tmp_path, df_sample):
     '''
-    Tests that read_all_feather correclty reads feather files and assigns correct
-    name.
+    tests that read_all_feather correclty reads feather files and assigns 
+    correct name
     '''
+    
     df = df_sample
     df.to_feather(tmp_path/'test.feather')
     data_dictionary = dp.read_all_feather(tmp_path)
@@ -252,9 +196,10 @@ def test_read_all_feather_reads_correct_files(tmp_path, df_sample):
     
 def test_read_all_feather_reads_correct_multiple_files(tmp_path, df_sample):
     '''
-    Tests that read_all_feather correclty reads feather files and assigns correct
-    names when multiple are present and ignores non-feather files.
+    tests that read_all_feather correclty reads feather files and assigns 
+    correct names when multiple are present and ignores non-feather files
     '''
+    
     # write multiple identical dataframes to temporary path
     df_1 = df_sample
     df_1.to_feather(tmp_path/'test_1.feather')
@@ -264,7 +209,7 @@ def test_read_all_feather_reads_correct_multiple_files(tmp_path, df_sample):
     df_3.to_feather(tmp_path/'test_3.feather')
     df_4 = df_sample
     df_4.to_csv(tmp_path/'test_4.txt')
-    # read all feather files in path and test that they have been correctly read
+    # read all feather files in path and test whether correctly read
     data_dictionary = dp.read_all_feather(tmp_path)
     assert data_dictionary['df_test_1'].equals(df_1)
     assert data_dictionary['df_test_2'].equals(df_2)
@@ -274,18 +219,18 @@ def test_read_all_feather_reads_correct_multiple_files(tmp_path, df_sample):
 
 # read_all_parquet ############################################################
 def test_read_all_parquet_empty_directory(tmp_path):
-    '''
-    Tests whether empty directory correctly handled by read_all_parquet.
-    '''
+    '''tests whether empty directory correctly handled by read_all_parquet'''
+    
     data_dictionary = dp.read_all_parquet(tmp_path)
     assert data_dictionary == dict()
 
 
 def test_read_all_parquet_reads_correct_files(tmp_path, df_sample):
     '''
-    Tests that read_all_parquet correclty reads parquet files and assigns correct
-    name.
+    tests that read_all_parquet correclty reads parquet files and assigns 
+    correct name
     '''
+    
     df = df_sample
     df.to_parquet(tmp_path/'test.parquet')
     data_dictionary = dp.read_all_parquet(tmp_path)
@@ -294,9 +239,10 @@ def test_read_all_parquet_reads_correct_files(tmp_path, df_sample):
     
 def test_read_all_parquet_reads_correct_multiple_files(tmp_path, df_sample):
     '''
-    Tests that read_all_parquet correclty reads parquet files and assigns correct
-    names when multiple are present and ignores non-parquet files.
+    tests that read_all_parquet correclty reads parquet files and assigns 
+    correct names when multiple are present and ignores non-parquet files
     '''
+    
     # write multiple identical dataframes to temporary path
     df_1 = df_sample
     df_1.to_parquet(tmp_path/'test_1.parquet')
@@ -306,7 +252,7 @@ def test_read_all_parquet_reads_correct_multiple_files(tmp_path, df_sample):
     df_3.to_parquet(tmp_path/'test_3.parquet')
     df_4 = df_sample
     df_4.to_csv(tmp_path/'test_4.txt')
-    # read all parquet files in path and test that they have been correctly read
+    # read all parquet files in path and test whether correctly read
     data_dictionary = dp.read_all_parquet(tmp_path)
     assert data_dictionary['df_test_1'].equals(df_1)
     assert data_dictionary['df_test_2'].equals(df_2)
@@ -316,18 +262,18 @@ def test_read_all_parquet_reads_correct_multiple_files(tmp_path, df_sample):
 
 # read_all_pickle #############################################################
 def test_read_all_pickle_empty_directory(tmp_path):
-    '''
-    Tests whether empty directory correctly handled by read_all_pickle.
-    '''
+    '''tests whether empty directory correctly handled by read_all_pickle'''
+    
     data_dictionary = dp.read_all_pickle(tmp_path)
     assert data_dictionary == dict()
 
 
 def test_read_all_pickle_reads_correct_files(tmp_path, df_sample):
     '''
-    Tests that read_all_pickle correclty reads pickle files and assigns correct
-    name.
+    tests that read_all_pickle correclty reads pickle files and assigns correct
+    name
     '''
+    
     df = df_sample
     df.to_pickle(tmp_path/'test.pickle')
     data_dictionary = dp.read_all_pickle(tmp_path)
@@ -336,9 +282,10 @@ def test_read_all_pickle_reads_correct_files(tmp_path, df_sample):
     
 def test_read_all_pickle_reads_correct_multiple_files(tmp_path, df_sample):
     '''
-    Tests that read_all_pickle correclty reads pickle files and assigns correct
-    names when multiple are present and ignores non-pickle files.
+    tests that read_all_pickle correclty reads pickle files and assigns correct
+    names when multiple are present and ignores non-pickle files
     '''
+    
     # write multiple identical dataframes to temporary path
     df_1 = df_sample
     df_1.to_pickle(tmp_path/'test_1.pickle')
@@ -359,10 +306,11 @@ def test_read_all_pickle_reads_correct_multiple_files(tmp_path, df_sample):
 # gather_data_dictionary ######################################################
 def test_gather_data_dictionary_gets_correct_objects(df_sample):
     '''
-    - Ensures all pandas dataframes in input dictionary beginning with 'df_' 
-    are correctly inputted into the data_dictionary. 
-    - Ensures non-dataframes and invalid names are ignored.
+    - ensures all pandas dataframes in input dictionary beginning with 'df_' 
+    are correctly inputted into the data_dictionary
+    - ensures non-dataframes and invalid names are ignored
     '''
+    
     df_1 = df_sample
     df_2 = df_sample
     df_3 = df_sample
@@ -382,19 +330,26 @@ def test_gather_data_dictionary_gets_correct_objects(df_sample):
     data_dictionary = dp.gather_data_dictionary(sample_dictionary)
     bad_data_dictionary = dp.gather_data_dictionary(bad_dictionary)
     assert len(data_dictionary) == 3
-    assert all(isinstance(data, pd.DataFrame) for data in data_dictionary.values())
+    assert all(
+        isinstance(data, pd.DataFrame) 
+        for data in data_dictionary.values()
+    )
     assert 'invalid' not in data_dictionary.keys()
-    assert all(key in data_dictionary for key in ['df_1_key', 'df_2_key', 'df_3_key'])
+    assert all(
+        key in data_dictionary 
+        for key in ['df_1_key', 'df_2_key', 'df_3_key']
+    )
     assert len(bad_data_dictionary) == 0
        
        
 # unpack_data_dictionary ######################################################
 def test_unpack_data_dictionary(df_sample):
     '''
-    - Tests whether all data in dictionary is successfully transferred to new
-    dictionary.
-    - Tests whether names are correctly prefixed with 'df_'.r
+    - tests whether all data in dictionary is successfully transferred to new
+    dictionary
+    - tests whether names are correctly prefixed with 'df_'
     '''
+    
     sample_dictionary = {
         'key_1': df_sample,
         'key_2': df_sample,
@@ -404,17 +359,24 @@ def test_unpack_data_dictionary(df_sample):
     output_dict = dp.unpack_data_dictionary(sample_dictionary)
     print(output_dict)
     assert len(output_dict) == 3
-    assert all(isinstance(data, pd.DataFrame) for data in output_dict.values())
-    assert all(key in output_dict for key in ['df_key_1', 'df_key_2', 'df_key_3'])
+    assert all(
+        isinstance(data, pd.DataFrame) 
+        for data in output_dict.values()
+    )
+    assert all(
+        key in output_dict 
+        for key in ['df_key_1', 'df_key_2', 'df_key_3']
+    )
     
     
 def test_unpack_data_dictionary_to_global(df_sample):
     '''
-    - Tests whether all data in dictionary is successfully transferred to 
-    globals().
-    - Tests whether names are correctly prefixed with 'df_'.
-    - Tests whether all data from data_dictionary are dataframes.
+    - tests whether all data in dictionary is successfully transferred to 
+    globals()
+    - tests whether names are correctly prefixed with 'df_'
+    - tests whether all data from data_dictionary are dataframes
     '''
+    
     sample_dictionary = {
         'key_1': df_sample,
         'key_2': df_sample,
@@ -422,8 +384,15 @@ def test_unpack_data_dictionary_to_global(df_sample):
         'key_4': ''
     }
     dp.unpack_data_dictionary(sample_dictionary, globals())
-    assert all(key in globals() for key in ['df_key_1', 'df_key_2', 'df_key_3'])
-    assert all(isinstance(globals()[key], pd.DataFrame) for key in ['df_key_1', 'df_key_2', 'df_key_3'])    
+    assert all(
+        key in globals() 
+        for key in ['df_key_1', 'df_key_2', 'df_key_3']
+    )
+    assert all(
+        isinstance(globals()[key], pd.DataFrame) 
+        for key in ['df_key_1', 'df_key_2', 'df_key_3']
+    )    
+    
     # cleaning data from globals
     for key in ['df_key_1', 'df_key_2', 'df_key_3']:
         if key in globals():
@@ -432,11 +401,12 @@ def test_unpack_data_dictionary_to_global(df_sample):
     
 def test_unpack_data_dictionary_to_dict(df_sample):
     '''
-    - Tests whether all data in dictionary is successfully transferred to 
-    output_dict.
-    - Tests whether names are correctly prefixed with 'df_'.
-    - Tests whether all data from data_dictionary are dataframes.
+    - tests whether all data in dictionary is successfully transferred to 
+    output_dict
+    - tests whether names are correctly prefixed with 'df_'
+    - tests whether all data from data_dictionary are dataframes
     '''
+    
     sample_dictionary = {
         'key_1': df_sample,
         'key_2': df_sample,
@@ -444,8 +414,14 @@ def test_unpack_data_dictionary_to_dict(df_sample):
         'key_4': ''
     }
     output_dict = dp.unpack_data_dictionary(sample_dictionary)
-    assert all(key in output_dict for key in ['df_key_1', 'df_key_2', 'df_key_3'])
-    assert all(isinstance(output_dict[key], pd.DataFrame) for key in ['df_key_1', 'df_key_2', 'df_key_3'])
+    assert all(
+        key in output_dict 
+        for key in ['df_key_1', 'df_key_2', 'df_key_3']
+    )
+    assert all(
+        isinstance(output_dict[key], pd.DataFrame) 
+        for key in ['df_key_1', 'df_key_2', 'df_key_3']
+    )
     
 
 # read_all_sqlite #############################################################

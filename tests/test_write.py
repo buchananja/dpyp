@@ -1,18 +1,15 @@
-'''
-This file tests whether the 'dpypr.write' module is working correctly.
-'''
+'''this file tests whether the 'dpypr.write' module is working correctly'''
 
 
-# Dependencies ################################################################
 import pytest
 import pandas as pd
 import dpypr as dp
 import os
 
     
-# Fixtures ####################################################################
 @pytest.fixture
 def df_sample():
+    '''basic example of 'student number planning'-style data'''
     
     df = {
         'Student Number': [
@@ -52,12 +49,10 @@ def df_sample():
     return df
 
 
-# Tests #######################################################################
 # write_dict_to_json ##########################################################
 def test_write_dict_to_json_empty_dict(tmp_path):
-    '''
-    Tests that writing empty dictionary to path produces no output.
-    '''
+    '''tests that writing empty dictionary to path produces no output'''
+    
     sample_dictionary = dict()
     dp.write_dict_to_json(sample_dictionary, tmp_path)
     
@@ -66,9 +61,10 @@ def test_write_dict_to_json_empty_dict(tmp_path):
 
 def test_write_dict_to_json_correct_files(df_sample, tmp_path):
     '''
-    Tests that all correct files with correct extensions are outputted to path
-    and invalid/missing data skipped.
+    tests that all correct files with correct extensions are outputted to path
+    and invalid/missing data skipped
     '''
+    
     df_1 = df_sample
     df_2 = df_sample
     df_3 = df_sample
@@ -90,9 +86,8 @@ def test_write_dict_to_json_correct_files(df_sample, tmp_path):
 
 # write_dict_to_csv ###########################################################
 def test_write_dict_to_csv_empty_dict(tmp_path):
-    '''
-    Tests that writing empty dictionary to path produces no output.
-    '''
+    '''tests that writing empty dictionary to path produces no output'''
+    
     sample_dictionary = dict()
     dp.write_dict_to_csv(sample_dictionary, tmp_path)
     
@@ -101,9 +96,10 @@ def test_write_dict_to_csv_empty_dict(tmp_path):
 
 def test_write_dict_to_csv_correct_files(df_sample, tmp_path):
     '''
-    Tests that all correct files with correct extensions are outputted to path
-    and invalid/missing data skipped.
+    tests that all correct files with correct extensions are outputted to path
+    and invalid/missing data skipped
     '''
+    
     df_1 = df_sample
     df_2 = df_sample
     df_3 = df_sample
@@ -125,9 +121,8 @@ def test_write_dict_to_csv_correct_files(df_sample, tmp_path):
 
 # write_dict_to_xlsx ##########################################################
 def test_write_dict_to_xlsx_empty_dict(tmp_path):
-    '''
-    Tests that writing empty dictionary to path produces no output.
-    '''
+    '''tests that writing empty dictionary to path produces no output'''
+    
     sample_dictionary = dict()
     dp.write_dict_to_xlsx(sample_dictionary, tmp_path)
     
@@ -136,9 +131,10 @@ def test_write_dict_to_xlsx_empty_dict(tmp_path):
 
 def test_write_dict_to_xlsx_correct_files(df_sample, tmp_path):
     '''
-    Tests that all correct files with correct extensions are outputted to path
-    and invalid/missing data skipped.
+    tests that all correct files with correct extensions are outputted to path
+    and invalid/missing data skipped
     '''
+    
     df_1 = df_sample
     df_2 = df_sample
     df_3 = df_sample
@@ -160,9 +156,8 @@ def test_write_dict_to_xlsx_correct_files(df_sample, tmp_path):
 
 # write_dict_to_feather #######################################################
 def test_write_dict_to_feather_empty_dict(tmp_path):
-    '''
-    Tests that writing empty dictionary to path produces no output.
-    '''
+    '''tests that writing empty dictionary to path produces no output'''
+    
     sample_dictionary = dict()
     dp.write_dict_to_feather(sample_dictionary, tmp_path)
     
@@ -171,9 +166,10 @@ def test_write_dict_to_feather_empty_dict(tmp_path):
 
 def test_write_dict_to_feather_correct_files(df_sample, tmp_path):
     '''
-    Tests that all correct files with correct extensions are outputted to path
-    and invalid/missing data skipped.
+    tests that all correct files with correct extensions are outputted to path
+    and invalid/missing data skipped
     '''
+    
     df_1 = df_sample
     df_2 = df_sample
     df_3 = df_sample
@@ -195,9 +191,8 @@ def test_write_dict_to_feather_correct_files(df_sample, tmp_path):
 
 # write_dict_to_parquet #######################################################
 def test_write_dict_to_parquet_empty_dict(tmp_path):
-    '''
-    Tests that writing empty dictionary to path produces no output.
-    '''
+    '''tests that writing empty dictionary to path produces no output'''
+    
     sample_dictionary = dict()
     dp.write_dict_to_parquet(sample_dictionary, tmp_path)
     
@@ -206,9 +201,10 @@ def test_write_dict_to_parquet_empty_dict(tmp_path):
 
 def test_write_dict_to_parquet_correct_files(df_sample, tmp_path):
     '''
-    Tests that all correct files with correct extensions are outputted to path
-    and invalid/missing data skipped.
+    tests that all correct files with correct extensions are outputted to path
+    and invalid/missing data skipped
     '''
+    
     df_1 = df_sample
     df_2 = df_sample
     df_3 = df_sample
@@ -230,9 +226,8 @@ def test_write_dict_to_parquet_correct_files(df_sample, tmp_path):
 
 # write_dict_to_pickle ########################################################
 def test_write_dict_to_pickle_empty_dict(tmp_path):
-    '''
-    Tests that writing empty dictionary to path produces no output.
-    '''
+    '''tests that writing empty dictionary to path produces no output'''
+    
     sample_dictionary = dict()
     dp.write_dict_to_pickle(sample_dictionary, tmp_path)
     
@@ -241,9 +236,10 @@ def test_write_dict_to_pickle_empty_dict(tmp_path):
 
 def test_write_dict_to_pickle_correct_files(df_sample, tmp_path):
     '''
-    Tests that all correct files with correct extensions are outputted to path
-    and invalid/missing data skipped.
+    tests that all correct files with correct extensions are outputted to path
+    and invalid/missing data skipped
     '''
+    
     df_1 = df_sample
     df_2 = df_sample
     df_3 = df_sample
