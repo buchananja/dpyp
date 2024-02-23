@@ -42,6 +42,30 @@ def df_sample():
             2024,
             2024,
             2024
+        ],
+        'Fees': [
+            123.99,
+            400.50,
+            234,
+            1900.0133,
+            5,
+            10.000001
+        ],
+        'Snapshot Date': [
+            '2024/02/01',
+            '2024/02/01',
+            '2024/02/01',
+            '2024/02/01',
+            '2024/02/01',
+            '2024/02/01'
+        ],
+        'STEM Flag': [
+            'true',
+            'true',
+            'TRUE',
+            'FALSE',
+            'false',
+            ''
         ]
     }
     df = pd.DataFrame(df)
@@ -122,7 +146,7 @@ def test_read_all_csv_reads_correct_multiple_files(tmp_path, df_sample):
     df_3 = df_sample
     df_3.to_csv(tmp_path/'test_3.csv', index = False)
     df_4 = df_sample
-    df_4.to_csv(tmp_path/'filename.txt', sep = '\t', index = False)
+    df_4.to_csv(tmp_path/'filename.txt', index = False)
     # read all csv files in path and test that they have been correctly read
     data_dictionary = dp.read_all_csv(tmp_path)
     assert data_dictionary['df_test_1'].equals(df_1)

@@ -44,7 +44,7 @@ def read_all_json(path, messaging = True):
     return data_dictionary
 
 
-def read_all_csv(path, messaging = True):
+def read_all_csv(path, seperator = ',', messaging = True):
     '''
     - iteratively loads all csv files from the data directory and assigns to 
     dataframes
@@ -62,7 +62,7 @@ def read_all_csv(path, messaging = True):
         
     for file in files:
         if file.endswith('.csv'):
-            df = pd.read_csv(os.path.join(path, file))
+            df = pd.read_csv(os.path.join(path, file), sep = f'{seperator}')
             filename = os.path.splitext(file)[0]
             data_dictionary[f'df_{filename}'] = df
             

@@ -58,6 +58,14 @@ def df_sample():
             '2024/02/01',
             '2024/02/01',
             '2024/02/01'
+        ],
+        'STEM Flag': [
+            'true',
+            'true',
+            'TRUE',
+            'FALSE',
+            'false',
+            ''
         ]
     }
     df = pd.DataFrame(df)
@@ -183,13 +191,17 @@ def test_columns_strip_whitespace(df_sample):
     '''
     
     df = df_sample
-    df = dp.columns_to_snakecase(df, uppercase = True)
+    df_stripped = dp.columns_strip_whitespace(df)
     
-    assert df.apply(
-        lambda col: (col.str.strip() if col.dtype == "object" else col).all()
-        if col.dtype == 'object'
-        else True
-    ).all()
+    # checks whetehr object columns have whitespace and if other cols altered
+    assert all(
+        df_stripped.apply(
+            lambda col: (
+                col == col.str.strip() if col.dtype == "object" 
+                else col == col
+            ).all()
+        ) 
+    )
         
         
 def test_optimise_numeric_datatypes(df_sample):
@@ -207,3 +219,52 @@ def test_optimise_numeric_datatypes(df_sample):
     assert df['Fees'].dtype == 'float32'
     assert df['Programme School'].dtype == 'object'
     assert df['Academic Year'].dtype == 'int16'
+    
+
+def test_columns_to_string_correct_columns(df_sample):
+    '''tests whether correct columns correctly converted to string'''
+    
+    columns_to_convert = [
+        'Student Number',
+        'Programme School',
+        'Fee Region'
+    ]
+    
+    df = df_sample
+    df = dp.columns_to_string(df, columns_to_convert)
+    
+    # checks whether all values in df[columns_to_convert] are strings
+    assert all(
+        df[col].apply(lambda val: isinstance(val, str)).all()
+        for col in columns_to_convert
+    )
+    
+    
+def test_columns_to_datetime_correct_columns(df_sample):
+    '''tests whether correct columns correctly converted to datetime'''
+    
+    columns_to_convert = ['Snapshot Date']
+    
+    df = df_sample
+    df = dp.columns_to_datetime(df, columns_to_convert)
+    
+    # checks whether all values in df[columns_to_convert] are boolean
+    assert all(
+        df[col].apply(lambda val: isinstance(val, pd.Timestamp)).all()
+        for col in columns_to_convert
+    )
+    
+    
+def test_columns_to_boolean_correct_columns(df_sample):
+    '''tests whether correct columns correctly converted to boolean'''
+    
+    columns_to_convert = ['STEM Flag']
+    
+    df = df_sample
+    df = dp.columns_to_boolean(df, columns_to_convert)
+    
+    # checks whether all values in df[columns_to_convert] are boolean
+    assert all(
+        df[col].apply(lambda val: isinstance(val, bool)).all()
+        for col in columns_to_convert
+    )
