@@ -13,7 +13,7 @@ setup(
         'pyarrow'
     ],
     packages = find_packages(exclude = [
-        'testing*', 
+        'tests', 
         'build', 
         'docs', 
         'logo'
