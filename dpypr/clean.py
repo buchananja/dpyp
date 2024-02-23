@@ -21,7 +21,8 @@ def headers_to_snakecase(df, uppercase = False):
 
 
 def columns_to_snakecase(df, uppercase = False):
-    '''converts all string values in dataframe to lower snake case by default 
+    '''
+converts all string values in dataframe to lower snake case by default 
     and uppercase if specified.
     '''
     
