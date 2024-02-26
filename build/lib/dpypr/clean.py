@@ -21,19 +21,20 @@ def headers_to_snakecase(df, uppercase = False):
 
 
 def columns_to_snakecase(df, uppercase = False):
-    '''converts all string values in dataframe to lower snake case by default 
+    '''
+converts all string values in dataframe to lower snake case by default 
     and uppercase if specified.
     '''
     
     if uppercase:
         df = df.apply(
             lambda col: col.str.upper().str.replace(' ', '_') 
-            if col.dtype == "object" else col
+            if col.dtype.name == "string" else col
         )
     else:
         df = df.apply(
             lambda col: col.str.lower().str.replace(' ', '_') 
-            if col.dtype == "object" else col   
+            if col.dtype.name == "string" else col   
         )
     return df
 
@@ -42,7 +43,7 @@ def columns_to_lowercase(df):
     '''converts all string values in dataframe to lowercase'''
     
     df = df.apply(
-        lambda col: col.str.lower() if col.dtype == "object" else col
+        lambda col: col.str.lower() if col.dtype.name == "string" else col
     )
     return df
 
@@ -51,7 +52,7 @@ def columns_to_uppercase(df):
     '''converts all string values in dataframe to uppercase'''
     
     df = df.apply(
-        lambda col: col.str.upper() if col.dtype == "object" else col
+        lambda col: col.str.upper() if col.dtype.name == "string" else col
     )
     return df
 
@@ -60,7 +61,7 @@ def columns_strip_whitespace(df):
     '''converts all string values to lowercase'''
     
     df = df.apply(
-        lambda col: col.str.strip() if col.dtype == "object" else col
+        lambda col: col.str.strip() if col.dtype.name == "string" else col
     )
     return df
 
