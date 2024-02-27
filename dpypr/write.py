@@ -159,11 +159,71 @@ def write_dict_to_pickle(
         print('All data written successfully.\n')
           
                 
+# def write_dict_to_sqlite(
+#         input_dict, 
+#         path,
+#         overwrite = False,
+#         output_prefix = 'df',
+#         messaging = True
+#     ):
+#     '''
+#     - writes all beginning 'df_' in input_dict to path as tables in database 
+#     - prefix allows user to rename processed files upon writing
+#     - prints number of records
+#     - overwrites table if set
+#     - creates database if path does not exist
+#     - appends to tables by default
+#     '''
+    
+#     if overwrite and os.path.exists(path):
+#         # remove old database
+#         try:
+#             os.remove(path)
+#         except PermissionError:
+#             print('WARNING: File is being used by another process!')
+                
+#     # connect to database       
+#     conn = sqlite3.connect(path)
+
+#     if messaging:
+#         print('\nWriting data...')
+        
+#     try:           
+#         # create tables in new database
+#         for name, data in input_dict.items():
+#             if name.startswith('df_') & isinstance(data, pd.DataFrame):
+#                 # write DataFrame to new table
+#                 if overwrite:
+#                     data.to_sql(
+#                         f'{output_prefix}_{name[3:]}', 
+#                         conn, 
+#                         if_exists = 'replace'
+#                     )
+#                 else:
+#                     data.to_sql(
+#                         f'{output_prefix}_{name[3:]}', 
+#                         conn, 
+#                         if_exists = 'append'
+#                     )
+#                 if messaging:
+#                     print(
+#                         f'- Wrote {output_prefix}_{name[3:]} '\
+#                         f'({len(data):,} records).'
+#                     )
+#         if messaging:
+#             print('All data written successfully.\n') 
+            
+#     except Exception as e:
+#         print(f'WARNING: {str(e)}')
+    
+#     # close connection to database
+#     conn.close()
+
+
 def write_dict_to_sqlite(
         input_dict, 
         path,
         overwrite = False,
-        output_prefix = 'df',
         messaging = True
     ):
     '''
@@ -191,25 +251,22 @@ def write_dict_to_sqlite(
     try:           
         # create tables in new database
         for name, data in input_dict.items():
-            if name.startswith('df_') & isinstance(data, pd.DataFrame):
+            if isinstance(data, pd.DataFrame):
                 # write DataFrame to new table
                 if overwrite:
                     data.to_sql(
-                        f'{output_prefix}_{name[3:]}', 
+                        name, 
                         conn, 
                         if_exists = 'replace'
                     )
                 else:
                     data.to_sql(
-                        f'{output_prefix}_{name[3:]}', 
+                        name, 
                         conn, 
                         if_exists = 'append'
                     )
                 if messaging:
-                    print(
-                        f'- Wrote {output_prefix}_{name[3:]} '\
-                        f'({len(data):,} records).'
-                    )
+                    print(f'- Wrote {name} ({len(data):,} records).')
         if messaging:
             print('All data written successfully.\n') 
             
