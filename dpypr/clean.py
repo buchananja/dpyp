@@ -17,6 +17,7 @@ def headers_to_snakecase(df, uppercase = False):
         df.columns = (df.columns.str.upper().str.replace(' ', '_'))
     else:
         df.columns = (df.columns.str.lower().str.replace(' ', '_'))
+    return df
 
 
 def columns_to_snakecase(df, uppercase = False):
@@ -40,6 +41,7 @@ def columns_to_snakecase(df, uppercase = False):
                 if isinstance(val, str) 
                 else val
         )
+    return df
 
 
 def columns_to_lowercase(df):
@@ -52,6 +54,7 @@ def columns_to_lowercase(df):
             if isinstance(val, str) 
             else val
         )
+    return df
 
 
 def columns_to_uppercase(df):
@@ -64,6 +67,7 @@ def columns_to_uppercase(df):
             if isinstance(val, str) 
             else val
         )
+    return df
 
 
 def columns_strip_whitespace(df):
@@ -79,6 +83,7 @@ def columns_strip_whitespace(df):
             if isinstance(val, str) 
             else val
         )
+    return df
 
 
 def columns_optimise_numerics(df):
@@ -94,15 +99,30 @@ def columns_optimise_numerics(df):
                 df[col] = pd.to_numeric(df[col], downcast = 'integer')
             else:
                 df[col] = pd.to_numeric(df[col], downcast = 'float')
+    return df
 
 
-def columns_to_string(df, clean_columns = []):
-    '''converts all columns in clean_columns to string'''
+def columns_to_object(df, clean_columns = []):
+    '''converts all columns in clean_columns to object'''
 
     # finds columns common to both df.columns and clean_columns
     clean_columns = list(set(clean_columns) & set(df.columns))
     for col in clean_columns:
-        df[col] = df[col].astype('string')
+        df[col] = df[col].astype('object')
+    return df
+
+
+def columns_to_string(df, clean_columns = []):
+    '''
+    converts all columns in clean_columns to str objects 
+    (not pandas string)
+    '''
+
+    # finds columns common to both df.columns and clean_columns
+    clean_columns = list(set(clean_columns) & set(df.columns))
+    for col in clean_columns:
+        df[col] = df[col].astype('str')
+    return df
 
 
 def columns_to_categorical(df, clean_columns = []):
@@ -112,6 +132,7 @@ def columns_to_categorical(df, clean_columns = []):
     clean_columns = list(set(clean_columns) & set(df.columns))
     for col in clean_columns:
         df[col] = df[col].astype('category')
+    return df
 
 
 def columns_to_datetime(df, clean_columns = []):
@@ -123,6 +144,7 @@ def columns_to_datetime(df, clean_columns = []):
     # converts columns to datetime
     for col in clean_columns:
         df.loc[:, col] = pd.to_datetime(df.loc[:, col])
+    return df
 
 
 def columns_to_boolean(df, clean_columns = []):
@@ -138,3 +160,16 @@ def columns_to_boolean(df, clean_columns = []):
                 and val.lower() == 'true' 
                 else False
             )
+    return df
+
+
+def columns_fill_null(df, fill_word = 'unknown'):
+    '''fills nulls within non-numeric columns with optional keyword'''
+
+    fill_cols = df.select_dtypes(
+        include = ['object', 'string', 'category']
+    ).columns
+    
+    for col in fill_cols:
+        df[col] = df[col].fillna(fill_word)
+    return df

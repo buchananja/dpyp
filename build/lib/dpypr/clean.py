@@ -20,26 +20,6 @@ def headers_to_snakecase(df, uppercase = False):
     return df
 
 
-# # this needs to check object column values if they are strings before operation
-# def columns_to_snakecase(df, uppercase = False):
-    # '''
-    # converts all string values in dataframe to lower snake case by default 
-    # and uppercase if specified.
-    # '''
-    
-#     if uppercase:
-#         df = df.apply(
-#             lambda col: col.str.upper().str.replace(' ', '_') 
-#             if col.dtype == 'object' or col.dtype.name == 'string' else col
-#         )
-#     else:
-#         df = df.apply(
-#             lambda col: col.str.lower().str.replace(' ', '_') 
-#             if col.dtype == 'object' or col.dtype.name == 'string' else col   
-#         )
-#     return df
-
-
 def columns_to_snakecase(df, uppercase = False):
     '''
     converts all string values in dataframe to lower snake case by default 
@@ -122,13 +102,26 @@ def columns_optimise_numerics(df):
     return df
 
 
-def columns_to_string(df, clean_columns = []):
-    '''converts all columns in clean_columns to string'''
+def columns_to_object(df, clean_columns = []):
+    '''converts all columns in clean_columns to object'''
 
     # finds columns common to both df.columns and clean_columns
     clean_columns = list(set(clean_columns) & set(df.columns))
     for col in clean_columns:
-        df[col] = df[col].astype('string')
+        df[col] = df[col].astype('object')
+    return df
+
+
+def columns_to_string(df, clean_columns = []):
+    '''
+    converts all columns in clean_columns to str objects 
+    (not pandas string)
+    '''
+
+    # finds columns common to both df.columns and clean_columns
+    clean_columns = list(set(clean_columns) & set(df.columns))
+    for col in clean_columns:
+        df[col] = df[col].astype('str')
     return df
 
 
@@ -167,4 +160,16 @@ def columns_to_boolean(df, clean_columns = []):
                 and val.lower() == 'true' 
                 else False
             )
+    return df
+
+
+def columns_fill_null(df, fill_word = 'unknown'):
+    '''fills nulls within non-numeric columns with optional keyword'''
+
+    fill_cols = df.select_dtypes(
+        include = ['object', 'string', 'category']
+    ).columns
+    
+    for col in fill_cols:
+        df[col] = df[col].fillna(fill_word)
     return df

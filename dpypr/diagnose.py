@@ -66,3 +66,11 @@ def check_path_valid(path):
     if os.path.exists(path):
         return True
     return False
+
+
+def check_column_nulls(df):
+    '''prints columns containint null values in dataframe'''
+
+    for col in df.columns:
+        if df[col].isna().any():
+            print(col)
