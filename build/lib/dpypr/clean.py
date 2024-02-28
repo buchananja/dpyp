@@ -83,7 +83,7 @@ def columns_to_uppercase(df):
     string_cols = df.select_dtypes(include = ['object', 'string']).columns
     for col in string_cols:
         df[col] = df[col].apply(
-            lambda val: val.upper() 
+            lambda val: val.upper()
             if isinstance(val, str) 
             else val
         )
@@ -123,7 +123,7 @@ def columns_optimise_numerics(df):
 
 
 def columns_to_string(df, clean_columns = []):
-    '''converts all columns in clean_columns to strings'''
+    '''converts all columns in clean_columns to string'''
 
     # finds columns common to both df.columns and clean_columns
     clean_columns = list(set(clean_columns) & set(df.columns))
