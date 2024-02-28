@@ -1,10 +1,10 @@
-import pandas as pd
-
-
 '''
 the 'clean' module contains functionality for cleaning, formatting, and
 standardising dataframes
 '''
+
+
+import pandas as pd
 
 
 def headers_to_snakecase(df, uppercase = False):
@@ -172,4 +172,16 @@ def columns_fill_null(df, fill_word = 'unknown'):
     
     for col in fill_cols:
         df[col] = df[col].fillna(fill_word)
+    return df
+
+
+def headers_rename(df, rename_dict):
+    '''renames dataframe columns using a dictionary'''
+    
+    # checks if columns to rename exist in dict and df
+    columns_to_rename = list(set(rename_dict.keys()) & set(df.columns))
+    # creates new dictionary of valid names
+    valid_rename_dict = {k: rename_dict[k] for k in columns_to_rename}
+    # renames columns according to new dict
+    df = df.rename(columns = valid_rename_dict)
     return df
