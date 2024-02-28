@@ -122,21 +122,13 @@ def columns_optimise_numerics(df):
     return df
 
 
-def columns_to_string(df, clean_columns = []):
-    '''converts all columns in clean_columns to strings'''
-
-    # finds columns common to both df.columns and clean_columns
-    clean_columns = list(set(clean_columns) & set(df.columns))
-    df.loc[:, clean_columns] = df.loc[:, clean_columns].astype('string')
-    return df
-
-
 def columns_to_categorical(df, clean_columns = []):
     '''converts all columns in clean_columns to categories'''
 
     # finds columns common to both df.columns and clean_columns
     clean_columns = list(set(clean_columns) & set(df.columns))
-    df.loc[:, clean_columns] = df.loc[:, clean_columns].astype('category')
+    for col in clean_columns:
+        df[col] = df[col].astype('category')
     return df
 
 

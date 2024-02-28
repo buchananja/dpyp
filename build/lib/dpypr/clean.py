@@ -10,7 +10,7 @@ standardising dataframes
 def headers_to_snakecase(df, uppercase = False):
     '''
     converts all column headers to lower snake case by default and uppercase 
-    if 'uppercase' if specified
+    if specified
     '''
     
     if uppercase:
@@ -20,32 +20,48 @@ def headers_to_snakecase(df, uppercase = False):
     return df
 
 
+# # this needs to check object column values if they are strings before operation
+# def columns_to_snakecase(df, uppercase = False):
+    # '''
+    # converts all string values in dataframe to lower snake case by default 
+    # and uppercase if specified.
+    # '''
+    
+#     if uppercase:
+#         df = df.apply(
+#             lambda col: col.str.upper().str.replace(' ', '_') 
+#             if col.dtype == 'object' or col.dtype.name == 'string' else col
+#         )
+#     else:
+#         df = df.apply(
+#             lambda col: col.str.lower().str.replace(' ', '_') 
+#             if col.dtype == 'object' or col.dtype.name == 'string' else col   
+#         )
+#     return df
+
+
 def columns_to_snakecase(df, uppercase = False):
     '''
     converts all string values in dataframe to lower snake case by default 
-    and uppercase if specified.
+    and uppercase if specified
     '''
     
+    string_cols = df.select_dtypes(include = ['object', 'string']).columns
     if uppercase:
-        df = df.apply(
-            lambda col: col.str.upper().str.replace(' ', '_') 
-            if col.dtype == 'object' or col.dtype.name == 'string' else col
+        for col in string_cols:
+            df[col] = df[col].apply(
+                lambda val: val.upper().replace(' ', '_') 
+                if isinstance(val, str) 
+                else val
         )
     else:
-        df = df.apply(
-            lambda col: col.str.lower().str.replace(' ', '_') 
-            if col.dtype == 'object' or col.dtype.name == 'string' else col   
+        for col in string_cols:
+            df[col] = df[col].apply(
+                lambda val: val.lower().replace(' ', '_') 
+                if isinstance(val, str) 
+                else val
         )
     return df
-
-
-# def columns_to_lowercase(df):
-#     '''converts all string values in dataframe to lowercase'''
-    
-#     df = df.apply(
-#         lambda col: col.str.lower() if col.dtype == 'object' or col.dtype.name == 'string' else col
-#     )
-#     return df
 
 
 def columns_to_lowercase(df):
@@ -53,27 +69,12 @@ def columns_to_lowercase(df):
     
     string_cols = df.select_dtypes(include = ['object', 'string']).columns
     for col in string_cols:
-        df[col] = df[col].apply(lambda val: val.lower() if isinstance(val, str) else val)
-    
+        df[col] = df[col].apply(
+            lambda val: val.lower() 
+            if isinstance(val, str) 
+            else val
+        )
     return df
-
-
-# def columns_to_uppercase(df):
-#     '''converts all string values in dataframe to uppercase'''
-    
-#     df = df.apply(
-#         lambda col: col.str.upper() if col.dtype == 'object' or col.dtype.name == 'string' else col
-#     )
-#     return df
-
-
-# def columns_strip_whitespace(df):
-#     '''converts all string values to lowercase'''
-    
-#     df = df.apply(
-#         lambda col: col.str.strip() if col.dtype == 'object' or col.dtype.name == 'string' else col
-#     )
-#     return df
 
 
 def columns_to_uppercase(df):
@@ -81,18 +82,27 @@ def columns_to_uppercase(df):
     
     string_cols = df.select_dtypes(include = ['object', 'string']).columns
     for col in string_cols:
-        df[col] = df[col].apply(lambda val: val.upper() if isinstance(val, str) else val)
-    
+        df[col] = df[col].apply(
+            lambda val: val.upper() 
+            if isinstance(val, str) 
+            else val
+        )
     return df
 
 
 def columns_strip_whitespace(df):
-    '''converts all string values to lowercase'''
+    '''
+    strips all leading and trailing whitespace from string dtypes in object and 
+    string columns
+    '''
     
     string_cols = df.select_dtypes(include = ['object', 'string']).columns
     for col in string_cols:
-        df[col] = df[col].apply(lambda val: val.strip() if isinstance(val, str) else val)
-    
+        df[col] = df[col].apply(
+            lambda val: val.strip() 
+            if isinstance(val, str) 
+            else val
+        )
     return df
 
 
@@ -101,8 +111,8 @@ def columns_optimise_numerics(df):
     
     for col in df.columns:
         # skips object columns
-        if df[col].dtype == object:
-            pass
+        if df[col].dtype == 'object':
+            continue
         # checks whether column contains only intigers
         else:
             if all(df[col] % 1 == 0):
@@ -117,7 +127,8 @@ def columns_to_string(df, clean_columns = []):
 
     # finds columns common to both df.columns and clean_columns
     clean_columns = list(set(clean_columns) & set(df.columns))
-    df.loc[:, clean_columns] = df.loc[:, clean_columns].astype('string')
+    for col in clean_columns:
+        df[col] = df[col].astype('string')
     return df
 
 
@@ -126,7 +137,8 @@ def columns_to_categorical(df, clean_columns = []):
 
     # finds columns common to both df.columns and clean_columns
     clean_columns = list(set(clean_columns) & set(df.columns))
-    df.loc[:, clean_columns] = df.loc[:, clean_columns].astype('category')
+    for col in clean_columns:
+        df[col] = df[col].astype('category')
     return df
 
 
