@@ -2,6 +2,7 @@ LICENSE.md
 README.md
 setup.py
 dpypr/__init__.py
+dpypr/calculate.py
 dpypr/clean.py
 dpypr/diagnose.py
 dpypr/read.py
