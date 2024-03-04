@@ -3,6 +3,7 @@ import dpypr as dp
 import os
 import sqlite3
 from sqlite3 import OperationalError
+import logging
 
 
 '''
@@ -15,17 +16,17 @@ def read_all_json(path, messaging = True):
     '''
     - iteratively loads all json files from the data directory and assigns to 
     dataframes
-    - prints number of records
+    - logging.infos number of records
     '''
     
     if dp.check_path_valid(path):
         files = os.listdir(path)
         data_dictionary = dict()
     else:
-        print('Please enter a valid path.')
+        logging.info('Please enter a valid path.')
         
     if messaging:
-        print('\nReading data...')
+        logging.info('\nReading data...')
     
     for file in files:
         if file.endswith('.json'):
@@ -34,12 +35,12 @@ def read_all_json(path, messaging = True):
             data_dictionary[f'df_{filename}'] = df
             
             if messaging:
-                print(f'- read df_{filename} ({len(filename):,} records).')
+                logging.info(f'- read df_{filename} ({len(filename):,} records).')
                 
     if not data_dictionary:
-        print('No files read.')
+        logging.info('No files read.')
     if messaging:
-        print('All data read successfully.\n')
+        logging.info('All data read successfully.\n')
         
     return data_dictionary
 
@@ -48,17 +49,17 @@ def read_all_csv(path, seperator = ',', messaging = True):
     '''
     - iteratively loads all csv files from the data directory and assigns to 
     dataframes
-    - prints number of records
+    - logging.infos number of records
     '''
     
     if dp.check_path_valid(path):
         files = os.listdir(path)
         data_dictionary = dict()
     else:
-        print('Please enter a valid path.')
+        logging.info('Please enter a valid path.')
     
     if messaging:
-        print('\nReading data...')
+        logging.info('\nReading data...')
         
     for file in files:
         if file.endswith('.csv'):
@@ -67,12 +68,12 @@ def read_all_csv(path, seperator = ',', messaging = True):
             data_dictionary[f'df_{filename}'] = df
             
             if messaging:
-                print(f'- read df_{filename} ({len(filename):,} records).')
+                logging.info(f'- read df_{filename} ({len(filename):,} records).')
                 
     if not data_dictionary:
-        print('No files read.')
+        logging.info('No files read.')
     if messaging:
-        print('All data read successfully.\n')
+        logging.info('All data read successfully.\n')
         
     return data_dictionary
 
@@ -81,17 +82,17 @@ def read_all_xlsx(path, messaging = True):
     '''
     - iteratively loads all xlsx files from the data directory and assigns to 
     dataframes
-    - prints number of records
+    - logging.infos number of records
     '''
     
     if dp.check_path_valid(path):
         files = os.listdir(path)
         data_dictionary = dict()
     else:
-        print('Please enter a valid path.')
+        logging.info('Please enter a valid path.')
     
     if messaging:
-        print('\nReading data...')
+        logging.info('\nReading data...')
         
     for file in files:
         if file.endswith('.xlsx'):
@@ -100,12 +101,12 @@ def read_all_xlsx(path, messaging = True):
             data_dictionary[f'df_{filename}'] = df
             
             if messaging:
-                print(f'- read df_{filename} ({len(filename):,} records).')
+                logging.info(f'- read df_{filename} ({len(filename):,} records).')
                 
     if not data_dictionary:
-        print('No files read.')
+        logging.info('No files read.')
     if messaging:
-        print('All data read successfully.\n')
+        logging.info('All data read successfully.\n')
         
     return data_dictionary
 
@@ -114,17 +115,17 @@ def read_all_feather(path, messaging = True):
     '''
     - iteratively loads all feather files from the data directory and assigns to 
     dataframes
-    - prints number of records
+    - logging.infos number of records
     '''
     
     if dp.check_path_valid(path):
         files = os.listdir(path)
         data_dictionary = dict()
     else:
-        print('Please enter a valid path.')
+        logging.info('Please enter a valid path.')
     
     if messaging:
-        print('\nReading data...')
+        logging.info('\nReading data...')
         
     for file in files:
         if file.endswith('.feather'):
@@ -133,12 +134,12 @@ def read_all_feather(path, messaging = True):
             data_dictionary[f'df_{filename}'] = df
             
             if messaging:
-                print(f'- read df_{filename} ({len(filename):,} records).')
+                logging.info(f'- read df_{filename} ({len(filename):,} records).')
                 
     if not data_dictionary:
-        print('No files read.')
+        logging.info('No files read.')
     if messaging:
-        print('All data read successfully.\n')
+        logging.info('All data read successfully.\n')
         
     return data_dictionary
 
@@ -147,17 +148,17 @@ def read_all_parquet(path, messaging = True):
     '''
     - iteratively loads all parquet files from the data directory and assigns to 
     dataframes
-    - prints number of records
+    - logging.infos number of records
     '''
     
     if dp.check_path_valid(path):
         files = os.listdir(path)
         data_dictionary = dict()
     else:
-        print('Please enter a valid path.')
+        logging.info('Please enter a valid path.')
     
     if messaging:
-        print('\nReading data...')
+        logging.info('\nReading data...')
         
     for file in files:
         if file.endswith('.parquet'):
@@ -166,12 +167,12 @@ def read_all_parquet(path, messaging = True):
             data_dictionary[f'df_{filename}'] = df
             
             if messaging:
-                print(f'- read df_{filename} ({len(filename):,} records).')
+                logging.info(f'- read df_{filename} ({len(filename):,} records).')
                 
     if not data_dictionary:
-        print('No files read.')
+        logging.info('No files read.')
     if messaging:
-        print('All data read successfully.\n')
+        logging.info('All data read successfully.\n')
         
     return data_dictionary
 
@@ -180,17 +181,17 @@ def read_all_pickle(path, messaging = True):
     '''
     - iteratively loads all pickle files from the data directory and assigns to 
     dataframes
-    - prints number of records
+    - logging.infos number of records
     '''
     
     if dp.check_path_valid(path):
         files = os.listdir(path)
         data_dictionary = dict()
     else:
-        print('Please enter a valid path.')
+        logging.info('Please enter a valid path.')
     
     if messaging:
-        print('\nReading data...')
+        logging.info('\nReading data...')
         
     for file in files:
         if file.endswith('.pickle'):
@@ -199,12 +200,12 @@ def read_all_pickle(path, messaging = True):
             data_dictionary[f'df_{filename}'] = df
             
             if messaging:
-                print(f'- read df_{filename} ({len(filename):,} records).')
+                logging.info(f'- read df_{filename} ({len(filename):,} records).')
                 
     if not data_dictionary:
-        print('No files read.')
+        logging.info('No files read.')
     if messaging:
-        print('All data read successfully.\n')
+        logging.info('All data read successfully.\n')
         
     return data_dictionary
      
@@ -213,7 +214,7 @@ def read_all_sqlite(path, messaging = True):
     '''
     - iteratively loads all tables from sqlite database and assigns to 
     dataframes
-    - prints number of records
+    - logging.infos number of records
     '''
     
     try:
@@ -221,10 +222,10 @@ def read_all_sqlite(path, messaging = True):
             conn = sqlite3.connect(path)
             cur = conn.cursor()
     except OperationalError:
-        print('WARNING: Failed to connect to database.')
+        logging.info('WARNING: Failed to connect to database.')
         
     if messaging:
-        print('\nReading data...')
+        logging.info('\nReading data...')
     
     # queries all tables in database
     cur.execute('''
@@ -243,16 +244,16 @@ def read_all_sqlite(path, messaging = True):
         data_dictionary[table_name[0]] = pd.read_sql_query(query, conn)
         
         if messaging:
-            print(f'- read df_{table_name[0]} ({len(data_dictionary[table_name[0]]):,} records).')
+            logging.info(f'- read df_{table_name[0]} ({len(data_dictionary[table_name[0]]):,} records).')
     if messaging:
-        print('All data read successfully.\n')
+        logging.info('All data read successfully.\n')
     
     # closes cursor and connection to database
     cur.close() 
     conn.close()
     
     if not data_dictionary:
-        print('No files read.')
+        logging.info('No files read.')
         
     return data_dictionary     
 
@@ -269,7 +270,7 @@ def gather_data_dictionary(globals_dict):
         if name.startswith('df_') and isinstance(data, pd.DataFrame):
             data_dictionary.update({name: data})
     if not data_dictionary:
-        print('No files found.')
+        logging.info('No files found.')
         
     return data_dictionary
 
@@ -294,7 +295,7 @@ def unpack_data_dictionary(
         return_dict = False
     
     if messaging:
-        print('\nReading data...')
+        logging.info('\nReading data...')
 
     # unpacks all dataframes to globals are prefixes name with 'df_'
     for key, value in input_dictionary.items():
@@ -302,9 +303,9 @@ def unpack_data_dictionary(
             output_dict[f'df_{key}'] = value
             
             if messaging:
-                print(f'- Loaded df_{key} ({len(value):,} records).')
+                logging.info(f'- Loaded df_{key} ({len(value):,} records).')
     if messaging:
-        print('All data read successfully.\n')
+        logging.info('All data read successfully.\n')
 
     if return_dict:
         return output_dict

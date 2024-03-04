@@ -1,6 +1,7 @@
 import pandas as pd
 import sqlite3
 import os
+import logging
 
 
 '''
@@ -18,20 +19,20 @@ def write_dict_to_json(
     '''
     - writes all objects beginning with 'df_' in input_dict to path as .json
     - prefix allows user to rename processed files upon writing
-    - prints number of records
+    - logs number of records
     '''
     
     if messaging:
-        print('\nWriting data...')
+        logging.info('\nWriting data...')
         
     for name, data in input_dict.items():
         if name.startswith('df_') & isinstance(data, pd.DataFrame):
             data.to_json(f'{path}/{output_prefix}_{name[3:]}.json')
 
             if messaging:
-                print(f'- Wrote {output_prefix}_{name[3:]} ({len(data):,} records).')
+                logging.info(f'- Wrote {output_prefix}_{name[3:]} ({len(data):,} records).')
     if messaging:
-        print('All data written successfully.\n')
+        logging.info('All data written successfully.\n')
 
 
 def write_dict_to_csv(
@@ -43,20 +44,20 @@ def write_dict_to_csv(
     '''
     - writes all objects beginning with 'df_' in input_dict to path as .csv
     - prefix allows user to rename processed files upon writing
-    - prints number of records
+    - logs number of records
     '''
     
     if messaging:
-        print('\nWriting data...')
+        logging.info('\nWriting data...')
         
     for name, data in input_dict.items():
         if name.startswith('df_') & isinstance(data, pd.DataFrame):
             data.to_csv(f'{path}/{output_prefix}_{name[3:]}.csv')
 
             if messaging:
-                print(f'- Wrote {output_prefix}_{name[3:]} ({len(data):,} records).')
+                logging.info(f'- Wrote {output_prefix}_{name[3:]} ({len(data):,} records).')
     if messaging:
-        print('All data written successfully.\n')
+        logging.info('All data written successfully.\n')
        
             
 def write_dict_to_xlsx(
@@ -68,20 +69,20 @@ def write_dict_to_xlsx(
     '''
     - writes all objects beginning with 'df_' in input_dict to path as .xlsx 
     - prefix allows user to rename processed files upon writing
-    - prints number of records
+    - logs number of records
     '''
     
     if messaging:
-        print('\nWriting data...')
+        logging.info('\nWriting data...')
         
     for name, data in input_dict.items():
         if name.startswith('df_') & isinstance(data, pd.DataFrame):
             data.to_excel(f'{path}/{output_prefix}_{name[3:]}.xlsx')
 
             if messaging:
-                print(f'- Wrote {output_prefix}_{name[3:]} ({len(data):,} records).')
+                logging.info(f'- Wrote {output_prefix}_{name[3:]} ({len(data):,} records).')
     if messaging:
-        print('All data written successfully.\n')
+        logging.info('All data written successfully.\n')
 
 
 def write_dict_to_feather(
@@ -93,20 +94,20 @@ def write_dict_to_feather(
     '''
     - writes all objects beginning with 'df_' in input_dict to path as .feather
     - prefix allows user to rename processed files upon writing
-    - prints number of records
+    - logs number of records
     '''
     
     if messaging:
-        print('\nWriting data...')
+        logging.info('\nWriting data...')
         
     for name, data in input_dict.items():
         if name.startswith('df_') & isinstance(data, pd.DataFrame):
             data.to_feather(f'{path}/{output_prefix}_{name[3:]}.feather')
 
             if messaging:
-                print(f'- Wrote {output_prefix}_{name[3:]} ({len(data):,} records).')
+                logging.info(f'- Wrote {output_prefix}_{name[3:]} ({len(data):,} records).')
     if messaging:
-        print('All data written successfully.\n')
+        logging.info('All data written successfully.\n')
         
             
 def write_dict_to_parquet(
@@ -118,20 +119,20 @@ def write_dict_to_parquet(
     '''
     - writes all objects beginning with 'df_' in input_dict to path as .parquet
     - prefix allows user to rename processed files upon writing
-    - prints number of records
+    - logs number of records
     '''
     
     if messaging:
-        print('\nWriting data...')
+        logging.info('\nWriting data...')
         
     for name, data in input_dict.items():
         if name.startswith('df_') & isinstance(data, pd.DataFrame):
             data.to_parquet(f'{path}/{output_prefix}_{name[3:]}.parquet')
 
             if messaging:
-                print(f'- Wrote {output_prefix}_{name[3:]} ({len(data):,} records).')
+                logging.info(f'- Wrote {output_prefix}_{name[3:]} ({len(data):,} records).')
     if messaging:
-        print('All data written successfully.\n')
+        logging.info('All data written successfully.\n')
         
         
 def write_dict_to_pickle(
@@ -143,20 +144,20 @@ def write_dict_to_pickle(
     '''
     - writes all objects beginning with 'df_' in input_dict to path as .pickle
     - prefix allows user to rename processed files upon writing
-    - prints number of records
+    - logs number of records
     '''
     
     if messaging:
-        print('\nWriting data...')
+        logging.info('\nWriting data...')
         
     for name, data in input_dict.items():
         if name.startswith('df_') & isinstance(data, pd.DataFrame):
             data.to_pickle(f'{path}/{output_prefix}_{name[3:]}.pickle')
 
             if messaging:
-                print(f'- Wrote {output_prefix}_{name[3:]} ({len(data):,} records).')
+                logging.info(f'- Wrote {output_prefix}_{name[3:]} ({len(data):,} records).')
     if messaging:
-        print('All data written successfully.\n')
+        logging.info('All data written successfully.\n')
           
                 
 # def write_dict_to_sqlite(
@@ -169,7 +170,7 @@ def write_dict_to_pickle(
 #     '''
 #     - writes all beginning 'df_' in input_dict to path as tables in database 
 #     - prefix allows user to rename processed files upon writing
-#     - prints number of records
+#     - logs number of records
 #     - overwrites table if set
 #     - creates database if path does not exist
 #     - appends to tables by default
@@ -180,13 +181,13 @@ def write_dict_to_pickle(
 #         try:
 #             os.remove(path)
 #         except PermissionError:
-#             print('WARNING: File is being used by another process!')
+#             logging.info('WARNING: File is being used by another process!')
                 
 #     # connect to database       
 #     conn = sqlite3.connect(path)
 
 #     if messaging:
-#         print('\nWriting data...')
+#         logging.info('\nWriting data...')
         
 #     try:           
 #         # create tables in new database
@@ -206,15 +207,15 @@ def write_dict_to_pickle(
 #                         if_exists = 'append'
 #                     )
 #                 if messaging:
-#                     print(
+#                     logging.info(
 #                         f'- Wrote {output_prefix}_{name[3:]} '\
 #                         f'({len(data):,} records).'
 #                     )
 #         if messaging:
-#             print('All data written successfully.\n') 
+#             logging.info('All data written successfully.\n') 
             
 #     except Exception as e:
-#         print(f'WARNING: {str(e)}')
+#         logging.info(f'WARNING: {str(e)}')
     
 #     # close connection to database
 #     conn.close()
@@ -229,7 +230,7 @@ def write_dict_to_sqlite(
     '''
     - writes all beginning 'df_' in input_dict to path as tables in database 
     - prefix allows user to rename processed files upon writing
-    - prints number of records
+    - logs number of records
     - overwrites table if set
     - creates database if path does not exist
     - appends to tables by default
@@ -240,13 +241,13 @@ def write_dict_to_sqlite(
         try:
             os.remove(path)
         except PermissionError:
-            print('WARNING: File is being used by another process!')
+            logging.info('WARNING: File is being used by another process!')
                 
     # connect to database       
     conn = sqlite3.connect(path)
 
     if messaging:
-        print('\nWriting data...')
+        logging.info('\nWriting data...')
         
     try:           
         # create tables in new database
@@ -266,12 +267,12 @@ def write_dict_to_sqlite(
                         if_exists = 'append'
                     )
                 if messaging:
-                    print(f'- Wrote {name} ({len(data):,} records).')
+                    logging.info(f'- Wrote {name} ({len(data):,} records).')
         if messaging:
-            print('All data written successfully.\n') 
+            logging.info('All data written successfully.\n') 
             
     except Exception as e:
-        print(f'WARNING: {str(e)}')
+        logging.info(f'WARNING: {str(e)}')
     
     # close connection to database
     conn.close()

@@ -5,8 +5,8 @@ mathematical operations on data
 
 def rate_of_change(df_row, col1, col2, default_rate):
     '''
-    calculates the rate of change between two columns by row with default rate
-    able to be specified; typically used with an apply function
+    calculates the relative difference between two columns by row with default 
+    rate able to be specified; typically used with an apply function
     '''
     
     if df_row[col1] > 0:
