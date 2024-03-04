@@ -10,6 +10,10 @@ from data pipelines
 '''
 
 
+# creates logging instance
+logger = logging.getLogger(__name__)
+
+
 def write_dict_to_json(
         input_dict, 
         path, 
@@ -26,7 +30,7 @@ def write_dict_to_json(
         if name.startswith('df_') & isinstance(data, pd.DataFrame):
             data.to_json(f'{path}/{output_prefix}_{name[3:]}.json')
             if messaging:
-                logging.info(f'Wrote {output_prefix}_{name[3:]} ({len(data):,} records).')
+                logger.info(f'Wrote {output_prefix}_{name[3:]} ({len(data):,} records).')
 
 
 def write_dict_to_csv(
@@ -45,7 +49,7 @@ def write_dict_to_csv(
         if name.startswith('df_') & isinstance(data, pd.DataFrame):
             data.to_csv(f'{path}/{output_prefix}_{name[3:]}.csv')
             if messaging:
-                logging.info(f'Wrote {output_prefix}_{name[3:]} ({len(data):,} records).')
+                logger.info(f'Wrote {output_prefix}_{name[3:]} ({len(data):,} records).')
        
             
 def write_dict_to_xlsx(
@@ -64,7 +68,7 @@ def write_dict_to_xlsx(
         if name.startswith('df_') & isinstance(data, pd.DataFrame):
             data.to_excel(f'{path}/{output_prefix}_{name[3:]}.xlsx')
             if messaging:
-                logging.info(f'Wrote {output_prefix}_{name[3:]} ({len(data):,} records).')
+                logger.info(f'Wrote {output_prefix}_{name[3:]} ({len(data):,} records).')
 
 
 def write_dict_to_feather(
@@ -83,7 +87,7 @@ def write_dict_to_feather(
         if name.startswith('df_') & isinstance(data, pd.DataFrame):
             data.to_feather(f'{path}/{output_prefix}_{name[3:]}.feather')
             if messaging:
-                logging.info(f'Wrote {output_prefix}_{name[3:]} ({len(data):,} records).')
+                logger.info(f'Wrote {output_prefix}_{name[3:]} ({len(data):,} records).')
         
             
 def write_dict_to_parquet(
@@ -102,7 +106,7 @@ def write_dict_to_parquet(
         if name.startswith('df_') & isinstance(data, pd.DataFrame):
             data.to_parquet(f'{path}/{output_prefix}_{name[3:]}.parquet')
             if messaging:
-                logging.info(f'Wrote {output_prefix}_{name[3:]} ({len(data):,} records).')
+                logger.info(f'Wrote {output_prefix}_{name[3:]} ({len(data):,} records).')
         
         
 def write_dict_to_pickle(
@@ -121,7 +125,7 @@ def write_dict_to_pickle(
         if name.startswith('df_') & isinstance(data, pd.DataFrame):
             data.to_pickle(f'{path}/{output_prefix}_{name[3:]}.pickle')
             if messaging:
-                logging.info(f'Wrote {output_prefix}_{name[3:]} ({len(data):,} records).')
+                logger.info(f'Wrote {output_prefix}_{name[3:]} ({len(data):,} records).')
 
                 
 # def write_dict_to_sqlite(
@@ -145,13 +149,13 @@ def write_dict_to_pickle(
 #         try:
 #             os.remove(path)
 #         except PermissionError:
-#             logging.info('WARNING: File is being used by another process!')
+#             logger.info('WARNING: File is being used by another process!')
                 
 #     # connect to database       
 #     conn = sqlite3.connect(path)
 
 #     if messaging:
-#         logging.info('Writing data...')
+#         logger.info('Writing data...')
         
 #     try:           
 #         # create tables in new database
@@ -171,15 +175,15 @@ def write_dict_to_pickle(
 #                         if_exists = 'append'
 #                     )
 #                 if messaging:
-#                     logging.info(
+#                     logger.info(
 #                         f'- Wrote {output_prefix}_{name[3:]} '\
 #                         f'({len(data):,} records).'
 #                     )
 #         if messaging:
-#             logging.info('All data written successfully.') 
+#             logger.info('All data written successfully.') 
             
 #     except Exception as e:
-#         logging.info(f'WARNING: {str(e)}')
+#         logger.info(f'WARNING: {str(e)}')
     
 #     # close connection to database
 #     conn.close()
@@ -205,7 +209,7 @@ def write_dict_to_sqlite(
         try:
             os.remove(path)
         except PermissionError:
-            logging.info('WARNING: File is being used by another process!')
+            logger.info('WARNING: File is being used by another process!')
                 
     # connect to database       
     conn = sqlite3.connect(path)
@@ -228,9 +232,9 @@ def write_dict_to_sqlite(
                         if_exists = 'append'
                     )
                 if messaging:
-                    logging.info(f'Wrote {name} ({len(data):,} records).')
+                    logger.info(f'Wrote {name} ({len(data):,} records).')
     except Exception as e:
-        logging.info(f'WARNING: {str(e)}')
+        logger.info(f'WARNING: {str(e)}')
     
     # close connection to database
     conn.close()

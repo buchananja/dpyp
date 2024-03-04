@@ -1,12 +1,17 @@
 import sqlite3
 import os
-from datetime import datetime
+from datetime import datetime]
+import logging
 
 
 '''
 the 'diagnose' module contains functionality for monitoring data pipelines and
 retriving useful information
 '''
+
+
+# creates logging instance
+logger = logging.getLogger(__name__)
 
 
 def fetch_all_sqlite_tables(path):
@@ -69,8 +74,8 @@ def check_path_valid(path):
 
 
 def check_column_nulls(df):
-    '''prints columns containint null values in dataframe'''
+    '''logs columns containint null values in dataframe'''
 
     for col in df.columns:
         if df[col].isna().any():
-            print(col)
+            logger.info(col)
