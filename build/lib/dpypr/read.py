@@ -12,18 +12,22 @@ into data pipelines
 '''
 
 
+# creates logging instance
+logger = logging.getLogger(__name__)
+
+
 def read_all_json(path, messaging = True):
     '''
     - iteratively loads all json files from the data directory and assigns to 
     dataframes
-    - logging.infos number of records
+    - logger.infos number of records
     '''
     
     if dp.check_path_valid(path):
         files = os.listdir(path)
         data_dictionary = dict()
     else:
-        logging.info('Please enter a valid path.')
+        logger.info('Please enter a valid path.')
         
     for file in files:
         if file.endswith('.json'):
@@ -32,10 +36,10 @@ def read_all_json(path, messaging = True):
             data_dictionary[f'df_{filename}'] = df
             
             if messaging:
-                logging.info(f'read df_{filename} ({len(filename):,} records).')
+                logger.info(f'read df_{filename} ({len(filename):,} records).')
                 
     if not data_dictionary:
-        logging.info('No files read.')
+        logger.info('No files read.')
         
     return data_dictionary
 
@@ -44,14 +48,14 @@ def read_all_csv(path, seperator = ',', messaging = True):
     '''
     - iteratively loads all csv files from the data directory and assigns to 
     dataframes
-    - logging.infos number of records
+    - logger.infos number of records
     '''
     
     if dp.check_path_valid(path):
         files = os.listdir(path)
         data_dictionary = dict()
     else:
-        logging.info('Please enter a valid path.')
+        logger.info('Please enter a valid path.')
     
     for file in files:
         if file.endswith('.csv'):
@@ -60,10 +64,10 @@ def read_all_csv(path, seperator = ',', messaging = True):
             data_dictionary[f'df_{filename}'] = df
             
             if messaging:
-                logging.info(f'read df_{filename} ({len(filename):,} records).')
+                logger.info(f'read df_{filename} ({len(filename):,} records).')
                 
     if not data_dictionary:
-        logging.info('No files read.')
+        logger.info('No files read.')
         
     return data_dictionary
 
@@ -72,14 +76,14 @@ def read_all_xlsx(path, messaging = True):
     '''
     - iteratively loads all xlsx files from the data directory and assigns to 
     dataframes
-    - logging.infos number of records
+    - logger.infos number of records
     '''
     
     if dp.check_path_valid(path):
         files = os.listdir(path)
         data_dictionary = dict()
     else:
-        logging.info('Please enter a valid path.')
+        logger.info('Please enter a valid path.')
         
     for file in files:
         if file.endswith('.xlsx'):
@@ -88,10 +92,10 @@ def read_all_xlsx(path, messaging = True):
             data_dictionary[f'df_{filename}'] = df
             
             if messaging:
-                logging.info(f'read df_{filename} ({len(filename):,} records).')
+                logger.info(f'read df_{filename} ({len(filename):,} records).')
                 
     if not data_dictionary:
-        logging.info('No files read.')
+        logger.info('No files read.')
         
     return data_dictionary
 
@@ -100,14 +104,14 @@ def read_all_feather(path, messaging = True):
     '''
     - iteratively loads all feather files from the data directory and assigns to 
     dataframes
-    - logging.infos number of records
+    - logger.infos number of records
     '''
     
     if dp.check_path_valid(path):
         files = os.listdir(path)
         data_dictionary = dict()
     else:
-        logging.info('Please enter a valid path.')
+        logger.info('Please enter a valid path.')
         
     for file in files:
         if file.endswith('.feather'):
@@ -116,10 +120,10 @@ def read_all_feather(path, messaging = True):
             data_dictionary[f'df_{filename}'] = df
             
             if messaging:
-                logging.info(f'read df_{filename} ({len(filename):,} records).')
+                logger.info(f'read df_{filename} ({len(filename):,} records).')
                 
     if not data_dictionary:
-        logging.info('No files read.')
+        logger.info('No files read.')
         
     return data_dictionary
 
@@ -128,14 +132,14 @@ def read_all_parquet(path, messaging = True):
     '''
     - iteratively loads all parquet files from the data directory and assigns to 
     dataframes
-    - logging.infos number of records
+    - logger.infos number of records
     '''
     
     if dp.check_path_valid(path):
         files = os.listdir(path)
         data_dictionary = dict()
     else:
-        logging.info('Please enter a valid path.')
+        logger.info('Please enter a valid path.')
         
     for file in files:
         if file.endswith('.parquet'):
@@ -144,10 +148,10 @@ def read_all_parquet(path, messaging = True):
             data_dictionary[f'df_{filename}'] = df
             
             if messaging:
-                logging.info(f'read df_{filename} ({len(filename):,} records).')
+                logger.info(f'read df_{filename} ({len(filename):,} records).')
                 
     if not data_dictionary:
-        logging.info('No files read.')
+        logger.info('No files read.')
         
     return data_dictionary
 
@@ -156,14 +160,14 @@ def read_all_pickle(path, messaging = True):
     '''
     - iteratively loads all pickle files from the data directory and assigns to 
     dataframes
-    - logging.infos number of records
+    - logger.infos number of records
     '''
     
     if dp.check_path_valid(path):
         files = os.listdir(path)
         data_dictionary = dict()
     else:
-        logging.info('Please enter a valid path.')
+        logger.info('Please enter a valid path.')
         
     for file in files:
         if file.endswith('.pickle'):
@@ -172,10 +176,10 @@ def read_all_pickle(path, messaging = True):
             data_dictionary[f'df_{filename}'] = df
             
             if messaging:
-                logging.info(f'read df_{filename} ({len(filename):,} records).')
+                logger.info(f'read df_{filename} ({len(filename):,} records).')
                 
     if not data_dictionary:
-        logging.info('No files read.')
+        logger.info('No files read.')
         
     return data_dictionary
      
@@ -184,7 +188,7 @@ def read_all_sqlite(path, messaging = True):
     '''
     - iteratively loads all tables from sqlite database and assigns to 
     dataframes
-    - logging.infos number of records
+    - logger.infos number of records
     '''
     
     try:
@@ -192,7 +196,7 @@ def read_all_sqlite(path, messaging = True):
             conn = sqlite3.connect(path)
             cur = conn.cursor()
     except OperationalError:
-        logging.info('WARNING: Failed to connect to database.')
+        logger.info('WARNING: Failed to connect to database.')
     
     # queries all tables in database
     cur.execute('''
@@ -211,14 +215,14 @@ def read_all_sqlite(path, messaging = True):
         data_dictionary[table_name[0]] = pd.read_sql_query(query, conn)
         
         if messaging:
-            logging.info(f'read df_{table_name[0]} ({len(data_dictionary[table_name[0]]):,} records).')
+            logger.info(f'read df_{table_name[0]} ({len(data_dictionary[table_name[0]]):,} records).')
     
     # closes cursor and connection to database
     cur.close() 
     conn.close()
     
     if not data_dictionary:
-        logging.info('No files read.')
+        logger.info('No files read.')
         
     return data_dictionary     
 
@@ -235,7 +239,7 @@ def gather_data_dictionary(globals_dict):
         if name.startswith('df_') and isinstance(data, pd.DataFrame):
             data_dictionary.update({name: data})
     if not data_dictionary:
-        logging.info('No files found.')
+        logger.info('No files found.')
         
     return data_dictionary
 
@@ -265,7 +269,7 @@ def unpack_data_dictionary(
             output_dict[f'df_{key}'] = value
             
             if messaging:
-                logging.info(f'Loaded df_{key} ({len(value):,} records).')
+                logger.info(f'Loaded df_{key} ({len(value):,} records).')
 
     if return_dict:
         return output_dict
