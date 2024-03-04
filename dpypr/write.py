@@ -21,18 +21,12 @@ def write_dict_to_json(
     - prefix allows user to rename processed files upon writing
     - logs number of records
     '''
-    
-    if messaging:
-        logging.info('\nWriting data...')
-        
+
     for name, data in input_dict.items():
         if name.startswith('df_') & isinstance(data, pd.DataFrame):
             data.to_json(f'{path}/{output_prefix}_{name[3:]}.json')
-
             if messaging:
-                logging.info(f'- Wrote {output_prefix}_{name[3:]} ({len(data):,} records).')
-    if messaging:
-        logging.info('All data written successfully.\n')
+                logging.info(f'Wrote {output_prefix}_{name[3:]} ({len(data):,} records).')
 
 
 def write_dict_to_csv(
@@ -47,17 +41,11 @@ def write_dict_to_csv(
     - logs number of records
     '''
     
-    if messaging:
-        logging.info('\nWriting data...')
-        
     for name, data in input_dict.items():
         if name.startswith('df_') & isinstance(data, pd.DataFrame):
             data.to_csv(f'{path}/{output_prefix}_{name[3:]}.csv')
-
             if messaging:
-                logging.info(f'- Wrote {output_prefix}_{name[3:]} ({len(data):,} records).')
-    if messaging:
-        logging.info('All data written successfully.\n')
+                logging.info(f'Wrote {output_prefix}_{name[3:]} ({len(data):,} records).')
        
             
 def write_dict_to_xlsx(
@@ -72,17 +60,11 @@ def write_dict_to_xlsx(
     - logs number of records
     '''
     
-    if messaging:
-        logging.info('\nWriting data...')
-        
     for name, data in input_dict.items():
         if name.startswith('df_') & isinstance(data, pd.DataFrame):
             data.to_excel(f'{path}/{output_prefix}_{name[3:]}.xlsx')
-
             if messaging:
-                logging.info(f'- Wrote {output_prefix}_{name[3:]} ({len(data):,} records).')
-    if messaging:
-        logging.info('All data written successfully.\n')
+                logging.info(f'Wrote {output_prefix}_{name[3:]} ({len(data):,} records).')
 
 
 def write_dict_to_feather(
@@ -97,17 +79,11 @@ def write_dict_to_feather(
     - logs number of records
     '''
     
-    if messaging:
-        logging.info('\nWriting data...')
-        
     for name, data in input_dict.items():
         if name.startswith('df_') & isinstance(data, pd.DataFrame):
             data.to_feather(f'{path}/{output_prefix}_{name[3:]}.feather')
-
             if messaging:
-                logging.info(f'- Wrote {output_prefix}_{name[3:]} ({len(data):,} records).')
-    if messaging:
-        logging.info('All data written successfully.\n')
+                logging.info(f'Wrote {output_prefix}_{name[3:]} ({len(data):,} records).')
         
             
 def write_dict_to_parquet(
@@ -122,17 +98,11 @@ def write_dict_to_parquet(
     - logs number of records
     '''
     
-    if messaging:
-        logging.info('\nWriting data...')
-        
     for name, data in input_dict.items():
         if name.startswith('df_') & isinstance(data, pd.DataFrame):
             data.to_parquet(f'{path}/{output_prefix}_{name[3:]}.parquet')
-
             if messaging:
-                logging.info(f'- Wrote {output_prefix}_{name[3:]} ({len(data):,} records).')
-    if messaging:
-        logging.info('All data written successfully.\n')
+                logging.info(f'Wrote {output_prefix}_{name[3:]} ({len(data):,} records).')
         
         
 def write_dict_to_pickle(
@@ -147,18 +117,12 @@ def write_dict_to_pickle(
     - logs number of records
     '''
     
-    if messaging:
-        logging.info('\nWriting data...')
-        
     for name, data in input_dict.items():
         if name.startswith('df_') & isinstance(data, pd.DataFrame):
             data.to_pickle(f'{path}/{output_prefix}_{name[3:]}.pickle')
-
             if messaging:
-                logging.info(f'- Wrote {output_prefix}_{name[3:]} ({len(data):,} records).')
-    if messaging:
-        logging.info('All data written successfully.\n')
-          
+                logging.info(f'Wrote {output_prefix}_{name[3:]} ({len(data):,} records).')
+
                 
 # def write_dict_to_sqlite(
 #         input_dict, 
@@ -187,7 +151,7 @@ def write_dict_to_pickle(
 #     conn = sqlite3.connect(path)
 
 #     if messaging:
-#         logging.info('\nWriting data...')
+#         logging.info('Writing data...')
         
 #     try:           
 #         # create tables in new database
@@ -212,7 +176,7 @@ def write_dict_to_pickle(
 #                         f'({len(data):,} records).'
 #                     )
 #         if messaging:
-#             logging.info('All data written successfully.\n') 
+#             logging.info('All data written successfully.') 
             
 #     except Exception as e:
 #         logging.info(f'WARNING: {str(e)}')
@@ -246,9 +210,6 @@ def write_dict_to_sqlite(
     # connect to database       
     conn = sqlite3.connect(path)
 
-    if messaging:
-        logging.info('\nWriting data...')
-        
     try:           
         # create tables in new database
         for name, data in input_dict.items():
@@ -267,10 +228,7 @@ def write_dict_to_sqlite(
                         if_exists = 'append'
                     )
                 if messaging:
-                    logging.info(f'- Wrote {name} ({len(data):,} records).')
-        if messaging:
-            logging.info('All data written successfully.\n') 
-            
+                    logging.info(f'Wrote {name} ({len(data):,} records).')
     except Exception as e:
         logging.info(f'WARNING: {str(e)}')
     
