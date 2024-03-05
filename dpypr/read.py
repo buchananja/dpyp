@@ -36,7 +36,7 @@ def read_all_json(path, messaging = True):
             data_dictionary[f'df_{filename}'] = df
             
             if messaging:
-                logger.info(f'read df_{filename} ({len(filename):,} records).')
+                logger.info(f'read df_{filename} ({len(filename):,} records)')
                 
     if not data_dictionary:
         logger.info('No files read.')
@@ -64,7 +64,7 @@ def read_all_csv(path, seperator = ',', messaging = True):
             data_dictionary[f'df_{filename}'] = df
             
             if messaging:
-                logger.info(f'read df_{filename} ({len(filename):,} records).')
+                logger.info(f'read df_{filename} ({len(filename):,} records)')
                 
     if not data_dictionary:
         logger.info('No files read.')
@@ -92,7 +92,7 @@ def read_all_xlsx(path, messaging = True):
             data_dictionary[f'df_{filename}'] = df
             
             if messaging:
-                logger.info(f'read df_{filename} ({len(filename):,} records).')
+                logger.info(f'read df_{filename} ({len(filename):,} records)')
                 
     if not data_dictionary:
         logger.info('No files read.')
@@ -120,7 +120,7 @@ def read_all_feather(path, messaging = True):
             data_dictionary[f'df_{filename}'] = df
             
             if messaging:
-                logger.info(f'read df_{filename} ({len(filename):,} records).')
+                logger.info(f'read df_{filename} ({len(filename):,} records)')
                 
     if not data_dictionary:
         logger.info('No files read.')
@@ -148,7 +148,7 @@ def read_all_parquet(path, messaging = True):
             data_dictionary[f'df_{filename}'] = df
             
             if messaging:
-                logger.info(f'read df_{filename} ({len(filename):,} records).')
+                logger.info(f'read df_{filename} ({len(filename):,} records)')
                 
     if not data_dictionary:
         logger.info('No files read.')
@@ -176,7 +176,7 @@ def read_all_pickle(path, messaging = True):
             data_dictionary[f'df_{filename}'] = df
             
             if messaging:
-                logger.info(f'read df_{filename} ({len(filename):,} records).')
+                logger.info(f'read df_{filename} ({len(filename):,} records)')
                 
     if not data_dictionary:
         logger.info('No files read.')
@@ -215,7 +215,7 @@ def read_all_sqlite(path, messaging = True):
         data_dictionary[table_name[0]] = pd.read_sql_query(query, conn)
         
         if messaging:
-            logger.info(f'read df_{table_name[0]} ({len(data_dictionary[table_name[0]]):,} records).')
+            logger.info(f'read df_{table_name[0]} ({len(data_dictionary[table_name[0]]):,} records)')
     
     # closes cursor and connection to database
     cur.close() 
@@ -269,7 +269,7 @@ def unpack_data_dictionary(
             output_dict[f'df_{key}'] = value
             
             if messaging:
-                logger.info(f'Loaded df_{key} ({len(value):,} records).')
+                logger.info(f'Loaded df_{key} ({len(value):,} records)')
 
     if return_dict:
         return output_dict
