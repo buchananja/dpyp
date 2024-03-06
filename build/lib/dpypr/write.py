@@ -30,7 +30,7 @@ def write_dict_to_json(
         if name.startswith('df_') & isinstance(data, pd.DataFrame):
             data.to_json(f'{path}/{output_prefix}_{name[3:]}.json')
             if messaging:
-                logger.info(f'Wrote {output_prefix}_{name[3:]} ({len(data):,} records).')
+                logger.info(f'Wrote {output_prefix}_{name[3:]} ({len(data):,} records)')
 
 
 def write_dict_to_csv(
@@ -49,7 +49,7 @@ def write_dict_to_csv(
         if name.startswith('df_') & isinstance(data, pd.DataFrame):
             data.to_csv(f'{path}/{output_prefix}_{name[3:]}.csv')
             if messaging:
-                logger.info(f'Wrote {output_prefix}_{name[3:]} ({len(data):,} records).')
+                logger.info(f'Wrote {output_prefix}_{name[3:]} ({len(data):,} records)')
        
             
 def write_dict_to_xlsx(
@@ -68,7 +68,7 @@ def write_dict_to_xlsx(
         if name.startswith('df_') & isinstance(data, pd.DataFrame):
             data.to_excel(f'{path}/{output_prefix}_{name[3:]}.xlsx')
             if messaging:
-                logger.info(f'Wrote {output_prefix}_{name[3:]} ({len(data):,} records).')
+                logger.info(f'Wrote {output_prefix}_{name[3:]} ({len(data):,} records)')
 
 
 def write_dict_to_feather(
@@ -87,7 +87,7 @@ def write_dict_to_feather(
         if name.startswith('df_') & isinstance(data, pd.DataFrame):
             data.to_feather(f'{path}/{output_prefix}_{name[3:]}.feather')
             if messaging:
-                logger.info(f'Wrote {output_prefix}_{name[3:]} ({len(data):,} records).')
+                logger.info(f'Wrote {output_prefix}_{name[3:]} ({len(data):,} records)')
         
             
 def write_dict_to_parquet(
@@ -106,7 +106,7 @@ def write_dict_to_parquet(
         if name.startswith('df_') & isinstance(data, pd.DataFrame):
             data.to_parquet(f'{path}/{output_prefix}_{name[3:]}.parquet')
             if messaging:
-                logger.info(f'Wrote {output_prefix}_{name[3:]} ({len(data):,} records).')
+                logger.info(f'Wrote {output_prefix}_{name[3:]} ({len(data):,} records)')
         
         
 def write_dict_to_pickle(
@@ -125,7 +125,7 @@ def write_dict_to_pickle(
         if name.startswith('df_') & isinstance(data, pd.DataFrame):
             data.to_pickle(f'{path}/{output_prefix}_{name[3:]}.pickle')
             if messaging:
-                logger.info(f'Wrote {output_prefix}_{name[3:]} ({len(data):,} records).')
+                logger.info(f'Wrote {output_prefix}_{name[3:]} ({len(data):,} records)')
 
                 
 # def write_dict_to_sqlite(
@@ -232,7 +232,7 @@ def write_dict_to_sqlite(
                         if_exists = 'append'
                     )
                 if messaging:
-                    logger.info(f'Wrote {name} ({len(data):,} records).')
+                    logger.info(f'Wrote {name} ({len(data):,} records)')
     except Exception as e:
         logger.info(f'WARNING: {str(e)}')
     
