@@ -78,4 +78,4 @@ def check_column_nulls(df):
 
     for col in df.columns:
         if df[col].isna().any():
-            logger.info(col)
+            logger.debug(col)
