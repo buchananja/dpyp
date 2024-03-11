@@ -6,28 +6,11 @@
 </p>
 
 ## About
-- This is a cursory attempt at building a data manipulation library in Python.
-- I use this package daily when assembling and maintaining pipelines, and 
-analysing data.
-- Currently focuses on the use of 'data dictionaries', dictionaries with keys
-corresponding with dataframe values. This makes gathering, cleaning, and
-writing batches of data quick and simple.
+- dpypr is a data-manipulation library aimed at manipulating data dictionaries in Python for use in small-scale data pipelines.
+- Currenlty, Pandas is heavily utilised for reading, writing, and cleaning operations.
+- I use this package daily when assembling and maintaining small-scale data pipelines.
 
 ## Use
 - dpypr allows users to gather target files from directories into data 
-dictionaries (e.g. all ending in .csv, .xlsx, .parquet, etc.).
-- Users can then clean data using cleaning and transformation funcions that are
-iteratively applied to all data in the dictionary, making batch processing
-quick to write and more readable.
-- Once batch processing is complete, data dictionaries can be unpacked as
-global objects for further processing.
-- When data processing is complete, dpypr allows users to gather global
-dataframes into data dictionaries for writing to output directories with
-renaming.
-
-## Aims
-- Build common data manipulation procedures with clear syntax for pipelines.
-- Build robust testing and error handling with high coverage.
-- Allow customisation within functions for flexibility and ease of use.
-- Maintain a cohesive naming scheme, syntax, and styling.
-- Produce example code showcasing capabilities of library.
+dictionaries (e.g. all .csv, .xlsx, .parquet, etc.).
+- Users can then apply cleaning and transformation funcions that are iteratively applied to all data in the dictionary, making batch processingquick to write and more readable.
