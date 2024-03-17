@@ -1,4 +1,4 @@
-_# **dpypr**
+# **dpypr**
 *(data-piper) a data pipeline convenience tool for Python*
 
 <p align = "center">
