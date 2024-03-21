@@ -215,7 +215,7 @@ def read_all_sqlite(path, messaging = True):
         data_dictionary[table_name[0]] = pd.read_sql_query(query, conn)
         
         if messaging:
-            logger.debug(f'read df_{table_name[0]} ({len(data_dictionary[table_name[0]]):,} records)')
+            logger.debug(f'read {table_name[0]} ({len(data_dictionary[table_name[0]]):,} records)')
     
     # closes cursor and connection to database
     cur.close() 
@@ -223,23 +223,6 @@ def read_all_sqlite(path, messaging = True):
     
     if not data_dictionary:
         logger.debug('No files read.')
-        
-    return data_dictionary     
-
-
-def gather_data_dictionary(globals_dict):
-    '''
-    packages all dataframes in input dictionary beginning with 'df_' and 
-    returns output dictionary
-    '''
-    
-    data_dictionary = dict()
-    
-    for name, data in globals_dict.items():
-        if name.startswith('df_') and isinstance(data, pd.DataFrame):
-            data_dictionary.update({name: data})
-    if not data_dictionary:
-        logger.debug('No files found.')
         
     return data_dictionary
 
@@ -263,13 +246,13 @@ def unpack_data_dictionary(
     else:
         return_dict = False
     
-    # unpacks all dataframes to globals are prefixes name with 'df_'
+    # unpacks all dataframes to globals are prefixes name with ''
     for key, value in input_dictionary.items():
         if isinstance(value, pd.DataFrame):
-            output_dict[f'df_{key}'] = value
+            output_dict[f'{key}'] = value
             
             if messaging:
-                logger.debug(f'Loaded df_{key} ({len(value):,} records)')
+                logger.debug(f'Loaded {key} ({len(value):,} records)')
 
     if return_dict:
         return output_dict
