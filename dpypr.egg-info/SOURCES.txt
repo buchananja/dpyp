@@ -2,6 +2,7 @@ LICENSE.md
 README.md
 setup.py
 dpypr/__init__.py
+dpypr/calculate.py
 dpypr/clean.py
 dpypr/diagnose.py
 dpypr/read.py
@@ -12,6 +13,5 @@ dpypr.egg-info/dependency_links.txt
 dpypr.egg-info/requires.txt
 dpypr.egg-info/top_level.txt
 tests/test_clean.py
-tests/test_diagnostics.py
 tests/test_read.py
 tests/test_write.py

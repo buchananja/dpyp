@@ -1,18 +1,15 @@
-'''
-This file tests whether the 'dpypr.write' module is working correctly.
-'''
+'''this file tests whether the 'dpypr.write' module is working correctly'''
 
 
-# Dependencies ################################################################
 import pytest
 import pandas as pd
 import dpypr as dp
 import os
 
     
-# Fixtures ####################################################################
 @pytest.fixture
 def df_sample():
+    '''basic example of 'student number planning'-style data'''
     
     df = {
         'Student Number': [
@@ -46,18 +43,40 @@ def df_sample():
             2024,
             2024,
             2024
+        ],
+        'Fees': [
+            123.99,
+            400.50,
+            234,
+            1900.0133,
+            5,
+            10.000001
+        ],
+        'Snapshot Date': [
+            '2024/02/01',
+            '2024/02/01',
+            '2024/02/01',
+            '2024/02/01',
+            '2024/02/01',
+            '2024/02/01'
+        ],
+        'STEM Flag': [
+            'true',
+            'true',
+            'TRUE',
+            'FALSE',
+            'false',
+            ''
         ]
     }
     df = pd.DataFrame(df)
     return df
 
 
-# Tests #######################################################################
 # write_dict_to_json ##########################################################
 def test_write_dict_to_json_empty_dict(tmp_path):
-    '''
-    Tests that writing empty dictionary to path produces no output.
-    '''
+    '''tests that writing empty dictionary to path produces no output'''
+    
     sample_dictionary = dict()
     dp.write_dict_to_json(sample_dictionary, tmp_path)
     
@@ -66,9 +85,10 @@ def test_write_dict_to_json_empty_dict(tmp_path):
 
 def test_write_dict_to_json_correct_files(df_sample, tmp_path):
     '''
-    Tests that all correct files with correct extensions are outputted to path
-    and invalid/missing data skipped.
+    tests that all correct files with correct extensions are outputted to path
+    and invalid/missing data skipped
     '''
+    
     df_1 = df_sample
     df_2 = df_sample
     df_3 = df_sample
@@ -82,17 +102,19 @@ def test_write_dict_to_json_correct_files(df_sample, tmp_path):
     }
     dp.write_dict_to_json(sample_dictionary, tmp_path)
     
+    # checks that only three files are written and names are correct
     assert len(os.listdir(tmp_path)) == 3
-    assert all(filename in os.listdir(tmp_path) for filename in [
-                'out_1_key.json', 'out_2_key.json', 'out_3_key.json'
-            ])
+    assert all(
+        filename in os.listdir(tmp_path) for filename in [
+            'df_1_key.json', 'df_2_key.json', 'df_3_key.json'
+        ]
+    )
 
 
 # write_dict_to_csv ###########################################################
 def test_write_dict_to_csv_empty_dict(tmp_path):
-    '''
-    Tests that writing empty dictionary to path produces no output.
-    '''
+    '''tests that writing empty dictionary to path produces no output'''
+    
     sample_dictionary = dict()
     dp.write_dict_to_csv(sample_dictionary, tmp_path)
     
@@ -101,9 +123,10 @@ def test_write_dict_to_csv_empty_dict(tmp_path):
 
 def test_write_dict_to_csv_correct_files(df_sample, tmp_path):
     '''
-    Tests that all correct files with correct extensions are outputted to path
-    and invalid/missing data skipped.
+    tests that all correct files with correct extensions are outputted to path
+    and invalid/missing data skipped
     '''
+    
     df_1 = df_sample
     df_2 = df_sample
     df_3 = df_sample
@@ -117,17 +140,19 @@ def test_write_dict_to_csv_correct_files(df_sample, tmp_path):
     }
     dp.write_dict_to_csv(sample_dictionary, tmp_path)
     
+    # checks that only three files are written and names are correct
     assert len(os.listdir(tmp_path)) == 3
-    assert all(filename in os.listdir(tmp_path) for filename in [
-                'out_1_key.csv', 'out_2_key.csv', 'out_3_key.csv'
-            ])
+    assert all(
+        filename in os.listdir(tmp_path) for filename in [
+            'df_1_key.csv', 'df_2_key.csv', 'df_3_key.csv'
+        ]
+    )
     
 
 # write_dict_to_xlsx ##########################################################
 def test_write_dict_to_xlsx_empty_dict(tmp_path):
-    '''
-    Tests that writing empty dictionary to path produces no output.
-    '''
+    '''tests that writing empty dictionary to path produces no output'''
+    
     sample_dictionary = dict()
     dp.write_dict_to_xlsx(sample_dictionary, tmp_path)
     
@@ -136,9 +161,10 @@ def test_write_dict_to_xlsx_empty_dict(tmp_path):
 
 def test_write_dict_to_xlsx_correct_files(df_sample, tmp_path):
     '''
-    Tests that all correct files with correct extensions are outputted to path
-    and invalid/missing data skipped.
+    tests that all correct files with correct extensions are outputted to path
+    and invalid/missing data skipped
     '''
+    
     df_1 = df_sample
     df_2 = df_sample
     df_3 = df_sample
@@ -152,17 +178,19 @@ def test_write_dict_to_xlsx_correct_files(df_sample, tmp_path):
     }
     dp.write_dict_to_xlsx(sample_dictionary, tmp_path)
     
+    # checks that only three files are written and names are correct
     assert len(os.listdir(tmp_path)) == 3
-    assert all(filename in os.listdir(tmp_path) for filename in [
-                'out_1_key.xlsx', 'out_2_key.xlsx', 'out_3_key.xlsx'
-            ])
+    assert all(
+        filename in os.listdir(tmp_path) for filename in [
+            'df_1_key.xlsx', 'df_2_key.xlsx', 'df_3_key.xlsx'
+        ]
+    )
 
 
 # write_dict_to_feather #######################################################
 def test_write_dict_to_feather_empty_dict(tmp_path):
-    '''
-    Tests that writing empty dictionary to path produces no output.
-    '''
+    '''tests that writing empty dictionary to path produces no output'''
+    
     sample_dictionary = dict()
     dp.write_dict_to_feather(sample_dictionary, tmp_path)
     
@@ -171,9 +199,10 @@ def test_write_dict_to_feather_empty_dict(tmp_path):
 
 def test_write_dict_to_feather_correct_files(df_sample, tmp_path):
     '''
-    Tests that all correct files with correct extensions are outputted to path
-    and invalid/missing data skipped.
+    tests that all correct files with correct extensions are outputted to path
+    and invalid/missing data skipped
     '''
+    
     df_1 = df_sample
     df_2 = df_sample
     df_3 = df_sample
@@ -187,17 +216,19 @@ def test_write_dict_to_feather_correct_files(df_sample, tmp_path):
     }
     dp.write_dict_to_feather(sample_dictionary, tmp_path)
     
+    # checks that only three files are written and names are correct
     assert len(os.listdir(tmp_path)) == 3
-    assert all(filename in os.listdir(tmp_path) for filename in [
-                'out_1_key.feather', 'out_2_key.feather', 'out_3_key.feather'
-            ])
+    assert all(
+        filename in os.listdir(tmp_path) for filename in [
+            'df_1_key.feather', 'df_2_key.feather', 'df_3_key.feather'
+        ]
+    )
 
 
 # write_dict_to_parquet #######################################################
 def test_write_dict_to_parquet_empty_dict(tmp_path):
-    '''
-    Tests that writing empty dictionary to path produces no output.
-    '''
+    '''tests that writing empty dictionary to path produces no output'''
+    
     sample_dictionary = dict()
     dp.write_dict_to_parquet(sample_dictionary, tmp_path)
     
@@ -206,9 +237,10 @@ def test_write_dict_to_parquet_empty_dict(tmp_path):
 
 def test_write_dict_to_parquet_correct_files(df_sample, tmp_path):
     '''
-    Tests that all correct files with correct extensions are outputted to path
-    and invalid/missing data skipped.
+    tests that all correct files with correct extensions are outputted to path
+    and invalid/missing data skipped
     '''
+    
     df_1 = df_sample
     df_2 = df_sample
     df_3 = df_sample
@@ -222,17 +254,19 @@ def test_write_dict_to_parquet_correct_files(df_sample, tmp_path):
     }
     dp.write_dict_to_parquet(sample_dictionary, tmp_path)
     
+    # checks that only three files are written and names are correct
     assert len(os.listdir(tmp_path)) == 3
-    assert all(filename in os.listdir(tmp_path) for filename in [
-                'out_1_key.parquet', 'out_2_key.parquet', 'out_3_key.parquet'
-            ])
+    assert all(
+        filename in os.listdir(tmp_path) for filename in [
+            'df_1_key.parquet', 'df_2_key.parquet', 'df_3_key.parquet'
+        ]
+    )
 
 
 # write_dict_to_pickle ########################################################
 def test_write_dict_to_pickle_empty_dict(tmp_path):
-    '''
-    Tests that writing empty dictionary to path produces no output.
-    '''
+    '''tests that writing empty dictionary to path produces no output'''
+    
     sample_dictionary = dict()
     dp.write_dict_to_pickle(sample_dictionary, tmp_path)
     
@@ -241,9 +275,10 @@ def test_write_dict_to_pickle_empty_dict(tmp_path):
 
 def test_write_dict_to_pickle_correct_files(df_sample, tmp_path):
     '''
-    Tests that all correct files with correct extensions are outputted to path
-    and invalid/missing data skipped.
+    tests that all correct files with correct extensions are outputted to path
+    and invalid/missing data skipped
     '''
+    
     df_1 = df_sample
     df_2 = df_sample
     df_3 = df_sample
@@ -257,10 +292,13 @@ def test_write_dict_to_pickle_correct_files(df_sample, tmp_path):
     }
     dp.write_dict_to_pickle(sample_dictionary, tmp_path)
     
+    # checks that only three files are written and names are correct
     assert len(os.listdir(tmp_path)) == 3
-    assert all(filename in os.listdir(tmp_path) for filename in [
-                'out_1_key.pickle', 'out_2_key.pickle', 'out_3_key.pickle'
-            ])
+    assert all(
+        filename in os.listdir(tmp_path) for filename in [
+            'df_1_key.pickle', 'df_2_key.pickle', 'df_3_key.pickle'
+        ]
+    )
 
 # write_dict_to_sqlite ########################################################
 # def test_write_dict_to_sqlite(df_sample):
