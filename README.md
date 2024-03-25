@@ -6,12 +6,8 @@
 </p>
 
 ## About
-- This is a cursory attempt at building a data manipulation library in Python.
-- I use this package daily when assembling and maintaining pipelines, and 
-analysing data.
-- Currently focuses on the use of 'data dictionaries', dictionaries with keys
-corresponding with dataframe values. This makes gathering, cleaning, and
-writing batches of data quick and simple.
+- dpypr is a convenience wrapper for Pandas that aids the use of 'data 
+dictionaries' in small-scale data pipelines.
 
 ## Use
 - dpypr allows users to gather target files from directories into data 
