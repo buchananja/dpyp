@@ -11,4 +11,4 @@ dictionaries' in small-scale data pipelines.
 
 ## Use
 - dpypr allows users to gather target files from directories into data dictionaries.
-- Users can then apply cleaning and transformation funcions that are iteratively applied to all data in the dictionary, making batch processing quick to write and highly readable.
+- Users can then apply cleaning and transformation functions that are iteratively applied to all data in the dictionary, making batch processing quick to write and highly readable.
