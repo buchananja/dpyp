@@ -3,7 +3,7 @@ the 'text' module contains functionality for parsing text
 text
 '''
 
-
+import re
 import logging
 
 
@@ -37,7 +37,7 @@ def get_month_numeric(month_str):
 def remove_trailing_char(line, trailing_char):
     '''returns line with trailing character removed'''
 
-    if line.startswith(trailing_char):
+    if line.endswith(trailing_char):
         line = line[:-1]
     return line
 
