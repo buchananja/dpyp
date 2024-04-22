@@ -1,13 +1,13 @@
 from setuptools import setup, find_packages
 
 setup(
-    name = 'dpypr',
+    name = 'dpyp',
     version = '1.0.0',
-    description = '(data-piper) a data pipeline convenience tool for Python',
+    description = 'A pandas convenience wrapper for small-scale data pipelines',
     author = 'James Buchanan',
     author_email = 'buchananja.github@pm.me',
     license = 'MIT',
-    url = 'https://github.com/buchananja/dpypr',
+    url = 'https://github.com/buchananja/dpyp',
     install_requires = [
         'pandas',
         'pyarrow'

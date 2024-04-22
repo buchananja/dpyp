@@ -1,8 +1,8 @@
 Metadata-Version: 2.1
-Name: dpypr
+Name: dpyp
 Version: 1.0.0
-Summary: (data-piper) a data pipeline convenience tool for Python
-Home-page: https://github.com/buchananja/dpypr
+Summary: A pandas convenience wrapper for small-scale data pipelines
+Home-page: https://github.com/buchananja/dpyp
 Author: James Buchanan
 Author-email: buchananja.github@pm.me
 License: MIT
