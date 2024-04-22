@@ -102,6 +102,15 @@ def columns_optimise_numerics(df):
     return df
 
 
+def columns_to_float(df, clean_columns):
+    '''converts all columns in clean_columns to float'''
+
+    clean_columns = list(set(clean_columns) & set(df.columns))
+    for col in clean_columns:
+        df[col] = df[col].astype(float)
+    return df
+
+
 def columns_to_object(df, clean_columns = []):
     '''converts all columns in clean_columns to object'''
 
