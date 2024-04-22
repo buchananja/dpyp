@@ -3,7 +3,7 @@ the 'text' module contains functionality for parsing text
 text
 '''
 
-
+import re
 import logging
 
 
