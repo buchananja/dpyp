@@ -1,6 +1,8 @@
 # **dpyp (Data-Pipe)**
 *A pandas convenience wrapper for small-scale data pipelines*
 
+PyPI: https://pypi.org/project/dpyp/
+
 <p align = "center">
   <img src = "logo/dpyp_logo.png" alt = "image" width = "300" height = "300">
 </p>
