@@ -3,7 +3,7 @@
 
 import pytest
 import pandas as pd
-import dpypr as dp
+import dpyp as dp
 
     
 @pytest.fixture

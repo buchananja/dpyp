@@ -1,5 +1,5 @@
 import pandas as pd
-import dpypr as dp
+import dpyp as dp
 import os
 import sqlite3
 from sqlite3 import OperationalError
