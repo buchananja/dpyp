@@ -7,7 +7,6 @@ import re
 import logging
 
 
-# creates logging instance
 logger = logging.getLogger(__name__)
 
 
@@ -37,7 +36,7 @@ def get_month_numeric(month_str):
 def remove_trailing_char(line, trailing_char):
     '''returns line with trailing character removed'''
 
-    if line.startswith(trailing_char):
+    if line.endswith(trailing_char):
         line = line[:-1]
     return line
 
@@ -67,9 +66,10 @@ def get_index_text(phrase, split_char, index):
 def get_text_numerics(phrase, split_char, *indexes):
     '''
     takes a phrase and list of indexes to extract numbers from; appends numbers
-    to a list and returns
+    to a list and returns a tuple of numbers
     '''
 
+    # checks all indexes are intigers
     if all([isinstance(index, int) for index in indexes]):      
         numbers = list()
         for index in indexes:
@@ -81,7 +81,6 @@ def get_text_numerics(phrase, split_char, *indexes):
     else:
         print('Index not intiger')
         raise ValueError
-    
     return tuple(numbers)
 
 
