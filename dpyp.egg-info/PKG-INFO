@@ -6,6 +6,7 @@ Home-page: https://github.com/buchananja/dpyp
 Author: James Buchanan
 Author-email: buchananja.github@pm.me
 License: MIT
+Keywords: pandas,data,pipeline,cleaning,processing
 License-File: LICENSE.md
 Requires-Dist: pandas
 Requires-Dist: pyarrow

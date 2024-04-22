@@ -12,9 +12,10 @@ setup(
         'pandas',
         'pyarrow'
     ],
+    keywords = ['pandas', 'data', 'pipeline', 'cleaning', 'processing'],
     packages = find_packages(exclude = [
-        'tests', 
-        'build',
-        'logo'
+            'tests', 
+            'build',
+            'logo'
     ])
 )
