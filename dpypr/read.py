@@ -1,15 +1,15 @@
+'''
+the 'read' module contains functionality for reading data of various datatypes
+into data pipelines
+'''
+
+
 import pandas as pd
 import dpypr as dp
 import os
 import sqlite3
 from sqlite3 import OperationalError
 import logging
-
-
-'''
-the 'read' module contains functionality for reading data of various datatypes
-into data pipelines
-'''
 
 
 # creates logging instance

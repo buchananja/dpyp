@@ -1,13 +1,13 @@
-import sqlite3
-import os
-from datetime import datetime
-import logging
-
-
 '''
 the 'diagnose' module contains functionality for monitoring data pipelines and
 retriving useful information
 '''
+
+
+import sqlite3
+import os
+from datetime import datetime
+import logging
 
 
 # creates logging instance

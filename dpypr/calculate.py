@@ -3,6 +3,7 @@ the 'calculate' module contains functionality for doing statistical and
 mathematical operations on data
 '''
 
+
 def rate_of_change(df_row, col1, col2, default_rate):
     '''
     calculates the relative difference between two columns by row with default 
