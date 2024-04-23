@@ -61,7 +61,7 @@ def replace_consecutive_whitespace(
     ):
     '''returns line with all consecutive whitespace replaced with character'''
     
-    pattern = '[^\S'
+    pattern = r'[^\S'
     if ignore_tab:
         pattern += '\t'
     if ignore_return:
@@ -112,7 +112,7 @@ def get_string_numerics(phrase):
 def get_text_between_indexes(phrase, char_1, char_2):
     '''extracts text within a string between two characters'''
 
-    start_index = phrase.index(char_1)
+    start_index = phrase.index(char_1) + 1
     end_index = phrase.index(char_2)
     extracted_text = phrase[start_index:end_index]
     return extracted_text

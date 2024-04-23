@@ -20,23 +20,6 @@ def text_sample():
         Estimated data is marked with a * after the value.
         Missing data (more than 2 days missing in month) is marked by  ---.
         Sunshine data taken from an automatic Kipp & Zonen sensor marked with a #, otherwise sunshine data taken from a Campbell Stokes recorder.
-        yyyy  mm   tmax    tmin      af    rain     sun
-                    degC    degC    days      mm   hours
-        1959   1    1.7    -5.7      27     ---    34.2
-        1959   2    6.2    -3.2      15     ---    68.6
-        1959   3    7.6     0.8       7     ---    80.9
-        1959   4    ---     ---     ---     ---   105.0
-        1959   5   15.6     4.6       1     ---   182.6
-        1959   6   16.4     7.2       0     ---   164.8
-        1959   7   18.0     8.5       0     ---   147.4
-        1959   8   18.6    10.1       0     ---   106.3
-        1959   9   17.0     5.4       1     ---   148.2
-        1959  10   13.2     4.8       3     ---    87.8
-        1959  11    7.0     1.3       8     ---    26.6
-        1959  12    4.7    -0.6      14     ---     8.2
-        1960   1    3.8    -2.4      21     ---    28.5
-        1960   2    3.5    -5.6      23     ---    79.4
-        1960   3    5.7     0.0      11     ---    50.9
     '''
 
 
@@ -249,3 +232,42 @@ def test_replace_consecutive_whitespace_combination_whitespace():
     assert dp.replace_consecutive_whitespace(
         'hello\r\t\nworld', '_', ignore_tab = True
     ) == 'hello_\t_world'
+    
+    
+# get_split_index_text ########################################################
+def test_get_split_index_text_correct_phrase(text_sample):
+    '''tests whether get_split_index_text gets correct text from phrase'''
+    
+    assert dp.get_split_index_text(
+        text_sample, split_char = ',', index = 1
+    ) == ' 339 metres amsl (1959 to Apr 2005)'
+    
+    assert dp.get_split_index_text(
+        text_sample, split_char = ',', index = -1
+    ) == ' otherwise sunshine data taken from a Campbell Stokes recorder.'
+    
+    
+# get get_text_numerics #######################################################
+def test_get_text_numerics_correct_numbers():
+    '''tests that get_text_numerics gets correct numbers from phrase'''
+    
+    text = '339 metres amsl 1959 to Apr 2005'
+    assert dp.get_text_numerics(text, ' ', 0, 3, 6) == ('339', '1959', '2005')
+    
+    
+# get_string_numerics #########################################################
+def test_get_string_numerics():
+    '''tests that get_String_numerics gets correct numbers from string'''
+    
+    text = 'th3 qu1ck br0wn f0x jump5 0v3r 7he 1a2y d09'
+    assert dp.get_string_numerics(text) == '310050371209'
+    
+    
+# get_text_between_indexes ####################################################
+def test_get_text_between_indexes():
+    '''tests that get_text_between_indexes gets correct string between chars'''#
+    
+    text_1 = '(339) metres amsl (1959 to Apr 2005)'
+    text_2 = '339 metres amsl (1959 to Apr 2005)'
+    assert dp.get_text_between_indexes(text_1, '(', ')') == '339' 
+    assert dp.get_text_between_indexes(text_2, '(', ')') == '1959 to Apr 2005'
