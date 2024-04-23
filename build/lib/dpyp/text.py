@@ -27,36 +27,54 @@ def get_month_numeric(month_str):
         'nov': 11,
         'dec': 12
     }
-    if month_str[:3].lower() in month_dict:
-        return month_dict[month_str]
+    if not month_str[:3].isalpha():
+        raise ValueError(f"Invalid month string: {month_str}")
+    
+    if month_str[:3].lower() in month_dict.keys():
+        return month_dict[month_str[:3].lower()]
     else:
         raise ValueError(f"Invalid month string: {month_str}")
 
 
-def remove_trailing_char(line, trailing_char):
+def remove_trailing_char(line, char):
     '''returns line with trailing character removed'''
 
-    if line.endswith(trailing_char):
+    if line.endswith(char):
         line = line[:-1]
     return line
 
 
-def remove_leading_char(line, leading_char):
+def remove_leading_char(line, char):
     '''returns line with leading character removed'''
 
-    if line.startswith(leading_char):
+    if line.startswith(char):
         line = line[1:]
     return line
 
 
-def replace_consecutive_spaces(line, replacement_char):
+def replace_consecutive_whitespace(
+        line, 
+        replacement_char, 
+        ignore_tab = False,
+        ignore_return = False,
+        ignore_carriage_return = False
+    ):
     '''returns line with all consecutive whitespace replaced with character'''
     
-    line = re.sub(r'[^\S\r\n]+', replacement_char, line)
-    return line
+    pattern = '[^\S'
+    if ignore_tab:
+        pattern += '\t'
+    if ignore_return:
+        pattern += '\n'
+    if ignore_carriage_return:
+        pattern += '\r'
+    pattern += ']+'
+    
+    cleaned_line = re.sub(pattern, replacement_char, line)
+    return cleaned_line
 
 
-def get_index_text(phrase, split_char, index):
+def get_split_index_text(phrase, split_char, index):
     '''gets text from index in phrase split by character'''
 
     text = phrase.strip().split(split_char)[index]
@@ -85,14 +103,14 @@ def get_text_numerics(phrase, split_char, *indexes):
 
 
 def get_string_numerics(phrase):
-    '''extracts numeric digits from a string containing numberic characters'''
+    '''extracts and joins numeric characters from a string'''
 
     number = ''.join(filter(str.isdigit, phrase))
     return number
 
     
 def get_text_between_indexes(phrase, char_1, char_2):
-    '''extracts text within a phrase between two characters'''
+    '''extracts text within a string between two characters'''
 
     start_index = phrase.index(char_1)
     end_index = phrase.index(char_2)

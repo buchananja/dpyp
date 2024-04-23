@@ -12,7 +12,6 @@ from sqlite3 import OperationalError
 import logging
 
 
-# creates logging instance
 logger = logging.getLogger(__name__)
 
 
@@ -227,32 +226,32 @@ def read_all_sqlite(path, messaging = True):
     return data_dictionary
 
 
-def unpack_data_dictionary(
-        input_dictionary, 
-        output_dict = None, 
-        messaging = False
-    ):
-    '''
-    - loads all data from data_dictionary into global variables with record 
-    counts
-    - if output_dict is provided, output_dict will be updated and not returned
-    - if output_dict is not provided, a new dictionary will be returned
-    '''
+# def unpack_data_dictionary(
+#         input_dictionary, 
+#         output_dict = None, 
+#         messaging = False
+#     ):
+#     '''
+#     - loads all data from data_dictionary into global variables with record 
+#     counts
+#     - if output_dict is provided, output_dict will be updated and not returned
+#     - if output_dict is not provided, a new dictionary will be returned
+#     '''
     
-    # checks whether output dictionary provided
-    if output_dict is None:
-        output_dict = dict()
-        return_dict = True
-    else:
-        return_dict = False
+#     # checks whether output dictionary provided
+#     if output_dict is None:
+#         output_dict = dict()
+#         return_dict = True
+#     else:
+#         return_dict = False
     
-    # unpacks all dataframes to globals are prefixes name with ''
-    for key, value in input_dictionary.items():
-        if isinstance(value, pd.DataFrame):
-            output_dict[f'{key}'] = value
+#     # unpacks all dataframes to globals are prefixes name with ''
+#     for key, value in input_dictionary.items():
+#         if isinstance(value, pd.DataFrame):
+#             output_dict[f'{key}'] = value
             
-            if messaging:
-                logger.debug(f'Loaded {key} ({len(value):,} records)')
+#             if messaging:
+#                 logger.debug(f'Loaded {key} ({len(value):,} records)')
 
-    if return_dict:
-        return output_dict
+#     if return_dict:
+#         return output_dict

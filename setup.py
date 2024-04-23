@@ -8,14 +8,7 @@ setup(
     author_email = 'buchananja.github@pm.me',
     license = 'MIT',
     url = 'https://github.com/buchananja/dpyp',
-    install_requires = [
-        'pandas',
-        'pyarrow'
-    ],
+    install_requires = ['pandas', 'pyarrow'],
     keywords = ['pandas', 'data', 'pipeline', 'cleaning', 'processing'],
-    packages = find_packages(exclude = [
-            'tests', 
-            'build',
-            'logo'
-    ])
+    packages = find_packages(exclude = ['tests', 'build', 'logo'])
 )
