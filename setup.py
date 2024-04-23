@@ -3,7 +3,7 @@ from setuptools import setup, find_packages
 setup(
     name = 'dpyp',
     version = '1.0.0',
-    description = 'A pandas convenience wrapper for small-scale data pipelines',
+    description = 'A convenience tool for small-scale data pipelines in Python',
     author = 'James Buchanan',
     author_email = 'buchananja.github@pm.me',
     license = 'MIT',
