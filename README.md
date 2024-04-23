@@ -5,9 +5,6 @@
   <img src = "logo/dpyp_logo.png" alt = "image" width = "350" height = "350">
 </p>
 
-## About
-PyPI: https://pypi.org/project/dpyp/
-
 ## Use
 - Consists of six modules: 'calculate', 'clean', 'diagnose', 'read', 'text', and 'write'.
 - Designed for use in small-scale Python pipelines with an emphasis on batch-processing via 'data-dictionaries'.
