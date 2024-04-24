@@ -265,7 +265,7 @@ def test_get_string_numerics():
     
 # get_text_between_indexes ####################################################
 def test_get_text_between_indexes():
-    '''tests that get_text_between_indexes gets correct string between chars'''#
+    '''tests that get_text_between_indexes gets correct string between chars'''
     
     text_1 = '(339) metres amsl (1959 to Apr 2005)'
     text_2 = '339 metres amsl (1959 to Apr 2005)'
