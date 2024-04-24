@@ -10,7 +10,6 @@ from datetime import datetime
 import logging
 
 
-# creates logging instance
 logger = logging.getLogger(__name__)
 
 

@@ -10,7 +10,6 @@ from data pipelines
 '''
 
 
-# creates logging instance
 logger = logging.getLogger(__name__)
 
 
@@ -189,12 +188,8 @@ def write_dict_to_pickle(
 #     conn.close()
 
 
-def write_dict_to_sqlite(
-        input_dict, 
-        path,
-        overwrite = False,
-        messaging = True
-    ):
+# use a context manager
+def write_dict_to_sqlite(input_dict, path, overwrite = False, messaging = True):
     '''
     - writes all beginning 'df_' in input_dict to path as tables in database 
     - prefix allows user to rename processed files upon writing
@@ -210,27 +205,18 @@ def write_dict_to_sqlite(
             os.remove(path)
         except PermissionError:
             logger.debug('WARNING: File is being used by another process!')
-                
+    
     # connect to database       
     conn = sqlite3.connect(path)
-
     try:           
         # create tables in new database
         for name, data in input_dict.items():
             if isinstance(data, pd.DataFrame):
                 # write DataFrame to new table
                 if overwrite:
-                    data.to_sql(
-                        name, 
-                        conn, 
-                        if_exists = 'replace'
-                    )
+                    data.to_sql(name, conn, if_exists = 'replace')
                 else:
-                    data.to_sql(
-                        name, 
-                        conn, 
-                        if_exists = 'append'
-                    )
+                    data.to_sql(name, conn, if_exists = 'append')
                 if messaging:
                     logger.debug(f'wrote {name} ({len(data):,} records)')
     except Exception as e:

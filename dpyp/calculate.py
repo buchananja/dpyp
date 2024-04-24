@@ -4,6 +4,18 @@ mathematical operations on data
 '''
 
 
+import logging
+
+
+logger = logging.getLogger(__name__)
+
+
+import logging
+
+
+logger = logging.getLogger(__name__)
+
+
 def row_rate_of_change(df_row, col1, col2, default_rate):
     '''
     calculates the relative difference between two columns for single row with 

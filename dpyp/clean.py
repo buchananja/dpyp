@@ -4,7 +4,11 @@ standardising dataframes
 '''
 
 
+import logging
 import pandas as pd
+
+
+logger = logging.getLogger(__name__)
 
 
 def headers_to_snakecase(df, uppercase = False):
