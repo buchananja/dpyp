@@ -44,20 +44,20 @@ def df_sample():
     return df
 
 
-# row_rate_of_change ##########################################################
-def test_row_rate_of_change_correct(df_sample):
-    '''tests row_rate_of_change calculates correct value by row'''
+# single_rate_of_change ##########################################################
+def test_single_rate_of_change_correct(df_sample):
+    '''tests single_rate_of_change calculates correct value by row'''
     
-    assert dp.row_rate_of_change(
+    assert dp.single_rate_of_change(
         df_sample.iloc[0], 'Population_1', 'Population_2', 0
     ) == 0.07692307692307693
     
 
-def test_row_rate_of_change_lambda(df_sample):
-    '''tests row_rate_of_change returns dvalue between -1 and 1 for each row'''
+def test_single_rate_of_change_lambda(df_sample):
+    '''tests single_rate_of_change returns dvalue between -1 and 1 for each row'''
     
     result = df_sample.apply(
-        lambda row: dp.row_rate_of_change(
+        lambda row: dp.single_rate_of_change(
             row, 'Population_1', 'Population_2', 0
         ), 
         axis = 1
@@ -65,14 +65,14 @@ def test_row_rate_of_change_lambda(df_sample):
     assert all(-1 <= value <= 1 for value in result)
     
 
-# col_rate_of_change ##########################################################
-def test_col_rate_of_change_correct(df_sample):
+# bulk_rate_of_change ##########################################################
+def test_bulk_rate_of_change_correct(df_sample):
     '''
-    tests col_rate_of_change calculates correct value-range with correct name
+    tests bulk_rate_of_change calculates correct value-range with correct name
     and correct default rate filled into null values
     '''
     
-    df = dp.col_rate_of_change(
+    df = dp.bulk_rate_of_change(
         df = df_sample, 
         col_name = 'rate_of_change', 
         col1 = 'Population_1', 
@@ -82,20 +82,20 @@ def test_col_rate_of_change_correct(df_sample):
     assert all(-1 <= row <= 1 for row in df['rate_of_change'])
     
     
-# row_product #################################################################
-def test_row_product_correct(df_sample):
-    '''tests row_products calculates correct value by row'''
+# single_product #################################################################
+def test_single_product_correct(df_sample):
+    '''tests single_products calculates correct value by row'''
     
-    assert dp.row_product(
+    assert dp.single_product(
         df_sample.iloc[0], 'Population_1', 'Population_2',
     ) == 156
     
     
-# col_product #################################################################
-def test_col_product_correct(df_sample):
-    '''tests col_products calculates correct values, including nulls'''
+# bulk_product #################################################################
+def test_bulk_product_correct(df_sample):
+    '''tests bulk_products calculates correct values, including nulls'''
     
-    df_test = dp.col_product(df_sample, 'Product', 'Population_1', 'Population_2')
+    df_test = dp.bulk_product(df_sample, 'Product', 'Population_1', 'Population_2')
     expected_series = pd.Series(
         [156, 2000, 759, 380, 20, 110, np.nan], 
         name = 'Product'
@@ -103,32 +103,32 @@ def test_col_product_correct(df_sample):
     assert df_test['Product'].equals(expected_series)
     
     
-# row_percentage ##############################################################
-def test_row_percentage_correct(df_sample):
-    '''tests row_percentage outputs the correct value'''
+# single_percentage ##############################################################
+def test_single_percentage_correct(df_sample):
+    '''tests single_percentage outputs the correct value'''
     
-    assert dp.row_percentage(
+    assert dp.single_percentage(
         df_sample.iloc[0], 'Population_1', 'Population_2',
     ) == 108
     
 
-def test_row_percentage_decimal_points(df_sample):
-    '''tests row_percentage outputs the correct decimal points'''
+def test_single_percentage_decimal_points(df_sample):
+    '''tests single_percentage outputs the correct decimal points'''
     
-    assert dp.row_percentage(
+    assert dp.single_percentage(
         df_sample.iloc[0], 'Population_1', 'Population_2', dec_points = 1
     ) == 108.3
     
-    assert dp.row_percentage(
+    assert dp.single_percentage(
         df_sample.iloc[0], 'Population_1', 'Population_2', dec_points = 2
     ) == 108.33
     
     
-# col_percentage ##############################################################
-def test_col_percentage_correct(df_sample):
-    '''tests col_percentage calculates correct values, including nulls'''
+# bulk_percentage ##############################################################
+def test_bulk_percentage_correct(df_sample):
+    '''tests bulk_percentage calculates correct values, including nulls'''
     
-    df_test = dp.col_percentage(
+    df_test = dp.bulk_percentage(
         df_sample, 'Percentage', 'Population_1', 'Population_2'
     )
     expected_series = pd.Series(
@@ -138,20 +138,20 @@ def test_col_percentage_correct(df_sample):
     assert df_test['Percentage'].equals(expected_series)
     
 
-# row_modulo ##################################################################
-def test_row_modulo_correct(df_sample):
-    '''tests row_modulo outputs the correct value'''
+# single_modulo ##################################################################
+def test_single_modulo_correct(df_sample):
+    '''tests single_modulo outputs the correct value'''
     
-    assert dp.row_modulo(
+    assert dp.single_modulo(
         df_sample.iloc[0], 'Population_1', 'Population_2',
     ) == 1.0
     
 
-# col_modulo ##################################################################
-def test_col_modulo_correct(df_sample):
-    '''tests col_modulo calculates correct values, including nulls'''
+# bulk_modulo ##################################################################
+def test_bulk_modulo_correct(df_sample):
+    '''tests bulk_modulo calculates correct values, including nulls'''
     
-    df_test = dp.col_modulo(
+    df_test = dp.bulk_modulo(
         df_sample, 'Modulo', 'Population_1', 'Population_2'
     )
     expected_series = pd.Series(
@@ -161,20 +161,20 @@ def test_col_modulo_correct(df_sample):
     assert df_test['Modulo'].equals(expected_series)
     
     
-# row_subrtaction #############################################################
-def test_row_subtraction_correct(df_sample):
-    '''tests row_subtraction outputs the correct value'''
+# single_subtraction #############################################################
+def test_single_subtraction_correct(df_sample):
+    '''tests single_subtraction outputs the correct value'''
     
-    assert dp.row_subtraction(
+    assert dp.single_subtraction(
         df_sample.iloc[0], 'Population_1', 'Population_2',
     ) == 1.0
     
     
-# col_subrtaction #############################################################
-def test_col_subtraction_correct(df_sample):
+# bulk_subtraction #############################################################
+def test_bulk_subtraction_correct(df_sample):
     '''tests col_substraction calculates correct values, including nulls'''
     
-    df_test = dp.col_subtraction(
+    df_test = dp.bulk_subtraction(
         df_sample, 'Subtraction', 'Population_1', 'Population_2'
     )
     expected_series = pd.Series(
@@ -184,20 +184,20 @@ def test_col_subtraction_correct(df_sample):
     assert df_test['Subtraction'].equals(expected_series)
     
     
-# row_addition ################################################################
-def test_row_addition_correct(df_sample):
-    '''tests row_addition outputs the correct value'''
+# single_addition ################################################################
+def test_single_addition_correct(df_sample):
+    '''tests single_addition outputs the correct value'''
     
-    assert dp.row_addition(
+    assert dp.single_addition(
         df_sample.iloc[0], 'Population_1', 'Population_2',
     ) == 25
     
     
-# col_addition ################################################################
-def test_col_addition_correct(df_sample):
+# bulk_addition ################################################################
+def test_bulk_addition_correct(df_sample):
     '''tests col_substraction calculates correct values, including nulls'''
     
-    df_test = dp.col_addition(
+    df_test = dp.bulk_addition(
         df_sample, 'Addition', 'Population_1', 'Population_2'
     )
     expected_series = pd.Series(
@@ -205,3 +205,26 @@ def test_col_addition_correct(df_sample):
         name = 'Addition'
     )
     assert df_test['Addition'].equals(expected_series)
+    
+
+# single_power ###################################################################
+def test_single_power_correct(df_sample):
+    '''tests single_power outputs the correct value'''
+    
+    assert dp.single_power(
+        df_sample.iloc[0], 'Population_1', 2,
+    ) == 169
+    
+
+# bulk_power ###################################################################
+def test_bulk_power_correct(df_sample):
+    '''tests col_substraction calculates correct values, including nulls'''
+    
+    df_test = dp.bulk_power(
+        df_sample, 'Power_2', 'Population_1', 2
+    )
+    expected_series = pd.Series(
+        [169.0, 1600.0, 529.0, 361.0, 25.0, 100.0, np.nan], 
+        name = 'Power_2'
+    )
+    assert df_test['Power_2'].equals(expected_series)
