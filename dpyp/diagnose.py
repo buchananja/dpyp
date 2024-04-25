@@ -73,7 +73,7 @@ def check_path_valid(path):
 
 
 def check_column_nulls(df):
-    '''logs columns containint null values in dataframe'''
+    '''logs columns containing null values in dataframe'''
 
     for col in df.columns:
         if df[col].isna().any():
