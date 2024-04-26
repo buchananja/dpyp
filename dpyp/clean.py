@@ -19,8 +19,7 @@ class HeaderClean:
     def headers_rename(df, rename_dict):
         '''renames dataframe columns using a dictionary'''
         
-        # checks if columns exist in dict and df; creates new dictionary of 
-        # valid names; renames columns
+        # checks if columns exist in dict and df
         columns_to_rename = list(set(rename_dict.keys()) & set(df.columns))
         valid_rename_dict = {col: rename_dict[col] for col in columns_to_rename}
         df = df.rename(columns = valid_rename_dict)
@@ -104,7 +103,7 @@ class ColumnClean:
         strips all leading and trailing whitespace from string dtypes in object and 
         string columns
         '''
-        
+    
         string_cols = df.select_dtypes(include = ['object', 'string']).columns
         for col in string_cols:
             df[col] = df[col].apply(
@@ -182,10 +181,9 @@ class ColumnClean:
     def columns_to_datetime(df, clean_columns = []):
         '''converts all columns in clean_columns to datetime'''
         
-        # finds columns common to both df.columns and clean_columns
+        # finds columns common to both df.columns and clean_columns; converts 
+        # columns to datetime
         clean_columns = list(set(clean_columns) & set(df.columns))
-        
-        # converts columns to datetime
         for col in clean_columns:
             df.loc[:, col] = pd.to_datetime(df.loc[:, col])
         return df
