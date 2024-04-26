@@ -10,7 +10,7 @@ import logging
 logger = logging.getLogger(__name__)
 
 
-class TransformText:
+class TranText:
     '''transforms areas of text into useful conversions or additions'''
     
     
@@ -41,7 +41,7 @@ class TransformText:
             raise ValueError(f"Invalid month string: {month_str}")
 
 
-class RemoveText:
+class RemText:
     '''removes particular characters, sequences, or phrases from text'''
     
     
@@ -63,7 +63,7 @@ class RemoveText:
         return line
 
 
-class ReplaceText:
+class RepText:
     '''replaces specific secions of text'''
     
     

@@ -11,7 +11,7 @@ import pandas as pd
 logger = logging.getLogger(__name__)
 
 
-class HeaderClean:
+class HeadClean:
     '''contains functionality for cleaning pandas dataframe headers'''
     
     
@@ -40,7 +40,7 @@ class HeaderClean:
         return df
 
 
-class ColumnClean:
+class ColClean:
     '''contains functionality for cleaning pandas dataframe column data'''
     
     

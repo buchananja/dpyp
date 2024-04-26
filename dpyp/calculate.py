@@ -8,7 +8,7 @@ import logging
 logger = logging.getLogger(__name__)
 
 
-class SingleCalc:
+class SinCalc:
     '''contains calculations for applying iteratively to pandas dataframe columns'''
 
     
