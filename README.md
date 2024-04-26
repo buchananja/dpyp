@@ -6,7 +6,7 @@
 </p>
 
 ## About
-This project is a Python-based data-pipeline convenience tool containing functionality for reading and writing batches, cleaning data, diagnosing pipelines, manipulating text, and calculating fields.
+- This project is a Python-based data-pipeline convenience tool containing functionality for reading and writing batches, cleaning data, diagnosing pipelines, manipulating text, and calculating fields.
 
 ## Usage
 - Consists of six modules: 'calculate', 'clean', 'diagnose', 'read', 'text', and 'write'.
@@ -25,4 +25,4 @@ This project is a Python-based data-pipeline convenience tool containing functio
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md)
+- This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md)
