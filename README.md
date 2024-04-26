@@ -1,5 +1,4 @@
 # **dpyp**
-*A convenience tool for small-scale data pipelines in Python*
 
 <p align = "center">
   <img src = "logo/dpyp_logo.png" alt = "image" width = "350" height = "350">
@@ -25,4 +24,4 @@
 
 ## License
 
-- This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md)
+- see [LICENSE.md](LICENSE.md)
