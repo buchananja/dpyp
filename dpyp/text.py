@@ -5,6 +5,7 @@ text
 
 import re
 import logging
+from typing import List, Tuple
 
 
 logger = logging.getLogger(__name__)
@@ -15,30 +16,22 @@ class TranText:
     
     
     @staticmethod
-    def get_month_numeric(month_str):
+    def get_month_numeric(month_text: str) -> int:
         '''takes string month name and returns numeric calender position'''
 
         month_dict = {
-            'jan': 1,
-            'feb': 2,
-            'mar': 3,
-            'apr': 4,
-            'may': 5,
-            'jun': 6,
-            'jul': 7,
-            'aug': 8,
-            'sep': 9,
-            'oct': 10,
-            'nov': 11,
-            'dec': 12
+            'jan': 1, 'feb': 2, 'mar': 3, 'apr': 4,
+            'may': 5, 'jun': 6, 'jul': 7, 'aug': 8,
+            'sep': 9, 'oct': 10, 'nov': 11, 'dec': 12
         }
-        if not month_str[:3].isalpha():
-            raise ValueError(f"Invalid month string: {month_str}")
+        if not month_text[:3].isalpha():
+            raise ValueError(f"Invalid month string: {month_text}")
         
-        if month_str[:3].lower() in month_dict.keys():
-            return month_dict[month_str[:3].lower()]
+        if month_text[:3].lower() in month_dict.keys():
+            month_number = month_dict[month_text[:3].lower()]
+            return month_number
         else:
-            raise ValueError(f"Invalid month string: {month_str}")
+            raise ValueError(f"Invalid month string: {month_text}")
 
 
 class RemText:
@@ -46,7 +39,7 @@ class RemText:
     
     
     @staticmethod
-    def remove_trailing_char(line, char):
+    def remove_trailing_char(line: str, char: str) -> str:
         '''returns line with trailing character removed'''
 
         if line.endswith(char):
@@ -55,7 +48,7 @@ class RemText:
 
 
     @staticmethod
-    def remove_leading_char(line, char):
+    def remove_leading_char(line: str, char: str) -> str:
         '''returns line with leading character removed'''
 
         if line.startswith(char):
@@ -69,12 +62,12 @@ class RepText:
     
     @staticmethod
     def replace_consecutive_whitespace(
-            line, 
-            replacement_char, 
-            ignore_tab = False,
-            ignore_return = False,
-            ignore_carriage_return = False
-        ):
+        line: str,
+        replacement_char: str, 
+        ignore_tab: bool = False,
+        ignore_return: bool = False,
+        ignore_carriage_return: bool = False
+    ) -> str:
         '''returns line with all consecutive whitespace replaced with character'''
         
         # created regex
@@ -96,49 +89,51 @@ class GetText:
     
     
     @staticmethod        
-    def get_split_index_text(phrase, split_char, index):
+    def get_split_index_text(
+        text: str, 
+        split_char: str, 
+        index: int
+    ) -> str:
         '''gets text from index in phrase split by character'''
 
-        text = phrase.strip().split(split_char)[index]
+        text = text.strip().split(split_char)[index]
         return text
 
 
     @staticmethod
-    def get_text_numerics(phrase, split_char, *indexes):
-        '''
-        takes a phrase and list of indexes to extract numbers from; appends numbers
-        to a list and returns a tuple of numbers
-        '''
+    def get_text_numerics(
+        text: str, 
+        split_char: str, 
+        *indexes: int
+    ) -> Tuple[str, ...]:
+        '''returns tuple of numeric strings from phrase (list of strings)'''
 
-        # checks all indexes are intigers
         if all([isinstance(index, int) for index in indexes]):      
             numbers = list()
             for index in indexes:
                 try:
-                    number = ''.join(filter(str.isdigit, phrase.split(split_char)[index]))
+                    number = ''.join(filter(str.isdigit, text.split(split_char)[index]))
                     numbers.append(number)
-                    numbers = tuple(numbers)
                 except IndexError:
-                    print('Index out of bounds')
+                    logger.debug('Index out of bounds')
         else:
-            print('Index not intiger')
+            logger.debug('Index not intiger')
             raise ValueError
-        return numbers
+        
+        return tuple(numbers)
 
 
     @staticmethod
-    def get_string_numerics(phrase):
+    def get_string_numerics(text: str) -> str:
         '''extracts and joins numeric characters from a string'''
 
-        number = ''.join(filter(str.isdigit, phrase))
+        number = ''.join(filter(str.isdigit, text))
         return number
 
     
     @staticmethod
-    def get_text_between_indexes(phrase, char_1, char_2):
-        '''extracts text within a string between two characters'''
+    def get_text_between_indexes(text: str, char_1: str, char_2: str) -> str:
+        '''extracts text within a string between two character indexes'''
 
-        start_index = phrase.index(char_1) + 1
-        end_index = phrase.index(char_2)
-        extracted_text = phrase[start_index:end_index]
+        extracted_text = text[text.index(char_1) + 1:text.index(char_2)]
         return extracted_text

@@ -24,11 +24,7 @@ class WriteData:
             output_prefix = 'df',
             messaging = True
         ):
-        '''
-        - writes all objects beginning with 'df_' in input_dict to path as .json
-        - prefix allows user to rename processed files upon writing
-        - logs number of records
-        '''
+        '''writes all dataframes in dict as json with modifiable prefix'''
 
         for name, data in input_dict.items():
             if name.startswith('df_') & isinstance(data, pd.DataFrame):
@@ -44,11 +40,7 @@ class WriteData:
             output_prefix = 'df',
             messaging = True
         ):
-        '''
-        - writes all objects beginning with 'df_' in input_dict to path as .csv
-        - prefix allows user to rename processed files upon writing
-        - logs number of records
-        '''
+        '''writes all dataframes in dict as csv with modifiable prefix'''
         
         for name, data in input_dict.items():
             if name.startswith('df_') & isinstance(data, pd.DataFrame):
@@ -64,11 +56,7 @@ class WriteData:
             output_prefix = 'df',
             messaging = True
         ):
-        '''
-        - writes all objects beginning with 'df_' in input_dict to path as .xlsx 
-        - prefix allows user to rename processed files upon writing
-        - logs number of records
-        '''
+        '''writes all dataframes in dict as xlsx with modifiable prefix'''
         
         for name, data in input_dict.items():
             if name.startswith('df_') & isinstance(data, pd.DataFrame):
@@ -84,11 +72,7 @@ class WriteData:
             output_prefix = 'df',
             messaging = True
         ):
-        '''
-        - writes all objects beginning with 'df_' in input_dict to path as .feather
-        - prefix allows user to rename processed files upon writing
-        - logs number of records
-        '''
+        '''writes all dataframes in dict as feather with modifiable prefix'''
         
         for name, data in input_dict.items():
             if name.startswith('df_') & isinstance(data, pd.DataFrame):
@@ -104,11 +88,7 @@ class WriteData:
             output_prefix = 'df',
             messaging = True
         ):
-        '''
-        - writes all objects beginning with 'df_' in input_dict to path as .parquet
-        - prefix allows user to rename processed files upon writing
-        - logs number of records
-        '''
+        '''writes all dataframes in dict as parquet with modifiable prefix'''
         
         for name, data in input_dict.items():
             if name.startswith('df_') & isinstance(data, pd.DataFrame):
@@ -137,6 +117,7 @@ class WriteData:
                     logger.debug(f'wrote {output_prefix}_{name[3:]} ({len(data):,} records)')
 
 
+    # TODO: analyse to different methods and compare
     # @staticmethod                
     # def write_dict_to_sqlite(
     #         input_dict, 
@@ -189,7 +170,6 @@ class WriteData:
     #                     )
     #         if messaging:
     #             logger.debug('All data written successfully.') 
-                
     #     except Exception as e:
     #         logger.debug(f'WARNING: {str(e)}')
     #     conn.close()
@@ -202,14 +182,13 @@ class WriteData:
             overwrite = False, 
             messaging = True
         ):
-        '''
+        ''''''
         # - writes all beginning 'df_' in input_dict to path as tables in database 
         # - prefix allows user to rename processed files upon writing
         # - logs number of records
         # - overwrites table if set
         # - creates database if path does not exist
         # - appends to tables by default
-        '''
         
         # deletes old table
         if overwrite and os.path.exists(path):

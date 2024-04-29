@@ -58,14 +58,14 @@ class ColClean:
                     lambda val: val.upper().replace(' ', '_') 
                     if isinstance(val, str) 
                     else val
-            )
+                )
         else:
             for col in string_cols:
                 df[col] = df[col].apply(
                     lambda val: val.lower().replace(' ', '_') 
                     if isinstance(val, str) 
                     else val
-            )
+                )
         return df
 
 
@@ -119,11 +119,7 @@ class ColClean:
         '''downcasts numeric datatypes in numeric columns of dataframe''' 
         
         for col in df.columns:
-            # skips object columns
-            if df[col].dtype == 'object':
-                continue
-            # checks whether column contains only intigers
-            else:
+            if df[col].dtype != 'object':
                 if all(df[col] % 1 == 0):
                     df[col] = pd.to_numeric(df[col], downcast = 'integer')
                 else:
@@ -132,9 +128,10 @@ class ColClean:
 
 
     @staticmethod
-    def columns_to_float(df, clean_columns):
+    def columns_to_float(df, clean_columns = list()):
         '''converts all columns in clean_columns to float'''
 
+        # finds columns common to both df.columns and clean_columns
         clean_columns = list(set(clean_columns) & set(df.columns))
         for col in clean_columns:
             df[col] = df[col].astype(float)
@@ -142,7 +139,7 @@ class ColClean:
 
 
     @staticmethod
-    def columns_to_object(df, clean_columns = []):
+    def columns_to_object(df, clean_columns = list()):
         '''converts all columns in clean_columns to object'''
 
         # finds columns common to both df.columns and clean_columns
@@ -153,7 +150,7 @@ class ColClean:
 
 
     @staticmethod
-    def columns_to_string(df, clean_columns = []):
+    def columns_to_string(df, clean_columns = list()):
         '''
         converts all columns in clean_columns to str objects 
         (not pandas string)
@@ -167,7 +164,7 @@ class ColClean:
 
 
     @staticmethod
-    def columns_to_categorical(df, clean_columns = []):
+    def columns_to_categorical(df, clean_columns = list()):
         '''converts all columns in clean_columns to categories'''
 
         # finds columns common to both df.columns and clean_columns
@@ -178,11 +175,10 @@ class ColClean:
 
 
     @staticmethod
-    def columns_to_datetime(df, clean_columns = []):
+    def columns_to_datetime(df, clean_columns = list()):
         '''converts all columns in clean_columns to datetime'''
         
         # finds columns common to both df.columns and clean_columns; converts 
-        # columns to datetime
         clean_columns = list(set(clean_columns) & set(df.columns))
         for col in clean_columns:
             df.loc[:, col] = pd.to_datetime(df.loc[:, col])
@@ -190,12 +186,11 @@ class ColClean:
 
 
     @staticmethod
-    def columns_to_boolean(df, clean_columns = []):
+    def columns_to_boolean(df, clean_columns = list()):
         '''converts all columns in clean_columns to True if "true", else False'''
         
-        clean_columns = list(set(clean_columns) & set(df.columns))
-        
-        # converts string values to True if "true", else False
+        # finds columns common to both df.columns and clean_columns; converts 
+        clean_columns = list(set(clean_columns) & set(df.columns))s
         for col in clean_columns:
             df[col] = df[col].apply(
                 lambda val: True 
@@ -210,10 +205,7 @@ class ColClean:
     def columns_fill_null(df, fill_word = 'unknown'):
         '''fills nulls within non-numeric columns with optional keyword'''
 
-        fill_cols = df.select_dtypes(
-            include = ['object', 'string', 'category']
-        ).columns
-        
+        fill_cols = df.select_dtypes(include = ['object', 'string', 'category']).columns
         for col in fill_cols:
             df[col] = df[col].fillna(fill_word)
         return df
