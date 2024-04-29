@@ -20,7 +20,9 @@
 
 ## Installation
 
+```bash
 - pip install dpyp
+```
 
 ## License
 
