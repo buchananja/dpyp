@@ -36,8 +36,9 @@ class ReadData:
                 data_dictionary[f'{filename}'] = df
                 
                 if messaging:
-                    logger.debug(f'read {filename} ({len(filename):,} records)')
-                    
+                    logger.debug(
+                        f'read {filename} ({len(filename):,} records)'
+                    )
         if not data_dictionary:
             logger.debug('No files read.')
             
@@ -60,13 +61,16 @@ class ReadData:
         
         for file in files:
             if file.endswith('.csv'):
-                df = pd.read_csv(os.path.join(path, file), sep = f'{seperator}')
+                df = pd.read_csv(
+                    os.path.join(path, file), sep = f'{seperator}'
+                )
                 filename = os.path.splitext(file)[0]
                 data_dictionary[f'{filename}'] = df
                 
                 if messaging:
-                    logger.debug(f'read {filename} ({len(filename):,} records)')
-                    
+                    logger.debug(
+                        f'read {filename} ({len(filename):,} records)'
+                    )
         if not data_dictionary:
             logger.debug('No files read.')
             
@@ -90,8 +94,9 @@ class ReadData:
                 data_dictionary[f'{filename}'] = df
                 
                 if messaging:
-                    logger.debug(f'read {filename} ({len(filename):,} records)')
-                    
+                    logger.debug(
+                        f'read {filename} ({len(filename):,} records)'
+                    )
         if not data_dictionary:
             logger.debug('No files read.')
             
@@ -115,8 +120,9 @@ class ReadData:
                 data_dictionary[f'{filename}'] = df
                 
                 if messaging:
-                    logger.debug(f'read {filename} ({len(filename):,} records)')
-                    
+                    logger.debug(
+                        f'read {filename} ({len(filename):,} records)'
+                    )
         if not data_dictionary:
             logger.debug('No files read.')
             
@@ -140,8 +146,9 @@ class ReadData:
                 data_dictionary[f'{filename}'] = df
                 
                 if messaging:
-                    logger.debug(f'read {filename} ({len(filename):,} records)')
-                    
+                    logger.debug(
+                        f'read {filename} ({len(filename):,} records)'
+                    )
         if not data_dictionary:
             logger.debug('No files read.')
             
@@ -165,8 +172,9 @@ class ReadData:
                 data_dictionary[f'{filename}'] = df
                 
                 if messaging:
-                    logger.debug(f'read {filename} ({len(filename):,} records)')
-                    
+                    logger.debug(
+                        f'read {filename} ({len(filename):,} records)'
+                    )
         if not data_dictionary:
             logger.debug('No files read.')
             

@@ -30,7 +30,10 @@ class WriteData:
             if name.startswith('df_') & isinstance(data, pd.DataFrame):
                 data.to_json(f'{path}/{output_prefix}_{name[3:]}.json')
                 if messaging:
-                    logger.debug(f'wrote {output_prefix}_{name[3:]} ({len(data):,} records)')
+                    logger.debug(
+                        f'wrote {output_prefix}_{name[3:]}'
+                        f'({len(data):,} records)'
+                    )
 
 
     @staticmethod       
@@ -46,7 +49,10 @@ class WriteData:
             if name.startswith('df_') & isinstance(data, pd.DataFrame):
                 data.to_csv(f'{path}/{output_prefix}_{name[3:]}.csv')
                 if messaging:
-                    logger.debug(f'wrote {output_prefix}_{name[3:]} ({len(data):,} records)')
+                    logger.debug(
+                        f'wrote {output_prefix}_{name[3:]}'
+                        f'({len(data):,} records)'
+                    )
         
     
     @staticmethod       
@@ -62,7 +68,10 @@ class WriteData:
             if name.startswith('df_') & isinstance(data, pd.DataFrame):
                 data.to_excel(f'{path}/{output_prefix}_{name[3:]}.xlsx')
                 if messaging:
-                    logger.debug(f'wrote {output_prefix}_{name[3:]} ({len(data):,} records)')
+                    logger.debug(
+                        f'wrote {output_prefix}_{name[3:]}'
+                        f'({len(data):,} records)'
+                    )
 
 
     @staticmethod       
@@ -78,7 +87,10 @@ class WriteData:
             if name.startswith('df_') & isinstance(data, pd.DataFrame):
                 data.to_feather(f'{path}/{output_prefix}_{name[3:]}.feather')
                 if messaging:
-                    logger.debug(f'wrote {output_prefix}_{name[3:]} ({len(data):,} records)')
+                    logger.debug(
+                        f'wrote {output_prefix}_{name[3:]}'
+                        f'({len(data):,} records)'
+                    )
             
     
     @staticmethod       
@@ -94,7 +106,10 @@ class WriteData:
             if name.startswith('df_') & isinstance(data, pd.DataFrame):
                 data.to_parquet(f'{path}/{output_prefix}_{name[3:]}.parquet')
                 if messaging:
-                    logger.debug(f'wrote {output_prefix}_{name[3:]} ({len(data):,} records)')
+                    logger.debug(
+                        f'wrote {output_prefix}_{name[3:]}'
+                        f'({len(data):,} records)'
+                    )
             
     
     @staticmethod       
@@ -105,16 +120,19 @@ class WriteData:
         messaging: bool = True
     ) -> None:
         '''
-        - writes all objects beginning with 'df_' in input_dict to path as .pickle
+        - writes all objects beginning with 'df_' in input_dict to path as 
+        pickle
         - prefix allows user to rename processed files upon writing
-        - logs number of records
         '''
         
         for name, data in input_dict.items():
             if name.startswith('df_') & isinstance(data, pd.DataFrame):
                 data.to_pickle(f'{path}/{output_prefix}_{name[3:]}.pickle')
                 if messaging:
-                    logger.debug(f'wrote {output_prefix}_{name[3:]} ({len(data):,} records)')
+                    logger.debug(
+                        f'wrote {output_prefix}_{name[3:]}'
+                        f'({len(data):,} records)'
+                    )
 
 
     # TODO: analyse to different methods and compare
@@ -127,12 +145,12 @@ class WriteData:
     #         messaging = True
     #     ):
     #     '''
-    #     - writes all beginning 'df_' in input_dict to path as tables in database 
-    #     - prefix allows user to rename processed files upon writing
-    #     - logs number of records
-    #     - overwrites table if set
-    #     - creates database if path does not exist
-    #     - appends to tables by default
+        # - writes all beginning 'df_' in input_dict to path as tables in database 
+        # - prefix allows user to rename processed files upon writing
+        # - logs number of records
+        # - overwrites table if set
+        # - creates database if path does not exist
+        # - appends to tables by default
     #     '''
         
     #     if overwrite and os.path.exists(path):
@@ -182,7 +200,11 @@ class WriteData:
         overwrite: bool = False, 
         messaging: bool = True
     ) -> None:
-        ''''''
+        '''
+        - overwrites table if set
+        - creates database if path does not exist
+        - appends to tables by default
+        '''
         
         # deletes old table
         if overwrite and os.path.exists(path):
@@ -201,6 +223,8 @@ class WriteData:
                         else:
                             data.to_sql(name, conn, if_exists = 'append')
                         if messaging:
-                            logger.debug(f'wrote {name} ({len(data):,} records)')
+                            logger.debug(
+                                f'wrote {name} ({len(data):,} records)'
+                            )
             except Exception as e:
                 logger.debug(f'WARNING: {str(e)}')

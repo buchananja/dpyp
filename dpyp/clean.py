@@ -21,7 +21,9 @@ class HeadClean:
         
         # checks if columns exist in dict and df
         columns_to_rename = list(set(rename_dict.keys()) & set(df.columns))
-        valid_rename_dict = {col: rename_dict[col] for col in columns_to_rename}
+        valid_rename_dict = {
+            col: rename_dict[col] for col in columns_to_rename
+        }
         df = df.rename(columns = valid_rename_dict)
         return df
 
@@ -32,8 +34,8 @@ class HeadClean:
         uppercase: bool = False
     ) -> pd.DataFrame:
         '''
-        converts all column headers to lower snake case by default and uppercase 
-        if specified
+        converts all column headers to lower snake case by default and 
+        uppercase if specified
         '''
         
         if uppercase:
@@ -106,8 +108,8 @@ class ColClean:
     @staticmethod
     def columns_strip_whitespace(df: pd.DataFrame) -> pd.DataFrame:
         '''
-        strips all leading and trailing whitespace from string dtypes in object and 
-        string columns
+        strips all leading and trailing whitespace from string dtypes in object
+        and string columns
         '''
     
         string_cols = df.select_dtypes(include = ['object', 'string']).columns
@@ -211,10 +213,10 @@ class ColClean:
         df: pd.DataFrame, 
         clean_columns: list
     ) -> pd.DataFrame:
-        '''converts all columns in clean_columns to True if "true", else False'''
+        '''converts columns in clean_columns to True if "true" else False'''
         
         # finds columns common to both df.columns and clean_columns; converts 
-        clean_columns = list(set(clean_columns) & set(df.columns))s
+        clean_columns = list(set(clean_columns) & set(df.columns))
         for col in clean_columns:
             df[col] = df[col].apply(
                 lambda val: True 
@@ -232,7 +234,9 @@ class ColClean:
     ) -> pd.DataFrame:
         '''fills nulls within non-numeric columns with optional keyword'''
 
-        fill_cols = df.select_dtypes(include = ['object', 'string', 'category']).columns
+        fill_cols = df.select_dtypes(
+            include = ['object', 'string', 'category']
+        ).columns
         for col in fill_cols:
             df[col] = df[col].fillna(fill_word)
         return df

@@ -68,7 +68,7 @@ class RepText:
         ignore_return: bool = False,
         ignore_carriage_return: bool = False
     ) -> str:
-        '''returns line with all consecutive whitespace replaced with character'''
+        '''returns line with consecutive whitespace replaced with character'''
         
         # created regex
         pattern = r'[^\S'
@@ -112,7 +112,9 @@ class GetText:
             numbers = list()
             for index in indexes:
                 try:
-                    number = ''.join(filter(str.isdigit, text.split(split_char)[index]))
+                    number = ''.join(
+                        filter(str.isdigit, text.split(split_char)[index])
+                    )
                     numbers.append(number)
                 except IndexError:
                     logger.debug('Index out of bounds')

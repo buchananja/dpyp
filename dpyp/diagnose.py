@@ -40,7 +40,7 @@ class GetInfo:
 
     @staticmethod 
     def fetch_all_global_df(globals_dict: dict) -> list:
-        '''returns all objects beginning with 'df_' in global space as a list'''
+        '''returns all objects beginning with 'df_' in global space as list'''
         
         list_df = list()
         for name in globals_dict:
@@ -55,7 +55,7 @@ class GetInfo:
         formatting: str = '%Y/%m/%d, %H:%M'
     ) -> str:
         '''
-        returns most recent modified date from path directory with formatting'''
+        returns most recent modified date from path with formatting'''
         
         files = os.listdir(path)
         
@@ -63,7 +63,9 @@ class GetInfo:
         modified_dates = []
         for file in files:
             full_file_path = os.path.join(path, file) 
-            modified_date = datetime.fromtimestamp(os.path.getmtime(full_file_path))
+            modified_date = datetime.fromtimestamp(
+                os.path.getmtime(full_file_path)
+            )
             modified_dates.append(modified_date)
             
         recent_date = max(modified_dates).strftime(formatting)

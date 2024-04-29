@@ -49,7 +49,7 @@ class SinCalc:
             col1: str, 
             col2: str, 
             dec_points: int = 0
-        ) -> float: 
+    ) -> float: 
         '''calculates the percentage between two columns for single row'''
 
         return round(df_row[col1] / df_row[col2] * 100, dec_points)
@@ -75,7 +75,7 @@ class SinCalc:
             col1: str, 
             col2: str, 
             default_rate: float
-        ) -> float:
+    ) -> float:
         '''
         calculates the relative difference between two columns for single row 
         with default rate of change able to be specified
