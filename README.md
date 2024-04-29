@@ -24,4 +24,4 @@ pip install dpyp
 ```
 
 ## License
-- see [LICENSE.md](LICENSE.md)
+See [LICENSE.md](LICENSE.md)
