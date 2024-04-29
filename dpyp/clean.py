@@ -197,12 +197,12 @@ class ColClean:
         
         # converts string values to True if "true", else False
         for col in clean_columns:
-                df[col] = df[col].apply(
-                    lambda val: True 
-                    if isinstance(val, str) 
-                    and val.lower() == 'true' 
-                    else False
-                )
+            df[col] = df[col].apply(
+                lambda val: True 
+                if isinstance(val, str) 
+                and val.lower() == 'true' 
+                else False
+            )
         return df
 
 

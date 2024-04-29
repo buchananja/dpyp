@@ -203,38 +203,28 @@ class ReadData:
         
         try:
             if dp.check_path_valid(path):
-                conn = sqlite3.connect(path)
-                cur = conn.cursor()
+                with sqlite3.connect(path) as conn:
+                    with conn.cursor() as cur:
+                        table_names = cur.execute('''
+                                SELECT name 
+                                FROM sqlite_master 
+                                WHERE type = 'table';
+                            ''').fetchall()
+                        
+                        data_dictionary = dict()
+                        for table_name in table_names:
+                            query = f"SELECT * FROM {table_name[0]}"
+                            data_dictionary[table_name[0]] = pd.read_sql_query(query, conn)
+                            
+                            if messaging:
+                                logger.debug(f'read {table_name[0]} ({len(data_dictionary[table_name[0]]):,} records)')
+                        if not data_dictionary:
+                            logger.debug('No files read.')          
+                                              
+                        return data_dictionary 
+                           
         except OperationalError:
             logger.debug('WARNING: Failed to connect to database.')
-        
-        # queries all tables in database
-        cur.execute('''
-            SELECT name 
-            FROM sqlite_master 
-            WHERE type = 'table';
-        ''')
-        
-        # returns list of table names
-        table_names = cur.fetchall()
-        
-        data_dictionary = dict()
-        for table_name in table_names:
-            # selects everything from each table.
-            query = f"SELECT * FROM {table_name[0]}"
-            data_dictionary[table_name[0]] = pd.read_sql_query(query, conn)
-            
-            if messaging:
-                logger.debug(f'read {table_name[0]} ({len(data_dictionary[table_name[0]]):,} records)')
-        
-        # closes cursor and connection to database
-        cur.close() 
-        conn.close()
-        
-        if not data_dictionary:
-            logger.debug('No files read.')
-            
-        return data_dictionary
 
 
     # @staticmethod

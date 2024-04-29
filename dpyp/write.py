@@ -163,10 +163,8 @@ class WriteData:
                     
     #     # connect to database       
     #     conn = sqlite3.connect(path)
-
     #     if messaging:
     #         logger.debug('Writing data...')
-            
     #     try:           
     #         # create tables in new database
     #         for name, data in input_dict.items():
@@ -194,45 +192,42 @@ class WriteData:
                 
     #     except Exception as e:
     #         logger.debug(f'WARNING: {str(e)}')
-        
-    #     # close connection to database
     #     conn.close()
 
 
-    # use a context manager
     @staticmethod       
-    def write_dict_to_sqlite(input_dict, path, overwrite = False, messaging = True):
+    def write_dict_to_sqlite(
+            input_dict, 
+            path, 
+            overwrite = False, 
+            messaging = True
+        ):
         '''
-        - writes all beginning 'df_' in input_dict to path as tables in database 
-        - prefix allows user to rename processed files upon writing
-        - logs number of records
-        - overwrites table if set
-        - creates database if path does not exist
-        - appends to tables by default
+        # - writes all beginning 'df_' in input_dict to path as tables in database 
+        # - prefix allows user to rename processed files upon writing
+        # - logs number of records
+        # - overwrites table if set
+        # - creates database if path does not exist
+        # - appends to tables by default
         '''
         
+        # deletes old table
         if overwrite and os.path.exists(path):
-            # remove old database
             try:
                 os.remove(path)
             except PermissionError:
                 logger.debug('WARNING: File is being used by another process!')
-        
-        # connect to database       
-        conn = sqlite3.connect(path)
-        try:           
-            # create tables in new database
-            for name, data in input_dict.items():
-                if isinstance(data, pd.DataFrame):
-                    # write DataFrame to new table
-                    if overwrite:
-                        data.to_sql(name, conn, if_exists = 'replace')
-                    else:
-                        data.to_sql(name, conn, if_exists = 'append')
-                    if messaging:
-                        logger.debug(f'wrote {name} ({len(data):,} records)')
-        except Exception as e:
-            logger.debug(f'WARNING: {str(e)}')
-        
-        # close connection to database
-        conn.close()
+                
+        # writes new table
+        with sqlite3.connect(path) as conn:
+            try:           
+                for name, data in input_dict.items():
+                    if isinstance(data, pd.DataFrame):
+                        if overwrite:
+                            data.to_sql(name, conn, if_exists = 'replace')
+                        else:
+                            data.to_sql(name, conn, if_exists = 'append')
+                        if messaging:
+                            logger.debug(f'wrote {name} ({len(data):,} records)')
+            except Exception as e:
+                logger.debug(f'WARNING: {str(e)}')

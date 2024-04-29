@@ -89,9 +89,9 @@ class BulkCalc:
 
     @staticmethod
     def bulk_power(df, col_name, col, power):
-        '''calculated the subtraction of two columns and inserts into column'''
+        '''calculated the power of two columns and inserts into column'''
 
-        df[col_name] = df[col]**power
+        df[col_name] = df[col] ** power
         return df
 
 

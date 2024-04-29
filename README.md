@@ -12,19 +12,16 @@
 - Consists of six modules: 'calculate', 'clean', 'diagnose', 'read', 'text', and 'write'.
 - Designed for use in small-scale Python pipelines with an emphasis on batch-processing via 'data-dictionaries'.
 - Batch processing of data via dictionaries allows iterative functions to improve readability and ease of use.
-- Built using a combination of base Python and pandas for writing robust small-scale pipelines with text manipulation capabilities for parsing csv/json/xml etc.
+- Built using a combination of base Python and pandas for writing robust small-scale pipelines with text manipulation capabilities.
 
 ## Dependencies
-
 - pandas
 - pyarrow
 
 ## Installation
-
 ```bash
 pip install dpyp
 ```
 
 ## License
-
 - see [LICENSE.md](LICENSE.md)

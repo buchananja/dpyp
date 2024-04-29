@@ -22,22 +22,18 @@ class GetInfo:
         '''returns all table names present in a sqlite database as a list'''
         
         # connects to database
-        conn = sqlite3.connect(path)
-        cur = conn.cursor()
-        
-        # queries all tables in database
-        cur.execute('''
-            SELECT name 
-            FROM sqlite_master 
-            WHERE type = 'table';
-        ''')
-        
-        table_names = cur.fetchall()
         table_list = list()
-        for table in table_names:
-            # gets first element of each tuple in list of tuples (e.g. table name)
-            table_list.append(table[0])
-            
+        with sqlite3.connect(path) as conn:
+            with conn.cursor()as cur: 
+                table_names = cur.execute('''
+                    SELECT name 
+                    FROM sqlite_master 
+                    WHERE type = 'table';
+                ''').fetchall()
+                
+                for table in table_names:
+                    table_list.append(table[0])
+                    
         return table_list
         
 
@@ -57,7 +53,6 @@ class GetInfo:
         '''
         returns most recent modified date from path directory with formatting'''
         
-        # gets list of files in path
         files = os.listdir(path)
         
         # gets last modified date for all files in path
@@ -66,9 +61,9 @@ class GetInfo:
             full_file_path = os.path.join(path, file) 
             modified_date = datetime.fromtimestamp(os.path.getmtime(full_file_path))
             modified_dates.append(modified_date)
-        
-        # return formatted most recent date
-        return max(modified_dates).strftime(formatting)
+            
+        recent_date = max(modified_dates).strftime(formatting)
+        return recent_date
 
 
     @staticmethod

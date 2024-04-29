@@ -77,6 +77,7 @@ class RepText:
         ):
         '''returns line with all consecutive whitespace replaced with character'''
         
+        # created regex
         pattern = r'[^\S'
         if ignore_tab:
             pattern += '\t'
@@ -116,12 +117,13 @@ class GetText:
                 try:
                     number = ''.join(filter(str.isdigit, phrase.split(split_char)[index]))
                     numbers.append(number)
+                    numbers = tuple(numbers)
                 except IndexError:
                     print('Index out of bounds')
         else:
             print('Index not intiger')
             raise ValueError
-        return tuple(numbers)
+        return numbers
 
 
     @staticmethod
