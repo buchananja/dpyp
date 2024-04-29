@@ -6,6 +6,7 @@ retriving useful information
 
 import sqlite3
 import os
+import pandas as pd
 from datetime import datetime
 import logging
 
@@ -18,7 +19,7 @@ class GetInfo:
     
     
     @staticmethod
-    def fetch_all_sqlite_tables(path):
+    def fetch_all_sqlite_tables(path: str) -> list:
         '''returns all table names present in a sqlite database as a list'''
         
         # connects to database
@@ -38,7 +39,7 @@ class GetInfo:
         
 
     @staticmethod 
-    def fetch_all_global_df(globals_dict):
+    def fetch_all_global_df(globals_dict: dict) -> list:
         '''returns all objects beginning with 'df_' in global space as a list'''
         
         list_df = list()
@@ -49,7 +50,10 @@ class GetInfo:
 
 
     @staticmethod
-    def get_last_modified_date(path, formatting = '%Y/%m/%d, %H:%M'):
+    def get_last_modified_date(
+        path: str, 
+        formatting: str = '%Y/%m/%d, %H:%M'
+    ) -> str:
         '''
         returns most recent modified date from path directory with formatting'''
         
@@ -67,7 +71,7 @@ class GetInfo:
 
 
     @staticmethod
-    def check_path_valid(path):
+    def check_path_valid(path: str) -> bool:
         '''returns True if path exists and False if not'''
         
         if os.path.exists(path):
@@ -76,7 +80,7 @@ class GetInfo:
 
 
     @staticmethod
-    def check_column_nulls(df):
+    def check_column_nulls(df: pd.DataFrame) -> None:
         '''logs columns containing null values in dataframe'''
 
         for col in df.columns:

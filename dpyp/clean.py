@@ -16,7 +16,7 @@ class HeadClean:
     
     
     @staticmethod
-    def headers_rename(df, rename_dict):
+    def headers_rename(df: pd.DataFrame, rename_dict: dict) -> pd.DataFrame:
         '''renames dataframe columns using a dictionary'''
         
         # checks if columns exist in dict and df
@@ -27,7 +27,10 @@ class HeadClean:
 
 
     @staticmethod
-    def headers_to_snakecase(df, uppercase = False):
+    def headers_to_snakecase(
+        df: pd.DataFrame, 
+        uppercase: bool = False
+    ) -> pd.DataFrame:
         '''
         converts all column headers to lower snake case by default and uppercase 
         if specified
@@ -45,7 +48,10 @@ class ColClean:
     
     
     @staticmethod
-    def columns_to_snakecase(df, uppercase = False):
+    def columns_to_snakecase(
+        df: pd.DataFrame, 
+        uppercase: bool = False
+    ) -> pd.DataFrame:
         '''
         converts all string values in dataframe to lower snake case by default 
         and uppercase if specified
@@ -70,7 +76,7 @@ class ColClean:
 
 
     @staticmethod
-    def columns_to_lowercase(df):
+    def columns_to_lowercase(df: pd.DataFrame) -> pd.DataFrame:
         '''converts all string values in dataframe to lowercase'''
         
         string_cols = df.select_dtypes(include = ['object', 'string']).columns
@@ -84,7 +90,7 @@ class ColClean:
 
 
     @staticmethod
-    def columns_to_uppercase(df):
+    def columns_to_uppercase(df: pd.DataFrame) -> pd.DataFrame:
         '''converts all string values in dataframe to uppercase'''
         
         string_cols = df.select_dtypes(include = ['object', 'string']).columns
@@ -98,7 +104,7 @@ class ColClean:
 
 
     @staticmethod
-    def columns_strip_whitespace(df):
+    def columns_strip_whitespace(df: pd.DataFrame) -> pd.DataFrame:
         '''
         strips all leading and trailing whitespace from string dtypes in object and 
         string columns
@@ -115,7 +121,7 @@ class ColClean:
 
 
     @staticmethod
-    def columns_optimise_numerics(df):
+    def columns_optimise_numerics(df: pd.DataFrame) -> pd.DataFrame:
         '''downcasts numeric datatypes in numeric columns of dataframe''' 
         
         for col in df.columns:
@@ -128,7 +134,10 @@ class ColClean:
 
 
     @staticmethod
-    def columns_to_float(df, clean_columns = list()):
+    def columns_to_float(
+        df: pd.DataFrame, 
+        clean_columns: list
+    ) -> pd.DataFrame:
         '''converts all columns in clean_columns to float'''
 
         # finds columns common to both df.columns and clean_columns
@@ -139,7 +148,10 @@ class ColClean:
 
 
     @staticmethod
-    def columns_to_object(df, clean_columns = list()):
+    def columns_to_object(
+        df: pd.DataFrame, 
+        clean_columns: list
+    ) -> pd.DataFrame:
         '''converts all columns in clean_columns to object'''
 
         # finds columns common to both df.columns and clean_columns
@@ -150,7 +162,10 @@ class ColClean:
 
 
     @staticmethod
-    def columns_to_string(df, clean_columns = list()):
+    def columns_to_string(
+        df: pd.DataFrame, 
+        clean_columns: list
+    ) -> pd.DataFrame:
         '''
         converts all columns in clean_columns to str objects 
         (not pandas string)
@@ -164,7 +179,10 @@ class ColClean:
 
 
     @staticmethod
-    def columns_to_categorical(df, clean_columns = list()):
+    def columns_to_categorical(
+        df: pd.DataFrame, 
+        clean_columns: list
+    ) -> pd.DataFrame:
         '''converts all columns in clean_columns to categories'''
 
         # finds columns common to both df.columns and clean_columns
@@ -175,7 +193,10 @@ class ColClean:
 
 
     @staticmethod
-    def columns_to_datetime(df, clean_columns = list()):
+    def columns_to_datetime(
+        df: pd.DataFrame, 
+        clean_columns: list
+    ) -> pd.DataFrame:
         '''converts all columns in clean_columns to datetime'''
         
         # finds columns common to both df.columns and clean_columns; converts 
@@ -186,7 +207,10 @@ class ColClean:
 
 
     @staticmethod
-    def columns_to_boolean(df, clean_columns = list()):
+    def columns_to_boolean(
+        df: pd.DataFrame, 
+        clean_columns: list
+    ) -> pd.DataFrame:
         '''converts all columns in clean_columns to True if "true", else False'''
         
         # finds columns common to both df.columns and clean_columns; converts 
@@ -202,7 +226,10 @@ class ColClean:
 
 
     @staticmethod
-    def columns_fill_null(df, fill_word = 'unknown'):
+    def columns_fill_null(
+        df: pd.DataFrame, 
+        fill_word: str = 'unknown'
+    ) -> pd.DataFrame:
         '''fills nulls within non-numeric columns with optional keyword'''
 
         fill_cols = df.select_dtypes(include = ['object', 'string', 'category']).columns

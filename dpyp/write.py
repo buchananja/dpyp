@@ -19,11 +19,11 @@ class WriteData:
     
     @staticmethod       
     def write_dict_to_json(
-            input_dict, 
-            path, 
-            output_prefix = 'df',
-            messaging = True
-        ):
+        input_dict: dict, 
+        path: str, 
+        output_prefix: str = 'df',
+        messaging: bool = True
+    ) -> None:
         '''writes all dataframes in dict as json with modifiable prefix'''
 
         for name, data in input_dict.items():
@@ -35,11 +35,11 @@ class WriteData:
 
     @staticmethod       
     def write_dict_to_csv(
-            input_dict, 
-            path, 
-            output_prefix = 'df',
-            messaging = True
-        ):
+        input_dict: dict, 
+        path: str, 
+        output_prefix: str = 'df',
+        messaging: bool = True
+    ) -> None:
         '''writes all dataframes in dict as csv with modifiable prefix'''
         
         for name, data in input_dict.items():
@@ -51,11 +51,11 @@ class WriteData:
     
     @staticmethod       
     def write_dict_to_xlsx(
-            input_dict, 
-            path, 
-            output_prefix = 'df',
-            messaging = True
-        ):
+        input_dict: dict, 
+        path: str, 
+        output_prefix: str = 'df',
+        messaging: bool = True
+    ) -> None:
         '''writes all dataframes in dict as xlsx with modifiable prefix'''
         
         for name, data in input_dict.items():
@@ -67,11 +67,11 @@ class WriteData:
 
     @staticmethod       
     def write_dict_to_feather(
-            input_dict, 
-            path, 
-            output_prefix = 'df',
-            messaging = True
-        ):
+        input_dict: dict, 
+        path: str, 
+        output_prefix: str = 'df',
+        messaging: bool = True
+    ) -> None:
         '''writes all dataframes in dict as feather with modifiable prefix'''
         
         for name, data in input_dict.items():
@@ -83,11 +83,11 @@ class WriteData:
     
     @staticmethod       
     def write_dict_to_parquet(
-            input_dict, 
-            path, 
-            output_prefix = 'df',
-            messaging = True
-        ):
+        input_dict: dict, 
+        path: str, 
+        output_prefix: str = 'df',
+        messaging: bool = True
+    ) -> None:
         '''writes all dataframes in dict as parquet with modifiable prefix'''
         
         for name, data in input_dict.items():
@@ -99,11 +99,11 @@ class WriteData:
     
     @staticmethod       
     def write_dict_to_pickle(
-            input_dict, 
-            path, 
-            output_prefix = 'df',
-            messaging = True
-        ):
+        input_dict: dict, 
+        path: str, 
+        output_prefix: str = 'df',
+        messaging: bool = True
+    ) -> None:
         '''
         - writes all objects beginning with 'df_' in input_dict to path as .pickle
         - prefix allows user to rename processed files upon writing
@@ -177,18 +177,12 @@ class WriteData:
 
     @staticmethod       
     def write_dict_to_sqlite(
-            input_dict, 
-            path, 
-            overwrite = False, 
-            messaging = True
-        ):
+        input_dict: dict,
+        path: str, 
+        overwrite: bool = False, 
+        messaging: bool = True
+    ) -> None:
         ''''''
-        # - writes all beginning 'df_' in input_dict to path as tables in database 
-        # - prefix allows user to rename processed files upon writing
-        # - logs number of records
-        # - overwrites table if set
-        # - creates database if path does not exist
-        # - appends to tables by default
         
         # deletes old table
         if overwrite and os.path.exists(path):

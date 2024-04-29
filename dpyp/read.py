@@ -20,7 +20,7 @@ class ReadData:
     
     
     @staticmethod     
-    def read_all_json(path, messaging = True):
+    def read_all_json(path: str, messaging: bool = True) -> dict:
         '''loads all json files from directory and assigns to dataframes'''
         
         if dp.check_path_valid(path):
@@ -45,7 +45,11 @@ class ReadData:
 
 
     @staticmethod
-    def read_all_csv(path, seperator = ',', messaging = True):
+    def read_all_csv(
+        path: str, 
+        seperator: str = ',', 
+        messaging: bool = True
+    ) -> dict:
         '''loads all csv files from directory and assigns to dataframes'''
         
         if dp.check_path_valid(path):
@@ -70,7 +74,7 @@ class ReadData:
 
 
     @staticmethod
-    def read_all_xlsx(path, messaging = True):
+    def read_all_xlsx(path: str, messaging: bool = True) -> dict:
         '''loads all xlsx files from directory and assigns to dataframes'''
         
         if dp.check_path_valid(path):
@@ -95,7 +99,7 @@ class ReadData:
 
 
     @staticmethod
-    def read_all_feather(path, messaging = True):
+    def read_all_feather(path: str, messaging: bool = True) -> dict:
         '''loads all feather files from directory and assigns to dataframes'''
         
         if dp.check_path_valid(path):
@@ -120,7 +124,7 @@ class ReadData:
 
 
     @staticmethod
-    def read_all_parquet(path, messaging = True):
+    def read_all_parquet(path: str, messaging: bool = True) -> dict:
         '''loads all parquet files from directory and assigns to dataframes'''
         
         if dp.check_path_valid(path):
@@ -145,7 +149,7 @@ class ReadData:
 
 
     @staticmethod
-    def read_all_pickle(path, messaging = True):
+    def read_all_pickle(path: str, messaging: bool = True) -> dict:
         '''loads all pickle files from directory and assigns to dataframes'''
         
         if dp.check_path_valid(path):
@@ -170,7 +174,7 @@ class ReadData:
         
     
     @staticmethod   
-    def read_all_sqlite(path, messaging = True):
+    def read_all_sqlite(path: str, messaging: bool = True) -> dict:
         '''loads all tables from sqlite database and assigns to dataframes'''
         
         # TODO: find a less nested method for performing this function
@@ -188,7 +192,9 @@ class ReadData:
                         data_dictionary = dict()
                         for table_name in table_names:
                             query = f"SELECT * FROM {table_name[0]}"
-                            data_dictionary[table_name[0]] = pd.read_sql_query(query, conn)
+                            data_dictionary[table_name[0]] = pd.read_sql_query(
+                                query, conn
+                            )
                             if messaging:
                                 logger.debug(
                                     f'read {table_name[0]} '
