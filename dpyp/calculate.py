@@ -45,10 +45,10 @@ class SinCalc:
 
     @staticmethod
     def single_percentage(
-            df_row: pd.Series, 
-            col1: str, 
-            col2: str, 
-            dec_points: int = 0
+        df_row: pd.Series, 
+        col1: str, 
+        col2: str, 
+        dec_points: int = 0
     ) -> float: 
         '''calculates the percentage between two columns for single row'''
 
@@ -71,10 +71,10 @@ class SinCalc:
 
     @staticmethod
     def single_rate_of_change(
-            df_row: pd.Series, 
-            col1: str, 
-            col2: str, 
-            default_rate: float
+        df_row: pd.Series, 
+        col1: str, 
+        col2: str, 
+        default_rate: float
     ) -> float:
         '''
         calculates the relative difference between two columns for single row 
@@ -93,10 +93,10 @@ class BulkCalc:
     
     @staticmethod
     def bulk_addition(
-            df: pd.DataFrame, 
-            col_name: str, 
-            col1: str, 
-            col2: str
+        df: pd.DataFrame, 
+        col_name: str, 
+        col1: str, 
+        col2: str
     ) -> pd.DataFrame:
         '''calculated the subtraction of two columns and inserts into column'''
 
