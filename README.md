@@ -26,5 +26,5 @@ pip install dpyp
 ## License
 See [LICENSE.md](LICENSE.md)
 
-# Contributing
+## Contributing
 Coming soon...
