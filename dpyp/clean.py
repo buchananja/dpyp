@@ -11,7 +11,7 @@ import pandas as pd
 logger = logging.getLogger(__name__)
 
 
-class HeadClean:
+class HClean:
     '''contains functionality for cleaning pandas dataframe headers'''
     
     
@@ -45,7 +45,7 @@ class HeadClean:
         return df
 
 
-class ColClean:
+class CClean:
     '''contains functionality for cleaning pandas dataframe column data'''
     
     
@@ -240,3 +240,7 @@ class ColClean:
         for col in fill_cols:
             df[col] = df[col].fillna(fill_word)
         return df
+    
+    
+class RClean:
+    pass
