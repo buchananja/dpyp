@@ -21,7 +21,7 @@ dpyp is a data-pipeline convenience tool containing functionality for reading an
 
 ## Installation
 ```bash
-$ pip install dpyp
+pip install dpyp
 ```
 
 ## License
