@@ -4,11 +4,13 @@ retriving useful information
 '''
 
 
-import sqlite3
 import os
-import pandas as pd
-from datetime import datetime
 import logging
+import sqlite3
+import importlib
+import pandas as pd
+from typing import List
+from datetime import datetime
 
 
 logger = logging.getLogger(__name__)
@@ -88,3 +90,29 @@ class GetInfo:
         for col in df.columns:
             if df[col].isna().any():
                 logger.debug(col)
+                
+    
+    @staticmethod
+    def get_module_names(
+        path: str, 
+        exclude : List[str] = ['__pycache__', '__init__.py']
+    ) -> List[str]:
+        '''returns list of all module names in path without extension'''
+        
+        files = os.listdir(path)
+        exclude = ['__pycache__', '__init__.py']
+        modules = [f'modules.{file[:-3]}' for file in files if file not in exclude]
+        return modules
+
+
+    @staticmethod
+    def import_loggers(path: str, modules_folder: str) -> None:
+        '''import loggers from a modules/ directory into main'''
+        
+        snp_loggers = list()
+        modules_dir = os.path.join(path, modules_folder)
+        for module_name in GetInfo.get_module_names(modules_dir):
+            module = importlib.import_module(module_name)
+            logger = getattr(module, 'logger', None)
+            if logger is not None:
+                snp_loggers.append(logger)
