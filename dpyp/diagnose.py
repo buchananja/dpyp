@@ -116,3 +116,4 @@ class GetInfo:
             logger = getattr(module, 'logger', None)
             if logger is not None:
                 snp_loggers.append(logger)
+        return snp_loggers
