@@ -2,7 +2,7 @@
 *A convenience tool for small-scale data pipelines in Python*
 
 <p align = "center">
-  <img src = "logo/dpyp_logo.png" alt = "image" width = "350" height = "350">
+  <img src = "images/dpyp_logo.png" alt = "image" width = "350" height = "350">
 </p>
 
 ## About
