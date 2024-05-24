@@ -2,21 +2,24 @@ body{
     background-color:#eeeeee!important;
 }
 
+.card {
+    background-color: #ffffff !important;
+}
+
+bg-primary {
+    background-color: #ffffff !important;
+}
+
 .project {
     display: flex;
     align-items: center;
+    justify-content: center;
 }
 
 .project-icon {
-    height: 200px;
-    transition: transform 0.1s ease;
+    height: 300px;
     margin-right: 10px;
 }
-
-.project-icon:hover {
-    transform: translateY(-10px);
-}
-
 
 .project-description {
     margin-left: 10px;
@@ -87,13 +90,4 @@ p.indented {
     padding-left: 15px;
     text-align: justify;
 
-}
-
-/* changes card colours */
-.card {
-    background-color: #ffffff !important;
-}
-
-bg-primary {
-    background-color: #ffffff !important;
 }

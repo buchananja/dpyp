@@ -10,10 +10,20 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;600;700&display=swap" rel="stylesheet">
 
     <style>
+        /* body text formatting */
         body {
             font-family: 'Roboto Slab', serif;
             font-weight: 400;
             color: #000000;
+        }
+
+        /* code block formatting */
+        code {
+            display: block;
+            width: 100%;
+            padding-top: 0.5%;
+            padding-bottom: 0.5%;
+            background-color: #eeeeee;
         }
     </style>
 
@@ -32,16 +42,41 @@
                 <div class="project-text">
                     <a href="https://www.jamesbuchanan.dev">
                         <h4 class="monospace-bold">🏠 HOME</h4>
-                    </a><hr>
+                        <hr>
+                    </a>
+                    
                 </div>
                 <div class="card card-body">
+
+                    <p class="monospace-bold">DPYP</p>
+                    <div class="project-text">
+                        <p class="project-description"><i>A convenience tool for small-scale data pipelines in Python</i></p>
+                    </div>
+
+                    <div class="project">
+                        <img src="images/dpyp_logo.png" class="project-icon">
+                    </div>
+                    <hr>
+
                     <p class="monospace-semibold">ℹ️ ABOUT</p>
-                    <p><i>A convenience tool for small-scale data pipelines in Python </i></p>
-                    <li>
-                        <a href="https://pypi.org/project/dpyp/">
-                            <img class="social" src="images/pypi_icon.png" class="img-fluid">
-                        </a>
-                    </li>
+                    <p>dpyp is a data-pipeline convenience tool containing functionality for reading and writing batches, cleaning data, diagnosing pipelines, manipulating text, and calculating fields in Python.</p>
+                    <ul class="social-links">
+                        <li>
+                            <a href="https://pypi.org/project/dpyp/">
+                                <img class="social" src="images/pypi_icon.png" class="img-fluid">
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://github.com/buchananja/dpyp">
+                                <img class="social" src="images/github_icon.png" class="img-fluid">
+                            </a>
+                        </li>
+                    </ul>
+                    <hr>
+
+                    <p class="monospace-semibold">📥 INSTALLATION</p>
+                    <pre><code>pip install dpyp</code></pre>
+
                 </div>
             </div>
         </div>
@@ -57,17 +92,7 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="card card-body">
-                    <div class="project">
-                        <a href="https://github.com/buchananja/dpyp">
-                            <img class="project-icon" src="images/dpyp_logo.png" class="img-fluid">
-                        </a>
-                        <div class="project-text">
-                            <a href="https://github.com/buchananja/dpyp">
-                                <p class="monospace-semibold">DPYP</p>
-                            </a>
-                            <p class="project-description"><i>A convenience tool for small-scale data pipelines in Python</i></p>
-                        </div>
-                    </div>
+                    
                 </div>
             </div>
         
