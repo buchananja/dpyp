@@ -8,6 +8,9 @@
 ## About
 dpyp is a data-pipeline convenience tool containing functionality for reading and writing batches, cleaning data, diagnosing pipelines, manipulating text, and calculating fields in Python.
 
+<a href="[url](https://pypi.org/project/dpyp/)">PyPI Link</a>
+
+
 ## Usage
 - dpyp consists of seven modules: 'calculate', 'clean', 'diagnose', 'read', 'text', 'write', and 'transform'.
 - Designed for use in small-scale Python pipelines with an emphasis on batch-processing via 'data-dictionaries'.
