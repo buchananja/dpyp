@@ -2,12 +2,16 @@
 <html>
 
 <head>
-    <!-- sets favicon -->
-    <link rel="icon" type="image/x-icon" href="images/dpyp_logo.png">
-    
-    <link href="style.css" rel="stylesheet" type="text/css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 
+    <!-- sets browser tab text -->
+    <title>James Buchanan | Home</title>
+
+    <!-- sets bootstrap styling -->
+    <link href="style.css" rel="stylesheet" type="text/css">
+    
     <!-- Link to the Roboto Slab and Roboto Mono fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@300;400;600&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;600;700&display=swap" rel="stylesheet">
@@ -43,14 +47,15 @@
 
         <!-- about card -->
         <div class="row">
-            <div class="col-md-12">
-                <div class="project-text">
-                    <a href="https://www.jamesbuchanan.dev">
+            <div class="col-md-10 mb-2 offset-sm-1">
+
+                <div class="project-text clickable-text">
+                    <a class="project-link" href="https://www.jamesbuchanan.dev">
                         <h4 class="monospace-bold">🏠 HOME</h4>
-                        <hr>
                     </a>
-                    
+                    <br>
                 </div>
+
                 <div class="card card-body">
 
                     <p class="monospace-bold">DPYP</p>
@@ -80,17 +85,30 @@
                     <hr>
 
                     <p class="monospace-semibold">📥 INSTALLATION</p>
-                    <pre><code>pip install dpyp</code></pre>
-                    <hr>
+                        <p><i>Dependencies: pandas, pyarrow, numpy</i></p>
+                        <br>
+                        <pre><code>pip install dpyp</code></pre>
+                        <hr>
                 
                     <p class="monospace-semibold">🎨 DESIGN</p>
+                    <p>
+                        dpyp consists of seven modules each with specialised functionality:
+                        <ul>
+                            <li>- Calculate</li><br>
+                            <li>- Clean</li><br>
+                            <li>- Diagnose</li><br>
+                            <li>- Read</li><br>
+                            <li>- Text</li><br>
+                            <li>- Transform</li><br>
+                            <li>- Write</li>
+                        </ul>
+                    </p>
 
                 </div>
+                <br>
 
             </div>
         </div>
-        <br>
-
     </div>
 
 </body>

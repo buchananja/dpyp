@@ -1,93 +1,117 @@
+/* body design*/
 body{
-    background-color:#eeeeee!important;
+    background-color:#f6f8fa!important;
 }
-
-.card {
-    background-color: #ffffff !important;
-}
-
 bg-primary {
     background-color: #ffffff !important;
 }
+.card {
+    background-color: #ffffff !important;
+    border: 1px solid #33527a !important;
+    /* padding: 2%; */
+    border-radius: .25rem;
+    box-shadow: 10px 10px 5px -6px rgba(150,150,150,0.75);
+    -webkit-box-shadow: 10px 10px 5px -6px rgba(150,150,150,0.75);
+    -moz-box-shadow: 10px 10px 5px -6px rgba(150,150,150,0.75);
+    height: 100%;
+}
+hr {
+    border-top-width: 1px;
+    border-top-style: solid;
+    border-top-color: #747576 !important; /* Replace with your desired color */
+}
 
+
+/* project formatting */
 .project {
     display: flex;
     align-items: center;
     justify-content: center;
 }
-
 .project-icon {
     height: 300px;
     margin-right: 10px;
 }
-
 .project-description {
     margin-left: 10px;
     text-align: left;
 }
-
 .project-text {
     display: flex;
     flex-direction: column;
     justify-content: center;
     text-align: left;
 }
-
 .project-text p {
     margin: 0;
     padding: 0;
 }
-
 ul {
     padding: 0;
 }
-
 .social{
     margin-right: 5px;
     width: 30px;
     height: 30px;
     transition: transform 0.1s ease;
 }
-
 .social:hover {
     transform: scale(1.2);
 }
-
 .social-links ul, li{
     list-style-type: none;
     display: inline-block;
 }
-
 .social-links a:hover {
     text-decoration: none;
 }
 
+
+/* home button styling */
+.clickable-text {
+    text-decoration: none !important;
+    color: inherit !important;
+    transition: transform 0.1s ease;
+    display: inline-block;
+}
+.clickable-text:hover {
+    transform: translateY(-10%);
+}
+.clickable-text:hover, .clickable-text:focus {
+    text-decoration: none !important;
+    color: inherit !important;
+}
+
+
+/* text formatting */
+.monospace-title {
+    margin: 0;
+    font-family: 'Roboto Mono', monospace;
+    font-size: 35px;
+    font-weight: 900;
+    padding-bottom: 1%;
+    color: #33527a;
+}
 .monospace-bold {
     margin: 0;
     font-family: 'Roboto Mono', monospace;
     font-size: 30px;
     font-weight: 900;
+    padding-bottom: 1%;
     color: #33527a;
 }
-
 .monospace-semibold {
     margin: 0;
     font-family: 'Roboto Mono', monospace;
     font-size: 20px;
     font-weight: 700;
+    padding-bottom: 1%;
     color: #33527a;
 }
-
 .monospace-regular {
     margin: 0;
     font-family: 'Roboto Mono', monospace;
     font-size: 12px;
     font-weight: 300;
     color: #33527a;
-}
-
-p.indented {
-    padding-left: 15px;
-    text-align: justify;
-
 }
