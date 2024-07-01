@@ -18,7 +18,6 @@ logger = logging.getLogger(__name__)
 class ReadData:
     '''contains functionality for reading data from various file formats'''
     
-    
     @staticmethod     
     def read_all_json(path: str, messaging: bool = True) -> dict:
         '''loads all json files from directory and assigns to dataframes'''
@@ -43,7 +42,6 @@ class ReadData:
             logger.debug('No files read.')
             
         return data_dictionary
-
 
     @staticmethod
     def read_all_csv(
@@ -76,7 +74,6 @@ class ReadData:
             
         return data_dictionary
 
-
     @staticmethod
     def read_all_xlsx(path: str, messaging: bool = True) -> dict:
         '''loads all xlsx files from directory and assigns to dataframes'''
@@ -101,7 +98,6 @@ class ReadData:
             logger.debug('No files read.')
             
         return data_dictionary
-
 
     @staticmethod
     def read_all_feather(path: str, messaging: bool = True) -> dict:
@@ -128,7 +124,6 @@ class ReadData:
             
         return data_dictionary
 
-
     @staticmethod
     def read_all_parquet(path: str, messaging: bool = True) -> dict:
         '''loads all parquet files from directory and assigns to dataframes'''
@@ -153,7 +148,6 @@ class ReadData:
             logger.debug('No files read.')
             
         return data_dictionary
-
 
     @staticmethod
     def read_all_pickle(path: str, messaging: bool = True) -> dict:
@@ -180,7 +174,6 @@ class ReadData:
             
         return data_dictionary
         
-    
     @staticmethod   
     def read_all_sqlite(path: str, messaging: bool = True) -> dict:
         '''loads all tables from sqlite database and assigns to dataframes'''

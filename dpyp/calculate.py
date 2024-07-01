@@ -6,6 +6,7 @@ mathematical operations on data
 
 import logging
 import pandas as pd
+from typing import List
 
 
 logger = logging.getLogger(__name__)
@@ -13,7 +14,6 @@ logger = logging.getLogger(__name__)
 
 class SinCalc:
     '''contains calculations for applying iteratively to dataframe columns'''
-
     
     @staticmethod
     def single_addition(df_row: pd.Series, col1: str, col2: str) -> float:
@@ -21,13 +21,11 @@ class SinCalc:
 
         return df_row[col1] + df_row[col2]
 
-
     @staticmethod
     def single_power(df_row: pd.Series, col: str, power: float) -> float:
         '''calculates the power of two columns for single row'''
 
         return df_row[col] ** power
-
 
     @staticmethod
     def single_subtraction(df_row: pd.Series, col1: str, col2: str) -> float:
@@ -35,13 +33,11 @@ class SinCalc:
 
         return df_row[col1] - df_row[col2]
 
-
     @staticmethod
     def single_modulo(df_row: pd.Series, col1: str, col2: str) -> float:
         '''calculates the modulo between two columns for single row'''
 
         return df_row[col1] % df_row[col2]
-
 
     @staticmethod
     def single_percentage(
@@ -54,20 +50,17 @@ class SinCalc:
 
         return round(df_row[col1] / df_row[col2] * 100, dec_points)
 
-
     @staticmethod
     def single_product(df_row: pd.Series, col1: str, col2: str) -> float:
         '''calculates the product of two columns for single row'''
 
         return df_row[col1] * df_row[col2]
 
-
     @staticmethod
     def single_difference(df_row: pd.Series, col1: str, col2: str) -> float:
         '''calculates the difference between two columns for single row'''
 
         return df_row[col1] - df_row[col2]
-
 
     @staticmethod
     def single_rate_of_change(
@@ -90,7 +83,6 @@ class SinCalc:
 class BulkCalc:
     '''contains calculations for applying in-bulk to dataframe columns'''
     
-    
     @staticmethod
     def bulk_addition(
         df: pd.DataFrame, 
@@ -102,7 +94,6 @@ class BulkCalc:
 
         df[col_name] = df[col1] + df[col2]
         return df
-
 
     @staticmethod
     def bulk_power(
@@ -116,7 +107,6 @@ class BulkCalc:
         df[col_name] = df[col] ** power
         return df
 
-
     @staticmethod
     def bulk_subtraction(
         df: pd.DataFrame, 
@@ -129,7 +119,6 @@ class BulkCalc:
         df[col_name] = df[col1] - df[col2]
         return df
 
-
     @staticmethod
     def bulk_modulo(
         df: pd.DataFrame, 
@@ -141,7 +130,6 @@ class BulkCalc:
 
         df[col_name] = df[col1] % df[col2]
         return df
-
 
     @staticmethod
     def bulk_percentage(
@@ -156,7 +144,6 @@ class BulkCalc:
         df[col_name] = round(df[col1] / df[col2] * 100, dec_points)
         return df
 
-
     @staticmethod
     def bulk_product(
         df: pd.DataFrame, 
@@ -168,7 +155,6 @@ class BulkCalc:
 
         df[col_name] = df[col1] * df[col2] 
         return df
-
 
     @staticmethod
     def bulk_difference(
@@ -182,7 +168,6 @@ class BulkCalc:
         df[col_name] = df[col1] - df[col2] 
         return df
 
-
     @staticmethod
     def bulk_rate_of_change(
         df: pd.DataFrame, 
@@ -195,4 +180,53 @@ class BulkCalc:
 
         df[col_name] = (df[col1] - df[col2]) / df[col1]
         df[col_name] = df[col_name].fillna(default_rate)
+        return df
+    
+
+class RankCalc:
+    '''contains functionality for calculating ranks from numeric values'''
+    
+    @staticmethod
+    def calc_rank_mid(
+            df: pd.DataFrame, 
+            current_col = 'rank', 
+            output_col = 'rank'
+        ):
+        '''calculates numeric rank using range midpoint'''
+        
+        df[current_col] = df[current_col].astype(str).str.strip('+= ')
+        df[['top', 'bottom']] = df[current_col].str.split('-', expand = True)
+        df[['top', 'bottom']] = df[['top', 'bottom']].apply(pd.to_numeric)
+        df['bottom'] = df['bottom'].fillna(df['top'])
+        df[output_col] = ((df['top'] + df['bottom']) / 2).round(0)
+        df = df.drop(columns = ['top', 'bottom'])
+        return df
+
+    @staticmethod
+    def rank_cols(
+            df: pd.DataFrame,
+            rank_method: str,
+            rank_ascending: bool,
+            col_exclude: List,
+            output_suffix: str = '_rank'
+        ):
+        '''calculates ranks for all columns except excluded'''
+        
+        valid_methods = ['average', 'min', 'max', 'first', 'dense']
+        if rank_method not in valid_methods:
+            logger.error('Invalid rank_method; Choose: "average", "min", "max", "first", "dense"')
+            return
+        if not isinstance(rank_ascending, bool):
+            logger.error('Invalid rank_ascending; Choose "True" or "False"')
+            return
+
+        for col in df.columns:
+            if col in col_exclude:
+                continue
+            else:
+                df[f'{col}{output_suffix}'] = (df[col]
+                    .fillna(0)
+                    .rank(method = 'min', ascending = rank_ascending)
+                    .astype(int)
+                )
         return df

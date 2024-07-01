@@ -11,7 +11,6 @@ import pandas as pd
 class Norm:
     '''contains funcitonality for normalising columns in dataframes'''
 
-
     @staticmethod
     def min_max(df: pd.DataFrame, col: str) -> pd.Series:
         '''
@@ -19,7 +18,6 @@ class Norm:
         '''
 
         return (df[col] - df[col].min()) / (df[col].max() - df[col].min())
-    
 
     @staticmethod
     def z_score(df: pd.DataFrame, col: str) -> pd.Series:
@@ -30,14 +28,12 @@ class Norm:
 
         return (df[col] - df[col].mean()) / df[col].std()
     
-
     @staticmethod
     def sqrt(df: pd.DataFrame, col: str) -> pd.Series:
         '''square-root transforms column values, returns pandas series'''
 
         return np.sqrt(df[col])
     
-
     @staticmethod
     def log(df: pd.DataFrame, col: str, base: float = np.e) -> pd.Series:
         '''

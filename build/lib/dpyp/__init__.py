@@ -1,7 +1,7 @@
-from .clean import HClean, CClean, RClean
-from .read import ReadData
-from .write import WriteData
-from .diagnose import GetInfo
-from .calculate import SinCalc, BulkCalc
-from .text import TranText, RemText, RepText
-from .transform import Norm
+from .clean import *
+from .read import *
+from .write import *
+from .diagnose import *
+from .calculate import *
+from .text import *
+from .transform import *

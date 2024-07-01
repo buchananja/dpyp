@@ -19,7 +19,6 @@ logger = logging.getLogger(__name__)
 class GetInfo:
     '''contains functionality for returning information about data'''
     
-    
     @staticmethod
     def fetch_all_sqlite_tables(path: str) -> list:
         '''returns all table names present in a sqlite database as a list'''
@@ -38,7 +37,6 @@ class GetInfo:
                     table_list.append(table[0])
                     
         return table_list
-        
 
     @staticmethod 
     def fetch_all_global_df(globals_dict: dict) -> list:
@@ -49,7 +47,6 @@ class GetInfo:
             if name.startswith('df_'):
                 list_df.append(name)
         return list_df
-
 
     @staticmethod
     def get_last_modified_date(
@@ -73,7 +70,6 @@ class GetInfo:
         recent_date = max(modified_dates).strftime(formatting)
         return recent_date
 
-
     @staticmethod
     def check_path_valid(path: str) -> bool:
         '''returns True if path exists and False if not'''
@@ -82,15 +78,13 @@ class GetInfo:
             return True
         return False
 
-
     @staticmethod
     def check_column_nulls(df: pd.DataFrame) -> None:
         '''logs columns containing null values in dataframe'''
 
         for col in df.columns:
             if df[col].isna().any():
-                logger.debug(col)
-                
+                logger.debug(col)  
     
     @staticmethod
     def get_module_names(
@@ -103,7 +97,6 @@ class GetInfo:
         exclude = ['__pycache__', '__init__.py']
         modules = [f'modules.{file[:-3]}' for file in files if file not in exclude]
         return modules
-
 
     @staticmethod
     def import_loggers(path: str, modules_folder: str) -> None:

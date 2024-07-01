@@ -14,7 +14,6 @@ logger = logging.getLogger(__name__)
 class TranText:
     '''transforms areas of text into useful conversions or additions'''
     
-    
     @staticmethod
     def get_month_numeric(month_text: str) -> int:
         '''takes string month name and returns numeric calender position'''
@@ -37,7 +36,6 @@ class TranText:
 class RemText:
     '''removes particular characters, sequences, or phrases from text'''
     
-    
     @staticmethod
     def remove_trailing_char(line: str, char: str) -> str:
         '''returns line with trailing character removed'''
@@ -45,7 +43,6 @@ class RemText:
         if line.endswith(char):
             line = line[:-1]
         return line
-
 
     @staticmethod
     def remove_leading_char(line: str, char: str) -> str:
@@ -59,7 +56,6 @@ class RemText:
 class RepText:
     '''replaces specific secions of text'''
     
-    
     @staticmethod
     def replace_consecutive_whitespace(
         line: str,
@@ -70,7 +66,6 @@ class RepText:
     ) -> str:
         '''returns line with consecutive whitespace replaced with character'''
         
-        # created regex
         pattern = r'[^\S'
         if ignore_tab:
             pattern += '\t'
@@ -87,7 +82,6 @@ class RepText:
 class GetText:
     '''gets specific text from larger strings'''
     
-    
     @staticmethod        
     def get_split_index_text(
         text: str, 
@@ -98,7 +92,6 @@ class GetText:
 
         text = text.strip().split(split_char)[index]
         return text
-
 
     @staticmethod
     def get_text_numerics(
@@ -124,14 +117,12 @@ class GetText:
         
         return tuple(numbers)
 
-
     @staticmethod
     def get_string_numerics(text: str) -> str:
         '''extracts and joins numeric characters from a string'''
 
         number = ''.join(filter(str.isdigit, text))
         return number
-
     
     @staticmethod
     def get_text_between_indexes(text: str, char_1: str, char_2: str) -> str:
