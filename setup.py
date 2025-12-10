@@ -12,6 +12,6 @@ setup(
     install_requires = ['pandas', 'pyarrow', 'numpy'],
     keywords = ['pandas', 'data', 'pipeline', 'cleaning', 'processing'],
     packages = find_packages(exclude = [
-        'tests', 'build', 'logo', 'dpyp.egg-info', 'examples'
+        'tests', 'build', 'logo', 'dpyp.egg-info', 'examples', 'docs'
     ])
 )

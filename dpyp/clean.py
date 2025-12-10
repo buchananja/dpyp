@@ -14,7 +14,6 @@ logger = logging.getLogger(__name__)
 class HClean:
     '''contains functionality for cleaning pandas dataframe headers'''
     
-    
     @staticmethod
     def headers_rename(df: pd.DataFrame, rename_dict: dict) -> pd.DataFrame:
         '''renames dataframe columns using a dictionary'''
@@ -26,7 +25,6 @@ class HClean:
         }
         df = df.rename(columns = valid_rename_dict)
         return df
-
 
     @staticmethod
     def headers_to_snakecase(
@@ -47,7 +45,6 @@ class HClean:
 
 class CClean:
     '''contains functionality for cleaning pandas dataframe column data'''
-    
     
     @staticmethod
     def columns_to_snakecase(
@@ -76,7 +73,6 @@ class CClean:
                 )
         return df
 
-
     @staticmethod
     def columns_to_lowercase(df: pd.DataFrame) -> pd.DataFrame:
         '''converts all string values in dataframe to lowercase'''
@@ -90,7 +86,6 @@ class CClean:
             )
         return df
 
-
     @staticmethod
     def columns_to_uppercase(df: pd.DataFrame) -> pd.DataFrame:
         '''converts all string values in dataframe to uppercase'''
@@ -103,7 +98,6 @@ class CClean:
                 else val
             )
         return df
-
 
     @staticmethod
     def columns_strip_whitespace(df: pd.DataFrame) -> pd.DataFrame:
@@ -121,7 +115,6 @@ class CClean:
             )
         return df
 
-
     @staticmethod
     def columns_optimise_numerics(df: pd.DataFrame) -> pd.DataFrame:
         '''downcasts numeric datatypes in numeric columns of dataframe''' 
@@ -133,7 +126,6 @@ class CClean:
                 else:
                     df[col] = pd.to_numeric(df[col], downcast = 'float')
         return df
-
 
     @staticmethod
     def columns_to_float(
@@ -148,7 +140,6 @@ class CClean:
             df[col] = df[col].astype(float)
         return df
 
-
     @staticmethod
     def columns_to_object(
         df: pd.DataFrame, 
@@ -161,7 +152,6 @@ class CClean:
         for col in clean_columns:
             df[col] = df[col].astype('object')
         return df
-
 
     @staticmethod
     def columns_to_string(
@@ -179,7 +169,6 @@ class CClean:
             df[col] = df[col].astype('str')
         return df
 
-
     @staticmethod
     def columns_to_categorical(
         df: pd.DataFrame, 
@@ -193,7 +182,6 @@ class CClean:
             df[col] = df[col].astype('category')
         return df
 
-
     @staticmethod
     def columns_to_datetime(
         df: pd.DataFrame, 
@@ -206,7 +194,6 @@ class CClean:
         for col in clean_columns:
             df.loc[:, col] = pd.to_datetime(df.loc[:, col])
         return df
-
 
     @staticmethod
     def columns_to_boolean(
@@ -225,7 +212,6 @@ class CClean:
                 else False
             )
         return df
-
 
     @staticmethod
     def columns_fill_null(

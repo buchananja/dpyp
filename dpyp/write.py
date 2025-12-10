@@ -15,8 +15,7 @@ logger = logging.getLogger(__name__)
 
 class WriteData:
     '''contains functionality for writing data to various file formats'''
-    
-    
+     
     @staticmethod       
     def write_dict_to_json(
         input_dict: dict, 
@@ -34,7 +33,6 @@ class WriteData:
                         f'wrote {output_prefix}_{name[3:]}'
                         f'({len(data):,} records)'
                     )
-
 
     @staticmethod       
     def write_dict_to_csv(
@@ -54,7 +52,6 @@ class WriteData:
                         f'({len(data):,} records)'
                     )
         
-    
     @staticmethod       
     def write_dict_to_xlsx(
         input_dict: dict, 
@@ -73,7 +70,6 @@ class WriteData:
                         f'({len(data):,} records)'
                     )
 
-
     @staticmethod       
     def write_dict_to_feather(
         input_dict: dict, 
@@ -91,7 +87,6 @@ class WriteData:
                         f'wrote {output_prefix}_{name[3:]}'
                         f'({len(data):,} records)'
                     )
-            
     
     @staticmethod       
     def write_dict_to_parquet(
@@ -111,7 +106,6 @@ class WriteData:
                         f'({len(data):,} records)'
                     )
             
-    
     @staticmethod       
     def write_dict_to_pickle(
         input_dict: dict, 
@@ -133,7 +127,6 @@ class WriteData:
                         f'wrote {output_prefix}_{name[3:]}'
                         f'({len(data):,} records)'
                     )
-
 
     # TODO: analyse to different methods and compare
     # @staticmethod                
@@ -191,7 +184,6 @@ class WriteData:
     #     except Exception as e:
     #         logger.debug(f'WARNING: {str(e)}')
     #     conn.close()
-
 
     @staticmethod       
     def write_dict_to_sqlite(
