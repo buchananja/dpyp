@@ -15,6 +15,7 @@ class TranText:
     '''transforms areas of text into useful conversions or additions'''
     
     
+    # TODO: accepts any string containing month name (e.g. 'janitor' -> 1)
     @staticmethod
     def get_month_numeric(month_text: str) -> int:
         '''takes string month name and returns numeric calender position'''
@@ -70,7 +71,6 @@ class RepText:
     ) -> str:
         '''returns line with consecutive whitespace replaced with character'''
         
-        # created regex
         pattern = r'[^\S'
         if ignore_tab:
             pattern += '\t'
